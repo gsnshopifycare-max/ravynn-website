@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Payment Status ‚Äî RAVYNN</title>
+<title>Payment Status — RAVYNN</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,7 +38,7 @@ p{font-size:14px;color:#666;line-height:1.6}
   <div class="icon icon-loading" id="icon">
     <div class="spin"></div>
   </div>
-  <h1 id="ttl">Verifying Payment‚Ä¶</h1>
+  <h1 id="ttl">Verifying Payment…</h1>
   <p id="msg">Please wait while we confirm your payment with PhonePe.</p>
   <div id="extra"></div>
 </div>
@@ -60,7 +60,7 @@ async function verify() {
     if (data.success) {
       showSuccess(orderId, data.amount);
     } else {
-      showFail(`Payment ${data.state || 'could not be verified'}. If money was debited, it will be refunded in 5‚Äì7 days.`);
+      showFail(`Payment ${data.state || 'could not be verified'}. If money was debited, it will be refunded in 5–7 days.`);
     }
   } catch (e) {
     // Retry once after 3s (PhonePe might be slow)
@@ -77,19 +77,19 @@ async function verify() {
 
 function showSuccess(orderId, amountPaise) {
   document.getElementById('icon').className = 'icon icon-success';
-  document.getElementById('icon').innerHTML = '‚úì';
+  document.getElementById('icon').innerHTML = '✓';
   document.getElementById('ttl').textContent = 'Payment Successful!';
   document.getElementById('msg').textContent = 'Your order has been confirmed. You\'ll receive a WhatsApp update soon.';
   document.getElementById('extra').innerHTML = `
     ${orderId ? `<div class="order-num">Order #${orderId}</div>` : ''}
-    ${amountPaise ? `<div class="detail">Amount paid: ‚Çπ${(amountPaise/100).toLocaleString('en-IN')}</div>` : ''}
+    ${amountPaise ? `<div class="detail">Amount paid: ₹${(amountPaise/100).toLocaleString('en-IN')}</div>` : ''}
     <a href="collection.html" class="btn">Continue Shopping</a>
   `;
 }
 
 function showFail(reason) {
   document.getElementById('icon').className = 'icon icon-fail';
-  document.getElementById('icon').innerHTML = '‚úï';
+  document.getElementById('icon').innerHTML = '✕';
   document.getElementById('ttl').textContent = 'Payment Failed';
   document.getElementById('msg').textContent = reason || 'Your payment could not be processed.';
   document.getElementById('extra').innerHTML = `
