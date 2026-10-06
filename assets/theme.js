@@ -1,5 +1,5 @@
 /* ============================================================
-   RAVYNN — Standalone Website JavaScript
+   RAVYNN ‚Äî Standalone Website JavaScript
    ============================================================ */
 
 const $ = sel => document.querySelector(sel);
@@ -58,7 +58,7 @@ const Products = {
     const ql = q.toLowerCase();
     return this.all.filter(p => p.title.toLowerCase().includes(ql) || p.type.toLowerCase().includes(ql) || p.tags?.some(t => t.includes(ql)));
   },
-  fmt(price) { return '₹' + price.toLocaleString('en-IN'); },
+  fmt(price) { return '‚Çπ' + price.toLocaleString('en-IN'); },
   card(p) {
     const disc = p.compare_at_price > 0 ? Math.round((1 - p.price / p.compare_at_price) * 100) : 0;
     return `<a href="product.html?p=${p.handle}" class="product-card">
@@ -189,7 +189,7 @@ class CollectionPage {
       if (titleEl && col !== 'all') {
         const colData = col.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
         titleEl.textContent = colData;
-        document.title = `${colData} — RAVYNN`;
+        document.title = `${colData} ‚Äî RAVYNN`;
       }
       this.render();
       $$('.filter-option').forEach(btn => {
@@ -256,7 +256,7 @@ class ProductPage {
 
   render() {
     const p = this.product;
-    document.title = `${p.title} — RAVYNN`;
+    document.title = `${p.title} ‚Äî RAVYNN`;
     const disc = p.compare_at_price > 0 ? Math.round((1 - p.price / p.compare_at_price) * 100) : 0;
 
     const nameEl = $('.product-name'); if (nameEl) nameEl.textContent = p.title;
@@ -321,7 +321,7 @@ class ProductPage {
     btn.addEventListener('click', () => {
       if (!this.selectedSize) { $('.size-grid')?.classList.add('shake'); setTimeout(() => $('.size-grid')?.classList.remove('shake'), 500); return; }
       Cart.add(this.product, this.selectedSize);
-      btn.textContent = '✓ ADDED TO BAG'; btn.classList.add('added');
+      btn.textContent = '‚úì ADDED TO BAG'; btn.classList.add('added');
       setTimeout(() => { btn.textContent = 'ADD TO BAG'; btn.classList.remove('added'); }, 2000);
     });
   }
@@ -329,7 +329,7 @@ class ProductPage {
   initCouponCopy() {
     $$('.coupon-copy').forEach(btn => btn.addEventListener('click', () => {
       const code = btn.closest('.coupon-card')?.querySelector('.coupon-code')?.textContent?.trim().split('\n').slice(-1)[0]?.trim();
-      if (code) { navigator.clipboard.writeText(code).catch(()=>{}); const orig = btn.innerHTML; btn.textContent = '✓'; setTimeout(() => btn.innerHTML = orig, 1500); }
+      if (code) { navigator.clipboard.writeText(code).catch(()=>{}); const orig = btn.innerHTML; btn.textContent = '‚úì'; setTimeout(() => btn.innerHTML = orig, 1500); }
     }));
   }
 
@@ -343,10 +343,43 @@ class ProductPage {
 }
 
 /* ============================================================
+   SHIPPING CONFIG (dynamic from /api/shipping)
+   ============================================================ */
+const ShippingConfig = {
+  _cache: null,
+  async get() {
+    if (this._cache) return this._cache;
+    try {
+      const r = await fetch('/api/shipping');
+      this._cache = await r.json();
+    } catch {
+      this._cache = { standard_rate: 0, express_rate: 99, free_threshold: 0, cod_extra: 0 };
+    }
+    return this._cache;
+  },
+  calc(subtotal, config) {
+    const c = config || {};
+    const t = c.free_threshold ?? 0;
+    if (t === 0 || subtotal >= t) return 0;
+    return c.standard_rate ?? 0;
+  },
+  freeMsg(subtotal, config) {
+    const c = config || {};
+    const t = c.free_threshold ?? 0;
+    if (t === 0 || subtotal >= t) return null;
+    return `üöö Add ‚Çπ${(t - subtotal).toLocaleString('en-IN')} more for free shipping!`;
+  }
+};
+
+/* ============================================================
    CART PAGE
    ============================================================ */
 class CartPage {
-  constructor() { this.render(); }
+  constructor() { this._init(); }
+  async _init() {
+    this._config = await ShippingConfig.get();
+    this.render();
+  }
   render() {
     const itemsEl = $('.cart-items-list'), summaryEl = $('.cart-summary-box');
     if (!itemsEl) return;
@@ -363,7 +396,7 @@ class CartPage {
         <div class="cart-item-variant">Size: ${item.size}</div>
         <div class="cart-item-price">${Products.fmt(item.price)}</div>
         <div class="cart-item-qty">
-          <button class="qty-btn" data-action="dec" data-key="${item.key}">−</button>
+          <button class="qty-btn" data-action="dec" data-key="${item.key}">‚àí</button>
           <span>${item.qty}</span>
           <button class="qty-btn" data-action="inc" data-key="${item.key}">+</button>
           <button class="cart-remove" data-key="${item.key}">Remove</button>
@@ -371,11 +404,18 @@ class CartPage {
       </div>
     </div>`).join('');
     if (summaryEl) {
-      const sub = Cart.total(), ship = sub >= 999 ? 0 : 99;
+      const sub = Cart.total();
+      const ship = ShippingConfig.calc(sub, this._config);
       summaryEl.style.display = '';
       summaryEl.querySelector('.summary-subtotal').textContent = Products.fmt(sub);
       summaryEl.querySelector('.summary-shipping').textContent = ship === 0 ? 'FREE' : Products.fmt(ship);
       summaryEl.querySelector('.summary-total').textContent = Products.fmt(sub + ship);
+      const bar = summaryEl.querySelector('.summary-free-shipping');
+      if (bar) {
+        const msg = ShippingConfig.freeMsg(sub, this._config);
+        if (msg) { bar.innerHTML = msg; bar.style.display = ''; bar.style.background = '#e8f5e9'; bar.style.color = '#2d7a3e'; }
+        else { bar.textContent = 'üéâ Free shipping on your order!'; bar.style.display = ''; bar.style.background = '#e8f5e9'; }
+      }
     }
     $$('.qty-btn').forEach(btn => btn.addEventListener('click', () => {
       const key = btn.dataset.key, item = Cart.get().find(i => i.key === key);
@@ -397,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Coupon copy (product page static coupons)
   $$('.coupon-copy').forEach(btn => btn.addEventListener('click', () => {
     const code = btn.closest('.coupon-card')?.querySelector('.coupon-code')?.textContent?.trim().split('\n').slice(-1)[0]?.trim();
-    if (code) { navigator.clipboard.writeText(code).catch(()=>{}); const orig = btn.innerHTML; btn.textContent='✓'; setTimeout(()=>btn.innerHTML=orig,1500); }
+    if (code) { navigator.clipboard.writeText(code).catch(()=>{}); const orig = btn.innerHTML; btn.textContent='‚úì'; setTimeout(()=>btn.innerHTML=orig,1500); }
   }));
 
   const tpl = document.body.dataset.template;
