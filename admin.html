@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin ‚Äî RAVYNN</title>
+<title>Admin — RAVYNN</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f5f5;min-height:100vh}
 
-/* ‚îÄ‚îÄ Login ‚îÄ‚îÄ */
+/* ── Login ── */
 #login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#fff}
 .login-box{width:100%;max-width:360px;padding:40px 32px;border:1px solid #e8e8e8;border-radius:8px}
 .login-logo{font-size:18px;font-weight:800;letter-spacing:5px;text-align:center;margin-bottom:28px}
@@ -20,7 +20,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .login-box button:hover{background:#222}
 .login-err{font-size:12px;color:#e53e3e;text-align:center;margin-top:8px;min-height:18px}
 
-/* ‚îÄ‚îÄ Admin shell ‚îÄ‚îÄ */
+/* ── Admin shell ── */
 #admin-panel{display:none;min-height:100vh}
 .adm-header{background:#000;color:#fff;padding:0 24px;height:56px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
 .adm-logo{font-size:14px;font-weight:800;letter-spacing:4px}
@@ -31,7 +31,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .adm-body{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 56px)}
 @media(max-width:768px){.adm-body{grid-template-columns:1fr;display:flex;flex-direction:column}}
 
-/* ‚îÄ‚îÄ Sidebar ‚îÄ‚îÄ */
+/* ── Sidebar ── */
 .adm-sidebar{background:#fff;border-right:1px solid #e8e8e8;padding:24px 0}
 @media(max-width:768px){.adm-sidebar{padding:0;border-right:none;border-bottom:1px solid #e8e8e8}}
 .adm-nav{display:flex;flex-direction:column}
@@ -43,7 +43,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 @media(max-width:768px){.adm-nav-btn.active{border-left-color:transparent;border-bottom-color:#000}}
 .adm-nav-btn svg{width:16px;height:16px;flex-shrink:0}
 
-/* ‚îÄ‚îÄ Content ‚îÄ‚îÄ */
+/* ── Content ── */
 .adm-content{padding:28px 32px;max-width:1100px}
 @media(max-width:768px){.adm-content{padding:20px 16px}}
 .adm-tab{display:none}
@@ -51,7 +51,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .adm-section-title{font-size:18px;font-weight:700;margin-bottom:6px}
 .adm-section-sub{font-size:13px;color:#888;margin-bottom:24px}
 
-/* ‚îÄ‚îÄ Orders ‚îÄ‚îÄ */
+/* ── Orders ── */
 .adm-filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .adm-filter-btn{background:#fff;border:1.5px solid #e8e8e8;padding:7px 16px;font-size:12px;font-weight:600;border-radius:4px;cursor:pointer;letter-spacing:.5px;transition:all .15s}
 .adm-filter-btn:hover,.adm-filter-btn.active{background:#000;color:#fff;border-color:#000}
@@ -83,7 +83,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .adm-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:199;display:none}
 .adm-drawer-overlay.open{display:block}
 
-/* ‚îÄ‚îÄ Shipping settings ‚îÄ‚îÄ */
+/* ── Shipping settings ── */
 .ship-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px}
 @media(max-width:600px){.ship-grid{grid-template-columns:1fr}}
 .ship-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:20px 22px}
@@ -154,27 +154,27 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
     </aside>
     <div class="adm-content">
 
-      <!-- ‚îÄ‚îÄ ORDERS TAB ‚îÄ‚îÄ -->
+      <!-- ── ORDERS TAB ── -->
       <div class="adm-tab active" id="tab-orders">
         <div class="adm-section-title">Orders</div>
         <div class="adm-section-sub">All customer orders from PhonePe + COD</div>
 
         <div class="adm-stat-row" id="stats-row">
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-total">‚Äî</div><div class="adm-stat-label">Total Orders</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-paid">‚Äî</div><div class="adm-stat-label">Paid</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-pending">‚Äî</div><div class="adm-stat-label">Pending / COD</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-revenue">‚Äî</div><div class="adm-stat-label">Revenue (paid)</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-total">—</div><div class="adm-stat-label">Total Orders</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-paid">—</div><div class="adm-stat-label">Paid</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-pending">—</div><div class="adm-stat-label">Pending / COD</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-revenue">—</div><div class="adm-stat-label">Revenue (paid)</div></div>
         </div>
 
         <div class="adm-filter-row">
           <button class="adm-filter-btn active" onclick="filterOrders('all',this)">All</button>
           <button class="adm-filter-btn" onclick="filterOrders('paid',this)">Paid</button>
           <button class="adm-filter-btn" onclick="filterOrders('pending',this)">Pending</button>
-          <button class="adm-filter-btn" onclick="loadOrders()">‚Üª Refresh</button>
+          <button class="adm-filter-btn" onclick="loadOrders()">↻ Refresh</button>
         </div>
 
         <div class="adm-table-wrap">
-          <div class="adm-loading" id="orders-loading">Loading orders‚Ä¶</div>
+          <div class="adm-loading" id="orders-loading">Loading orders…</div>
           <table class="adm-table" id="orders-table" style="display:none">
             <thead><tr>
               <th>Order</th>
@@ -190,28 +190,28 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
         </div>
       </div>
 
-      <!-- ‚îÄ‚îÄ SHIPPING TAB ‚îÄ‚îÄ -->
+      <!-- ── SHIPPING TAB ── -->
       <div class="adm-tab" id="tab-shipping">
         <div class="adm-section-title">Shipping Settings</div>
         <div class="adm-section-sub">Changes apply immediately across cart and checkout.</div>
 
-        <div class="ship-notice" id="ship-status">Loading current settings‚Ä¶</div>
+        <div class="ship-notice" id="ship-status">Loading current settings…</div>
 
         <div class="ship-grid">
           <div class="ship-card">
             <div class="ship-card-title">Standard Shipping</div>
             <div class="ship-card-desc">Default delivery rate per order. Set 0 for always free.</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">‚Çπ</span>
+              <span class="ship-prefix">₹</span>
               <input type="number" class="ship-input" id="inp-standard" min="0" placeholder="0">
               <button class="ship-save-btn" onclick="saveField('standard_rate','inp-standard',this)">Save</button>
             </div>
           </div>
           <div class="ship-card">
             <div class="ship-card-title">Express Shipping</div>
-            <div class="ship-card-desc">Rate shown when customer picks Express (2‚Äì3 days).</div>
+            <div class="ship-card-desc">Rate shown when customer picks Express (2–3 days).</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">‚Çπ</span>
+              <span class="ship-prefix">₹</span>
               <input type="number" class="ship-input" id="inp-express" min="0" placeholder="99">
               <button class="ship-save-btn" onclick="saveField('express_rate','inp-express',this)">Save</button>
             </div>
@@ -220,7 +220,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
             <div class="ship-card-title">Free Shipping Threshold</div>
             <div class="ship-card-desc">Orders above this amount get free shipping. Set 0 = always free.</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">‚Çπ</span>
+              <span class="ship-prefix">₹</span>
               <input type="number" class="ship-input" id="inp-threshold" min="0" placeholder="0">
               <button class="ship-save-btn" onclick="saveField('free_threshold','inp-threshold',this)">Save</button>
             </div>
@@ -229,7 +229,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
             <div class="ship-card-title">COD Extra Fee</div>
             <div class="ship-card-desc">Extra charge added for Cash on Delivery orders. 0 = none.</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">‚Çπ</span>
+              <span class="ship-prefix">₹</span>
               <input type="number" class="ship-input" id="inp-cod" min="0" placeholder="0">
               <button class="ship-save-btn" onclick="saveField('cod_extra','inp-cod',this)">Save</button>
             </div>
@@ -243,11 +243,11 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
           <div class="rules-list" id="rules-list"></div>
           <div class="rule-add-row">
             <select class="rule-select" id="rule-type">
-              <option value="above_amount">Order above ‚Çπ</option>
+              <option value="above_amount">Order above ₹</option>
               <option value="above_qty">Qty above</option>
             </select>
             <input type="number" class="rule-input" id="rule-val" placeholder="Value" min="0">
-            <span style="font-size:13px;color:#888">‚Üí Rate ‚Çπ</span>
+            <span style="font-size:13px;color:#888">→ Rate ₹</span>
             <input type="number" class="rule-input" id="rule-rate" placeholder="0" min="0">
             <button class="rule-add-btn" onclick="addRule()">+ Add Rule</button>
           </div>
@@ -260,9 +260,9 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
           <div class="pp-list" id="pp-list"></div>
           <div class="pp-add-row">
             <select class="pp-select" id="pp-product">
-              <option value="">Select product‚Ä¶</option>
+              <option value="">Select product…</option>
             </select>
-            <span class="ship-prefix">‚Çπ</span>
+            <span class="ship-prefix">₹</span>
             <input type="number" class="rule-input" id="pp-rate" placeholder="0" min="0">
             <button class="rule-add-btn" onclick="addPP()">+ Add</button>
           </div>
@@ -276,7 +276,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 <!-- Order detail drawer -->
 <div class="adm-drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
 <div class="adm-drawer" id="order-drawer">
-  <button class="adm-drawer-close" onclick="closeDrawer()">√ó</button>
+  <button class="adm-drawer-close" onclick="closeDrawer()">×</button>
   <div id="drawer-content"></div>
 </div>
 
@@ -285,7 +285,7 @@ let ADMIN_KEY = '';
 let allOrders = [];
 let shipConfig = { standard_rate:0, express_rate:99, free_threshold:0, cod_extra:0, per_product:{}, rules:[] };
 
-// ‚îÄ‚îÄ Auth ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Auth ──────────────────────────────────────────────────────
 function doLogin() {
   const k = document.getElementById('admin-key-input').value.trim();
   if (!k) return;
@@ -325,7 +325,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadProducts();
 });
 
-// ‚îÄ‚îÄ Navigation ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Navigation ────────────────────────────────────────────────
 function showTab(name) {
   document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.adm-nav-btn').forEach(b => b.classList.remove('active'));
@@ -333,7 +333,7 @@ function showTab(name) {
   document.querySelectorAll(`.adm-nav-btn`).forEach(b => { if(b.textContent.trim().toLowerCase().startsWith(name)) b.classList.add('active'); });
 }
 
-// ‚îÄ‚îÄ Orders ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Orders ────────────────────────────────────────────────────
 function loadOrders(status) {
   const url = status ? `/api/orders?status=${status}` : '/api/orders?limit=100';
   document.getElementById('orders-loading').style.display = 'block';
@@ -358,7 +358,7 @@ function updateStats(orders) {
   document.getElementById('stat-total').textContent = orders.length;
   document.getElementById('stat-paid').textContent = paid.length;
   document.getElementById('stat-pending').textContent = orders.filter(o => o.payment_status !== 'paid').length;
-  document.getElementById('stat-revenue').textContent = '‚Çπ' + rev.toLocaleString('en-IN');
+  document.getElementById('stat-revenue').textContent = '₹' + rev.toLocaleString('en-IN');
 }
 
 function renderOrderRows(orders) {
@@ -370,13 +370,13 @@ function renderOrderRows(orders) {
   document.getElementById('orders-table').style.display = 'table';
   document.getElementById('orders-empty').style.display = 'none';
   document.getElementById('orders-tbody').innerHTML = orders.map(o => {
-    const date = o.created_at ? new Date(o.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '‚Äî';
+    const date = o.created_at ? new Date(o.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
     const badgeCls = o.payment_status === 'paid' ? 'badge-paid' : o.payment_status === 'failed' ? 'badge-failed' : 'badge-pending';
-    const items = Array.isArray(o.items) ? o.items.length + ' item' + (o.items.length !== 1 ? 's' : '') : '‚Äî';
+    const items = Array.isArray(o.items) ? o.items.length + ' item' + (o.items.length !== 1 ? 's' : '') : '—';
     return `<tr onclick="openDrawer('${o.id}')">
       <td><strong>#${o.id}</strong><br><span style="color:#aaa;font-size:11px">${items}</span></td>
-      <td>${o.customer_name || '‚Äî'}<br><span style="color:#aaa;font-size:11px">${o.customer_phone || ''}</span></td>
-      <td><strong>‚Çπ${Number(o.amount||0).toLocaleString('en-IN')}</strong></td>
+      <td>${o.customer_name || '—'}<br><span style="color:#aaa;font-size:11px">${o.customer_phone || ''}</span></td>
+      <td><strong>₹${Number(o.amount||0).toLocaleString('en-IN')}</strong></td>
       <td style="text-transform:capitalize">${o.phonepe_txn_id ? 'PhonePe' : 'COD'}</td>
       <td><span class="adm-badge ${badgeCls}">${o.payment_status||'pending'}</span></td>
       <td style="color:#888;font-size:12px">${date}</td>
@@ -391,22 +391,22 @@ function filterOrders(status, btn) {
   else { const f = allOrders.filter(o => o.payment_status === status); renderOrderRows(f); }
 }
 
-// ‚îÄ‚îÄ Order drawer ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Order drawer ──────────────────────────────────────────────
 function openDrawer(orderId) {
   const o = allOrders.find(x => x.id === orderId);
   if (!o) return;
   const items = Array.isArray(o.items) ? o.items.map(i =>
-    `<div class="adm-detail-row"><span>${i.title || i.id || '‚Äî'} √ó ${i.qty||1}</span><span>‚Çπ${Number(i.price||0)*Number(i.qty||1)}</span></div>`
+    `<div class="adm-detail-row"><span>${i.title || i.id || '—'} × ${i.qty||1}</span><span>₹${Number(i.price||0)*Number(i.qty||1)}</span></div>`
   ).join('') : '';
-  const date = o.created_at ? new Date(o.created_at).toLocaleString('en-IN') : '‚Äî';
-  const paidAt = o.paid_at ? new Date(o.paid_at).toLocaleString('en-IN') : '‚Äî';
+  const date = o.created_at ? new Date(o.created_at).toLocaleString('en-IN') : '—';
+  const paidAt = o.paid_at ? new Date(o.paid_at).toLocaleString('en-IN') : '—';
   document.getElementById('drawer-content').innerHTML = `
     <h3>Order #${o.id}</h3>
     <div class="adm-detail-row"><span class="adm-detail-label">Status</span><span class="adm-badge ${o.payment_status==='paid'?'badge-paid':o.payment_status==='failed'?'badge-failed':'badge-pending'}">${o.payment_status||'pending'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Amount</span><span><strong>‚Çπ${Number(o.amount||0).toLocaleString('en-IN')}</strong></span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Customer</span><span>${o.customer_name||'‚Äî'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Phone</span><span>${o.customer_phone||'‚Äî'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">TxnID</span><span style="font-size:11px;word-break:break-all">${o.phonepe_txn_id||'‚Äî'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Amount</span><span><strong>₹${Number(o.amount||0).toLocaleString('en-IN')}</strong></span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Customer</span><span>${o.customer_name||'—'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Phone</span><span>${o.customer_phone||'—'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">TxnID</span><span style="font-size:11px;word-break:break-all">${o.phonepe_txn_id||'—'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Created</span><span>${date}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Paid at</span><span>${paidAt}</span></div>
     <div style="margin-top:16px;font-size:12px;font-weight:700;letter-spacing:.5px;color:#888;text-transform:uppercase;margin-bottom:8px">Items</div>
@@ -424,7 +424,7 @@ function closeDrawer() {
   document.getElementById('drawer-overlay').classList.remove('open');
 }
 
-// ‚îÄ‚îÄ Shipping ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Shipping ──────────────────────────────────────────────────
 function loadShipping() {
   fetch('/api/admin-settings?key=shipping', { headers: { 'x-admin-key': ADMIN_KEY } })
     .then(r => r.json())
@@ -433,7 +433,7 @@ function loadShipping() {
       fillShipInputs();
       renderRules();
       renderPP();
-      document.getElementById('ship-status').textContent = '‚úì Settings loaded. Changes are saved instantly.';
+      document.getElementById('ship-status').textContent = '✓ Settings loaded. Changes are saved instantly.';
       document.getElementById('ship-status').style.background = '#e8f5e9';
       document.getElementById('ship-status').style.color = '#2d7a3e';
       document.getElementById('ship-status').style.borderColor = '#a7f3d0';
@@ -462,11 +462,11 @@ async function saveConfig() {
 async function saveField(field, inputId, btn) {
   const val = Number(document.getElementById(inputId).value) || 0;
   shipConfig[field] = val;
-  btn.textContent = 'Saving‚Ä¶';
+  btn.textContent = 'Saving…';
   btn.disabled = true;
   const ok = await saveConfig();
   btn.disabled = false;
-  btn.textContent = ok ? 'Saved ‚úì' : 'Error!';
+  btn.textContent = ok ? 'Saved ✓' : 'Error!';
   btn.className = 'ship-save-btn ' + (ok ? 'saved' : '');
   setTimeout(() => { btn.textContent = 'Save'; btn.className = 'ship-save-btn'; }, 2000);
 }
@@ -477,8 +477,8 @@ function renderRules() {
   const el = document.getElementById('rules-list');
   if (!rules.length) { el.innerHTML = '<div style="color:#aaa;font-size:13px;padding:4px 0">No rules set. Standard rate applies.</div>'; return; }
   el.innerHTML = rules.map((r, i) => {
-    const desc = r.type === 'above_qty' ? `Qty > ${r.val} ‚Üí ‚Çπ${r.rate}` : `Order > ‚Çπ${r.val} ‚Üí ‚Çπ${r.rate}`;
-    return `<div class="rule-item"><span>${desc}</span><button class="rule-del" onclick="deleteRule(${i})">√ó</button></div>`;
+    const desc = r.type === 'above_qty' ? `Qty > ${r.val} → ₹${r.rate}` : `Order > ₹${r.val} → ₹${r.rate}`;
+    return `<div class="rule-item"><span>${desc}</span><button class="rule-del" onclick="deleteRule(${i})">×</button></div>`;
   }).join('');
 }
 
@@ -507,7 +507,7 @@ function renderPP() {
   const el = document.getElementById('pp-list');
   const keys = Object.keys(pp);
   if (!keys.length) { el.innerHTML = '<div style="color:#aaa;font-size:13px;padding:4px 0">No per-product overrides set.</div>'; return; }
-  el.innerHTML = keys.map(handle => `<div class="pp-item"><span>${handle} ‚Üí ‚Çπ${pp[handle]}</span><button class="rule-del" onclick="deletePP('${handle}')">√ó</button></div>`).join('');
+  el.innerHTML = keys.map(handle => `<div class="pp-item"><span>${handle} → ₹${pp[handle]}</span><button class="rule-del" onclick="deletePP('${handle}')">×</button></div>`).join('');
 }
 
 async function addPP() {
