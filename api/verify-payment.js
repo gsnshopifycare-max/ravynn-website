@@ -4,7 +4,7 @@ import axios from 'axios';
 const SANDBOX = process.env.PHONEPE_SANDBOX === 'true';
 
 const PP_AUTH = SANDBOX
-  ? 'https://api-preprod.phonepe.com/apis/identity-manager/v1/oauth/token'
+  ? 'https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token'
   : 'https://api.phonepe.com/apis/identity-manager/v1/oauth/token';
 
 const PP_STATUS = SANDBOX
@@ -28,7 +28,7 @@ async function getToken() {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
   });
 
-  _tok = { val: resp.data.access_token, exp: now + resp.data.expires_in * 1000 };
+  _tok = { val: resp.data.access_token, exp: resp.data.expires_at * 1000 };
   return _tok.val;
 }
 
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
     const token = await getToken();
 
     const response = await axios.get(`${PP_STATUS}/${txnId}/status`, {
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+      headers: { 'Content-Type': 'application/json', Authorization: `O-Bearer ${token}` }
     });
 
     const state = response.data?.state || '';
@@ -67,7 +67,6 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error('verify-payment:', err?.response?.data || err.message);
 
-    // Fallback: check Neon directly
     if (orderId) {
       try {
         const sql = neon(process.env.DATABASE_URL);
