@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout ‚Äî RAVYNN</title>
+<title>Checkout — RAVYNN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff;min-height:100vh}
 
-/* ‚îÄ‚îÄ‚îÄ Header ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Header ─────────────────────────────────── */
 .co-header{display:grid;grid-template-columns:1fr 420px;border-bottom:1px solid #e6e6e6;background:#fff;}
 .co-header-left{display:flex;align-items:center;justify-content:flex-end;padding:0 48px 0 24px;height:60px}
 .co-header-right{display:flex;align-items:center;justify-content:flex-end;padding:0 32px;height:60px;background:#fafafa;border-left:1px solid #e6e6e6}
@@ -20,29 +20,29 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-secure svg{width:14px;height:14px}
 @media(max-width:900px){.co-header{grid-template-columns:1fr;}.co-header-left{justify-content:space-between;padding:0 20px}.co-header-right{display:none}}
 
-/* ‚îÄ‚îÄ‚îÄ Layout ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Layout ──────────────────────────────────── */
 .co-layout{display:grid;grid-template-columns:1fr 420px;min-height:calc(100vh - 60px)}
 @media(max-width:900px){.co-layout{grid-template-columns:1fr;display:flex;flex-direction:column-reverse}}
 
-/* ‚îÄ‚îÄ‚îÄ Left: Main ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Left: Main ──────────────────────────────── */
 .co-main{padding:40px 48px 60px;max-width:660px;margin-left:auto;width:100%}
 @media(max-width:900px){.co-main{padding:24px 20px 80px;max-width:100%;margin:0}}
 
-/* ‚îÄ‚îÄ‚îÄ Breadcrumb ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Breadcrumb ──────────────────────────────── */
 .co-breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:#999;margin-bottom:28px;flex-wrap:wrap}
 .co-breadcrumb a{color:#999;text-decoration:none}
 .co-breadcrumb a:hover{color:#000}
 .co-breadcrumb .active{color:#1a1a1a;font-weight:600}
 .co-breadcrumb-sep{color:#ccc}
 
-/* ‚îÄ‚îÄ‚îÄ Steps ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Steps ───────────────────────────────────── */
 .co-step{display:none}
 .co-step.active{display:block}
 
-/* ‚îÄ‚îÄ‚îÄ Section titles ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Section titles ──────────────────────────── */
 .co-section-title{font-size:16px;font-weight:700;margin-bottom:16px;letter-spacing:.3px}
 
-/* ‚îÄ‚îÄ‚îÄ Form ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Form ────────────────────────────────────── */
 .co-field{margin-bottom:12px;position:relative}
 .co-field label{display:block;font-size:12px;color:#666;margin-bottom:5px;font-weight:500}
 .co-field input,.co-field select,.co-field textarea{width:100%;border:1.5px solid #d4d4d4;padding:12px 14px;font-size:14px;font-family:inherit;border-radius:6px;outline:none;background:#fff;transition:border-color .15s}
@@ -53,11 +53,11 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:480px){.co-row{grid-template-columns:1fr}}
 
-/* ‚îÄ‚îÄ‚îÄ Address summary box ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Address summary box ─────────────────────── */
 .co-address-box{border:1.5px solid #e6e6e6;border-radius:6px;padding:14px 16px;font-size:13px;color:#444;line-height:1.7;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .co-address-box a{font-size:12px;color:#555;text-decoration:underline;white-space:nowrap;flex-shrink:0}
 
-/* ‚îÄ‚îÄ‚îÄ Shipping options ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Shipping options ────────────────────────── */
 .co-ship-opts{border:1.5px solid #e6e6e6;border-radius:6px;overflow:hidden;margin-bottom:20px}
 .co-ship-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;border-bottom:1px solid #e6e6e6;transition:background .1s}
 .co-ship-opt:last-child{border-bottom:none}
@@ -68,7 +68,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-ship-opt-eta{font-size:12px;color:#888;margin-top:2px}
 .co-ship-opt-price{font-size:13px;font-weight:600}
 
-/* ‚îÄ‚îÄ‚îÄ Payment methods ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Payment methods ─────────────────────────── */
 .co-pay-opts{border:1.5px solid #e6e6e6;border-radius:6px;overflow:hidden;margin-bottom:20px}
 .co-pay-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;border-bottom:1px solid #e6e6e6;transition:background .1s}
 .co-pay-opt:last-child{border-bottom:none}
@@ -79,14 +79,14 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-pay-opt-icons{margin-left:auto;display:flex;gap:6px;align-items:center}
 .pay-badge{background:#f0f0f0;border-radius:3px;padding:3px 7px;font-size:10px;font-weight:700;letter-spacing:.5px;color:#555}
 
-/* ‚îÄ‚îÄ‚îÄ Pay sub-panels ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Pay sub-panels ──────────────────────────── */
 .co-pay-panel{display:none;padding:0 16px 16px;background:#fafafa;border-top:1px solid #e6e6e6}
 .co-pay-panel.open{display:block}
 .co-pay-panel p{font-size:13px;color:#555;line-height:1.6;margin-top:12px}
 .upi-id-display{font-weight:700;font-size:15px;color:#000;letter-spacing:.5px;margin:8px 0}
 .upi-copy-btn{background:#000;color:#fff;border:none;padding:8px 18px;font-size:12px;font-weight:600;letter-spacing:.5px;cursor:pointer;border-radius:4px;margin-top:4px}
 
-/* ‚îÄ‚îÄ‚îÄ Coupon ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Coupon ──────────────────────────────────── */
 .co-coupon-row{display:flex;gap:8px;margin-bottom:20px}
 .co-coupon-input{flex:1;border:1.5px solid #d4d4d4;padding:11px 14px;font-size:13px;font-family:inherit;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;outline:none}
 .co-coupon-input:focus{border-color:#000}
@@ -95,7 +95,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-coupon-msg.ok{color:#2d7a3e}
 .co-coupon-msg.err{color:#e53e3e}
 
-/* ‚îÄ‚îÄ‚îÄ CTA button ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── CTA button ──────────────────────────────── */
 .co-cta{display:block;width:100%;background:#000;color:#fff;border:none;padding:16px;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:6px;margin-top:8px;transition:background .15s}
 .co-cta:hover{background:#222}
 .co-cta:disabled{background:#bbb;cursor:not-allowed}
@@ -103,7 +103,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-back-link:hover{color:#000}
 .co-back-link svg{width:14px;height:14px}
 
-/* ‚îÄ‚îÄ‚îÄ Right: Summary ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Right: Summary ──────────────────────────── */
 .co-sidebar{background:#fafafa;border-left:1px solid #e6e6e6;padding:40px 32px 40px}
 @media(max-width:900px){.co-sidebar{border-left:none;border-bottom:1px solid #e6e6e6;padding:20px}}
 
@@ -134,7 +134,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-discount-row{color:#2d7a3e}
 .co-free-ship-bar{background:#e8f5e9;color:#2d7a3e;font-size:12px;padding:8px 12px;border-radius:4px;text-align:center;margin-bottom:16px}
 
-/* ‚îÄ‚îÄ‚îÄ Confirmation ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Confirmation ────────────────────────────── */
 .co-confirm{text-align:center;padding:40px 0}
 .co-confirm-icon{width:64px;height:64px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
 .co-confirm-icon svg{width:32px;height:32px;color:#fff}
@@ -146,7 +146,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-continue-btn{display:inline-block;background:#000;color:#fff;padding:14px 32px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:6px}
 .co-whatsapp-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;padding:14px 24px;font-size:13px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;margin-right:10px;margin-bottom:10px;border:none;cursor:pointer}
 
-/* ‚îÄ‚îÄ‚îÄ Trust ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ─── Trust ───────────────────────────────────── */
 .co-trust{margin-top:24px;display:flex;flex-direction:column;gap:8px}
 .co-trust-item{display:flex;align-items:center;gap:8px;font-size:12px;color:#888}
 .co-trust-item svg{width:14px;height:14px;flex-shrink:0}
@@ -169,21 +169,21 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
 <div class="co-layout">
 
-  <!-- ‚îÄ‚îÄ LEFT: Main form area ‚îÄ‚îÄ -->
+  <!-- ── LEFT: Main form area ── -->
   <main class="co-main">
 
     <!-- Breadcrumb -->
     <div class="co-breadcrumb" id="co-breadcrumb">
       <a href="cart.html">Cart</a>
-      <span class="co-breadcrumb-sep">‚Ä∫</span>
+      <span class="co-breadcrumb-sep">›</span>
       <span class="active" id="bc-contact">Contact</span>
-      <span class="co-breadcrumb-sep">‚Ä∫</span>
+      <span class="co-breadcrumb-sep">›</span>
       <span id="bc-shipping">Shipping</span>
-      <span class="co-breadcrumb-sep">‚Ä∫</span>
+      <span class="co-breadcrumb-sep">›</span>
       <span id="bc-payment">Payment</span>
     </div>
 
-    <!-- ‚îÄ‚îÄ‚îÄ STEP 1: Contact & Address ‚îÄ‚îÄ‚îÄ -->
+    <!-- ─── STEP 1: Contact & Address ─── -->
     <div class="co-step active" id="step-contact">
       <h2 class="co-section-title">Contact</h2>
       <div class="co-field" id="f-phone">
@@ -245,7 +245,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
       </a>
     </div>
 
-    <!-- ‚îÄ‚îÄ‚îÄ STEP 2: Shipping ‚îÄ‚îÄ‚îÄ -->
+    <!-- ─── STEP 2: Shipping ─── -->
     <div class="co-step" id="step-shipping">
       <h2 class="co-section-title">Contact</h2>
       <div class="co-address-box" id="contact-box">
@@ -264,17 +264,17 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
           <input type="radio" name="shipping" value="standard" checked>
           <div class="co-ship-opt-info">
             <div class="co-ship-opt-name">Standard Delivery</div>
-            <div class="co-ship-opt-eta">4‚Äì7 business days</div>
+            <div class="co-ship-opt-eta">4–7 business days</div>
           </div>
-          <div class="co-ship-opt-price" id="std-price">‚Çπ99</div>
+          <div class="co-ship-opt-price" id="std-price">₹99</div>
         </label>
         <label class="co-ship-opt">
           <input type="radio" name="shipping" value="express">
           <div class="co-ship-opt-info">
             <div class="co-ship-opt-name">Express Delivery</div>
-            <div class="co-ship-opt-eta">2‚Äì3 business days</div>
+            <div class="co-ship-opt-eta">2–3 business days</div>
           </div>
-          <div class="co-ship-opt-price">‚Çπ149</div>
+          <div class="co-ship-opt-price">₹149</div>
         </label>
       </div>
 
@@ -285,7 +285,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
       </span>
     </div>
 
-    <!-- ‚îÄ‚îÄ‚îÄ STEP 3: Payment ‚îÄ‚îÄ‚îÄ -->
+    <!-- ─── STEP 3: Payment ─── -->
     <div class="co-step" id="step-payment">
       <h2 class="co-section-title">Contact</h2>
       <div class="co-address-box">
@@ -364,7 +364,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
           </div>
         </div>
         <div class="co-pay-panel" id="panel-phonepe">
-          <p>Pay securely via PhonePe ‚Äî UPI, cards, net banking &amp; wallets. You'll be redirected to complete payment.</p>
+          <p>Pay securely via PhonePe — UPI, cards, net banking &amp; wallets. You'll be redirected to complete payment.</p>
         </div>
       </div>
 
@@ -377,7 +377,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
       <div class="co-trust">
         <div class="co-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          256-bit SSL encryption ‚Äî your data is safe
+          256-bit SSL encryption — your data is safe
         </div>
         <div class="co-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -385,12 +385,12 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
         </div>
         <div class="co-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          Free shipping on orders above ‚Çπ999
+          Free shipping on orders above ₹999
         </div>
       </div>
     </div>
 
-    <!-- ‚îÄ‚îÄ‚îÄ STEP 4: Confirmation ‚îÄ‚îÄ‚îÄ -->
+    <!-- ─── STEP 4: Confirmation ─── -->
     <div class="co-step" id="step-confirm">
       <div class="co-confirm">
         <div class="co-confirm-icon">
@@ -412,12 +412,12 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
   </main>
 
-  <!-- ‚îÄ‚îÄ RIGHT: Order Summary ‚îÄ‚îÄ -->
+  <!-- ── RIGHT: Order Summary ── -->
   <aside class="co-sidebar">
     <!-- Mobile toggle -->
     <button class="co-summary-toggle" id="summary-toggle" onclick="toggleSummary()">
       <span>Show order summary <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg></span>
-      <span class="toggle-total" id="toggle-total">‚Çπ0</span>
+      <span class="toggle-total" id="toggle-total">₹0</span>
     </button>
 
     <div class="co-sidebar-inner" id="sidebar-inner">
@@ -433,7 +433,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
       <div class="co-sum-row">
         <span>Subtotal</span>
-        <span id="sum-subtotal">‚Çπ0</span>
+        <span id="sum-subtotal">₹0</span>
       </div>
       <div class="co-sum-row co-discount-row" id="sum-discount-row" style="display:none">
         <span id="sum-discount-label">Discount</span>
@@ -441,12 +441,12 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
       </div>
       <div class="co-sum-row">
         <span>Shipping</span>
-        <span id="sum-shipping">‚Äî</span>
+        <span id="sum-shipping">—</span>
       </div>
       <hr class="co-divider">
       <div class="co-sum-row total">
         <span>Total</span>
-        <span id="sum-total">‚Çπ0</span>
+        <span id="sum-total">₹0</span>
       </div>
       <div style="font-size:11px;color:#aaa;margin-top:6px">Including all taxes</div>
     </div>
@@ -454,7 +454,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 </div>
 
 <script>
-// ‚îÄ‚îÄ Config ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Config ──────────────────────────────────────────────────
 const WA_NUMBER = '918512045784'; // apna number yahan
 const UPI_ID    = 'ravynn@upi';   // apna UPI ID yahan
 const RAZORPAY_KEY = '';          // Razorpay key (optional)
@@ -464,7 +464,7 @@ const VALID_COUPONS = {
   'RAVYNN15':  { pct: 15, label: '15% off (RAVYNN15)'  },
 };
 
-// ‚îÄ‚îÄ Dynamic shipping (loaded from /api/shipping) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Dynamic shipping (loaded from /api/shipping) ─────────────
 let SHIP_CONFIG = { standard_rate: 0, express_rate: 99, free_threshold: 0, cod_extra: 0 };
 fetch('/api/shipping').then(r => r.json()).then(c => { SHIP_CONFIG = c; renderSidebar(); }).catch(() => {});
 
@@ -474,17 +474,17 @@ function getShipRate(method, subtotal) {
   return method === 'express' ? (SHIP_CONFIG.express_rate ?? 99) : (SHIP_CONFIG.standard_rate ?? 0);
 }
 
-// ‚îÄ‚îÄ State ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── State ────────────────────────────────────────────────────
 let currentStep = 1;
 let appliedCoupon = null;
 let selectedShipping = 'standard';
 let cartItems = [];
 
-// ‚îÄ‚îÄ Cart helpers ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Cart helpers ─────────────────────────────────────────────
 function getCart() {
   try { return JSON.parse(localStorage.getItem('ravynn_cart') || '[]'); } catch { return []; }
 }
-function fmt(n) { return '‚Çπ' + n.toLocaleString('en-IN'); }
+function fmt(n) { return '₹' + n.toLocaleString('en-IN'); }
 
 function calcTotals() {
   const sub = cartItems.reduce((s, i) => s + i.price * i.qty, 0);
@@ -494,7 +494,7 @@ function calcTotals() {
   return { sub, disc, afterDisc, ship, total: afterDisc + ship };
 }
 
-// ‚îÄ‚îÄ Sidebar render ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Sidebar render ────────────────────────────────────────────
 function renderSidebar() {
   cartItems = getCart();
   const { sub, disc, ship, total } = calcTotals();
@@ -519,10 +519,10 @@ function renderSidebar() {
   const threshold = SHIP_CONFIG.free_threshold ?? 0;
   if (threshold > 0 && sub < threshold && sub > 0) {
     bar.style.display = 'block';
-    bar.textContent = `üöö Add ${fmt(threshold - sub)} more for free shipping!`;
+    bar.textContent = `🚚 Add ${fmt(threshold - sub)} more for free shipping!`;
   } else if (threshold === 0 || sub >= threshold) {
     bar.style.display = 'block';
-    bar.textContent = 'üéâ Free shipping on your order!';
+    bar.textContent = '🎉 Free shipping on your order!';
     bar.style.background = '#e8f5e9';
   } else { bar.style.display = 'none'; }
 
@@ -531,12 +531,12 @@ function renderSidebar() {
   if (disc > 0) {
     document.getElementById('sum-discount-row').style.display = 'flex';
     document.getElementById('sum-discount-label').textContent = appliedCoupon.label;
-    document.getElementById('sum-discount-val').textContent = '‚àí' + fmt(disc);
+    document.getElementById('sum-discount-val').textContent = '−' + fmt(disc);
   } else { document.getElementById('sum-discount-row').style.display = 'none'; }
 
   document.getElementById('sum-shipping').innerHTML = ship === 0
     ? '<span class="co-free">FREE</span>'
-    : (currentStep === 1 ? '‚Äî' : fmt(ship));
+    : (currentStep === 1 ? '—' : fmt(ship));
   document.getElementById('sum-total').textContent = fmt(calcTotals().total);
   document.getElementById('toggle-total').textContent = fmt(calcTotals().total);
 
@@ -545,7 +545,7 @@ function renderSidebar() {
   if (stdEl) { const r = getShipRate('standard', sub); stdEl.innerHTML = r === 0 ? '<span style="color:#2d7a3e">FREE</span>' : fmt(r); }
 }
 
-// ‚îÄ‚îÄ Step navigation ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Step navigation ───────────────────────────────────────────
 function goTo(step) {
   document.getElementById('step-contact').classList.remove('active');
   document.getElementById('step-shipping').classList.remove('active');
@@ -566,7 +566,7 @@ function goTo(step) {
   window.scrollTo(0, 0);
 }
 
-// ‚îÄ‚îÄ Validation ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Validation ────────────────────────────────────────────────
 function validate(id, ok) {
   const el = document.getElementById('f-' + id) || document.getElementById(id);
   if (!el) return true;
@@ -591,7 +591,7 @@ function validateContact() {
   return ok;
 }
 
-// ‚îÄ‚îÄ Summary boxes ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Summary boxes ─────────────────────────────────────────────
 function fillSummaries() {
   const phone = document.getElementById('inp-phone').value.trim();
   const name  = document.getElementById('inp-name').value.trim();
@@ -602,7 +602,7 @@ function fillSummaries() {
   const state = document.getElementById('inp-state').value;
 
   const contactText = `+91 ${phone}`;
-  const addressText = `${name}, ${addr1}${addr2 ? ', ' + addr2 : ''}, ${city} ‚Äì ${pin}, ${state}`;
+  const addressText = `${name}, ${addr1}${addr2 ? ', ' + addr2 : ''}, ${city} – ${pin}, ${state}`;
 
   ['contact-summary','contact-summary-2'].forEach(id => {
     const el = document.getElementById(id); if(el) el.textContent = contactText;
@@ -616,12 +616,12 @@ function fillShippingSummary() {
   const method = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
   selectedShipping = method;
   const { ship } = calcTotals();
-  const label = method === 'express' ? 'Express Delivery (2‚Äì3 days)' : 'Standard Delivery (4‚Äì7 days)';
+  const label = method === 'express' ? 'Express Delivery (2–3 days)' : 'Standard Delivery (4–7 days)';
   const el = document.getElementById('shipping-summary');
-  if (el) el.textContent = `${label} ¬∑ ${ship === 0 ? 'FREE' : fmt(ship)}`;
+  if (el) el.textContent = `${label} · ${ship === 0 ? 'FREE' : fmt(ship)}`;
 }
 
-// ‚îÄ‚îÄ Payment method switch ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Payment method switch ─────────────────────────────────────
 function selectPay(type) {
   document.querySelectorAll('.co-pay-opt').forEach(el => el.classList.remove('selected'));
   document.querySelectorAll('.co-pay-panel').forEach(el => el.classList.remove('open'));
@@ -631,13 +631,13 @@ function selectPay(type) {
   if (radio) radio.checked = true;
   // Update CTA label
   const cta = document.getElementById('btn-place-order');
-  if (type === 'cod')  cta.textContent = 'Place Order ‚Äî Cash on Delivery';
+  if (type === 'cod')  cta.textContent = 'Place Order — Cash on Delivery';
   if (type === 'upi')      cta.textContent = 'I have paid via UPI';
-  if (type === 'phonepe')  cta.textContent = 'Pay with PhonePe ‚Üí';
+  if (type === 'phonepe')  cta.textContent = 'Pay with PhonePe →';
   if (type === 'card') cta.textContent = 'Pay with Card / Net Banking';
 }
 
-// ‚îÄ‚îÄ UPI copy ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── UPI copy ──────────────────────────────────────────────────
 function copyUPI() {
   const id = document.getElementById('upi-id-display').textContent;
   navigator.clipboard.writeText(id).then(() => {
@@ -646,7 +646,7 @@ function copyUPI() {
   }).catch(() => {});
 }
 
-// ‚îÄ‚îÄ Coupon ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Coupon ────────────────────────────────────────────────────
 function applyCoupon() {
   const code = document.getElementById('co-coupon').value.trim().toUpperCase();
   const msg = document.getElementById('co-coupon-msg');
@@ -654,7 +654,7 @@ function applyCoupon() {
   if (VALID_COUPONS[code]) {
     appliedCoupon = { ...VALID_COUPONS[code], code };
     msg.className = 'co-coupon-msg ok';
-    msg.textContent = `‚úì ${appliedCoupon.label} applied!`;
+    msg.textContent = `✓ ${appliedCoupon.label} applied!`;
     renderSidebar();
   } else {
     msg.className = 'co-coupon-msg err';
@@ -662,7 +662,7 @@ function applyCoupon() {
   }
 }
 
-// ‚îÄ‚îÄ Firebase save order ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Firebase save order ───────────────────────────────────────
 async function saveOrderToFirebase(orderData) {
   try {
     if (typeof firebase === 'undefined' || !firebase.apps.length) return null;
@@ -675,7 +675,7 @@ async function saveOrderToFirebase(orderData) {
   }
 }
 
-// ‚îÄ‚îÄ Build WhatsApp order message ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Build WhatsApp order message ──────────────────────────────
 function buildWAMsg(payMethod) {
   const phone = document.getElementById('inp-phone').value.trim();
   const name  = document.getElementById('inp-name').value.trim();
@@ -687,15 +687,15 @@ function buildWAMsg(payMethod) {
   const { sub, disc, ship, total } = calcTotals();
   const method = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
   const orderNum = 'RVN' + Date.now().toString().slice(-6);
-  const lines = cartItems.map(i => `  ‚Ä¢ ${i.title.replace(/^RAVYNN\s+/,'')} | Size: ${i.size} | Qty: ${i.qty} | ${fmt(i.price * i.qty)}`).join('\n');
+  const lines = cartItems.map(i => `  • ${i.title.replace(/^RAVYNN\s+/,'')} | Size: ${i.size} | Qty: ${i.qty} | ${fmt(i.price * i.qty)}`).join('\n');
 
   return {
     orderNum,
-    msg: `üõçÔ∏è *New Order ‚Äî RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* ‚àí${fmt(disc)}` : ''}\n*Shipping:* ${ship === 0 ? 'FREE' : fmt(ship)} (${method === 'express' ? 'Express' : 'Standard'})\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} ‚Äì ${pin}\n${state}\nPhone: +91 ${phone}`
+    msg: `🛍️ *New Order — RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* −${fmt(disc)}` : ''}\n*Shipping:* ${ship === 0 ? 'FREE' : fmt(ship)} (${method === 'express' ? 'Express' : 'Standard'})\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} – ${pin}\n${state}\nPhone: +91 ${phone}`
   };
 }
 
-// ‚îÄ‚îÄ Order confirmation page ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Order confirmation page ───────────────────────────────────
 async function showConfirmation(orderNum, payMethod) {
   const phone = document.getElementById('inp-phone').value.trim();
   const name  = document.getElementById('inp-name').value.trim();
@@ -706,7 +706,7 @@ async function showConfirmation(orderNum, payMethod) {
   const state = document.getElementById('inp-state').value;
   const { sub, disc, ship, total } = calcTotals();
   const method = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
-  const eta = method === 'express' ? '2‚Äì3 business days' : '4‚Äì7 business days';
+  const eta = method === 'express' ? '2–3 business days' : '4–7 business days';
 
   // Save to Firebase
   const orderData = {
@@ -729,7 +729,7 @@ async function showConfirmation(orderNum, payMethod) {
 
   document.getElementById('confirm-order-num').textContent = `Order #${displayId}`;
   document.getElementById('confirm-details').innerHTML =
-    `<strong>Delivering to</strong>${name}, ${addr1}, ${city} ‚Äì ${pin}, ${state}<br>
+    `<strong>Delivering to</strong>${name}, ${addr1}, ${city} – ${pin}, ${state}<br>
      <strong>Estimated delivery</strong>${eta}<br>
      <strong>Payment</strong>${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI' : 'Card/Online'}<br>
      <strong>Order total</strong>${fmt(total)}`;
@@ -743,7 +743,7 @@ async function showConfirmation(orderNum, payMethod) {
   goTo(4);
 }
 
-// ‚îÄ‚îÄ Razorpay ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Razorpay ──────────────────────────────────────────────────
 function openRazorpay(orderNum) {
   if (!RAZORPAY_KEY) {
     alert('Razorpay not configured. Please add your Razorpay key in checkout.html.');
@@ -765,7 +765,7 @@ function openRazorpay(orderNum) {
   new Razorpay(options).open();
 }
 
-// ‚îÄ‚îÄ Mobile summary toggle ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Mobile summary toggle ─────────────────────────────────────
 function toggleSummary() {
   const inner = document.getElementById('sidebar-inner');
   const btn   = document.getElementById('summary-toggle');
@@ -776,7 +776,7 @@ function toggleSummary() {
     : 'Show order summary <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>';
 }
 
-// ‚îÄ‚îÄ Event listeners ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Event listeners ───────────────────────────────────────────
 document.getElementById('btn-to-shipping').addEventListener('click', () => {
   if (!validateContact()) return;
   fillSummaries();
@@ -823,7 +823,7 @@ document.getElementById('btn-place-order').addEventListener('click', async () =>
 async function initiatePhonePe(orderNum, msg) {
   const btn = document.getElementById('btn-place-order');
   btn.disabled = true;
-  btn.textContent = 'Redirecting to PhonePe‚Ä¶';
+  btn.textContent = 'Redirecting to PhonePe…';
 
   const { total } = calcTotals();
   const name  = document.getElementById('inp-fname').value.trim() + ' ' + document.getElementById('inp-lname').value.trim();
@@ -862,12 +862,12 @@ async function initiatePhonePe(orderNum, msg) {
     } else {
       alert('PhonePe error: ' + (data.error || 'Unknown error. Try another payment method.'));
       btn.disabled = false;
-      btn.textContent = 'Pay with PhonePe ‚Üí';
+      btn.textContent = 'Pay with PhonePe →';
     }
   } catch (e) {
     alert('Could not connect to payment gateway. Try again or use another method.');
     btn.disabled = false;
-    btn.textContent = 'Pay with PhonePe ‚Üí';
+    btn.textContent = 'Pay with PhonePe →';
   }
 }
 
@@ -892,7 +892,7 @@ document.getElementById('inp-pincode').addEventListener('blur', async function()
   } catch {}
 });
 
-// ‚îÄ‚îÄ Init ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Init ──────────────────────────────────────────────────────
 cartItems = getCart();
 if (!cartItems.length) {
   // Redirect to cart if empty
@@ -909,8 +909,8 @@ if (window.innerWidth > 900) {
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-// ‚îÄ‚îÄ FIREBASE CONFIG ‚Äî apna config yahan paste karo ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
-// Firebase Console ‚Üí Project Settings ‚Üí Your Apps ‚Üí Web App ‚Üí Config
+// ── FIREBASE CONFIG — apna config yahan paste karo ──────────
+// Firebase Console → Project Settings → Your Apps → Web App → Config
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCLJ4PwOPprXEQ5wfzVWmdzcCe-2dAfM8U",
   authDomain: "ravynn-orders.firebaseapp.com",
