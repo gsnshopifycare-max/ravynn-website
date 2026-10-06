@@ -5,7 +5,7 @@ const SITE_URL = 'https://ravynn-website.vercel.app';
 const SANDBOX = process.env.PHONEPE_SANDBOX === 'true';
 
 const PP_AUTH = SANDBOX
-  ? 'https://api-preprod.phonepe.com/apis/identity-manager/v1/oauth/token'
+  ? 'https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token'
   : 'https://api.phonepe.com/apis/identity-manager/v1/oauth/token';
 
 const PP_PAY = SANDBOX
@@ -29,7 +29,7 @@ async function getToken() {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
   });
 
-  _tok = { val: resp.data.access_token, exp: now + resp.data.expires_in * 1000 };
+  _tok = { val: resp.data.access_token, exp: resp.data.expires_at * 1000 };
   return _tok.val;
 }
 
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
     };
 
     const response = await axios.post(PP_PAY, payload, {
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+      headers: { 'Content-Type': 'application/json', Authorization: `O-Bearer ${token}` }
     });
 
     const redirectUrl = response.data?.redirectUrl;
@@ -70,7 +70,6 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'No redirectUrl from PhonePe', detail: response.data });
     }
 
-    // Save pending order to Neon
     const sql = neon(process.env.DATABASE_URL);
     await sql`
       INSERT INTO orders (id, phonepe_txn_id, payment_status, amount, customer_name, customer_phone, items)
