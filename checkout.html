@@ -725,6 +725,22 @@ async function showConfirmation(orderNum, payMethod) {
     paymentStatus: payMethod === 'cod' ? 'pending' : 'paid'
   };
   const fbId = await saveOrderToFirebase(orderData);
+  // Save to Neon DB so admin panel can see it
+  fetch('/api/orders-cod', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      orderId: orderNum,
+      amount: total,
+      customer_name: name,
+      customer_phone: phone,
+      items: cartItems.map(i => ({ id: i.id, title: i.title, size: i.size, qty: i.qty, price: i.price })),
+      address: { name, address: addr1 + (addr2 ? ', ' + addr2 : ''), city, pincode: pin, state },
+      coupon: appliedCoupon?.code || null,
+      shipping_method: method,
+      payment_method: payMethod
+    })
+  }).catch(() => {});
   const displayId = fbId ? orderNum : orderNum;
 
   document.getElementById('confirm-order-num').textContent = `Order #${displayId}`;
