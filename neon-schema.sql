@@ -17,3 +17,23 @@ CREATE TABLE IF NOT EXISTS orders (
 
 CREATE INDEX IF NOT EXISTS idx_orders_status     ON orders(payment_status);
 CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at DESC);
+
+-- Products table (for admin product management)
+CREATE TABLE IF NOT EXISTS products (
+  id               SERIAL PRIMARY KEY,
+  handle           TEXT UNIQUE NOT NULL,
+  title            TEXT NOT NULL,
+  price            NUMERIC(10,2) NOT NULL,
+  compare_at_price NUMERIC(10,2),
+  type             TEXT DEFAULT '',
+  collections      TEXT[] DEFAULT '{}',
+  images           TEXT[] DEFAULT '{}',
+  sizes            TEXT[] DEFAULT '{"S","M","L","XL"}',
+  available        BOOLEAN DEFAULT true,
+  description      TEXT DEFAULT '',
+  created_at       TIMESTAMPTZ DEFAULT NOW(),
+  updated_at       TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_products_handle    ON products(handle);
+CREATE INDEX IF NOT EXISTS idx_products_available ON products(available);
