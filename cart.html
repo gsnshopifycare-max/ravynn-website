@@ -194,6 +194,10 @@
       <span>Subtotal</span>
       <span class="summary-subtotal">&#8377;0</span>
     </div>
+    <div class="summary-row" id="summary-discount-row" style="display:none;color:#2d7a3e;font-weight:600">
+      <span id="summary-discount-label">Discount</span>
+      <span id="summary-discount-val">-&#8377;0</span>
+    </div>
     <div class="summary-row">
       <span>Shipping</span>
       <span class="summary-shipping">&#8377;0</span>
@@ -326,16 +330,79 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
   window.location.href = 'checkout.html';
 });
 
-// Free shipping meter \u2014 driven by ShippingConfig in theme.js
+// \u2500\u2500 COUPON + DISCOUNT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 (function() {
-  // Load valid coupons (hardcoded + admin coupons)
-  let validCoupons = new Set(['WELCOME10','FIRSTORDER','RAVYNN10','RAVYNN15','TRYRAVYNN5','FLAT50']);
-  fetch('/api/admin-settings?key=coupons').then(r=>r.json()).then(d=>{
-    if (Array.isArray(d.value)) d.value.filter(c=>c.active!==false).forEach(c=>validCoupons.add(c.code));
-  }).catch(()=>{});
+  var INR = String.fromCharCode(8377);
+  var COUPON_DATA = {
+    'WELCOME10':  {discount:10, type:'percent'},
+    'FIRSTORDER': {discount:10, type:'percent'},
+    'RAVYNN10':   {discount:10, type:'percent'},
+    'RAVYNN15':   {discount:15, type:'percent'},
+    'TRYRAVYNN5': {discount:5,  type:'percent'},
+    'FLAT50':     {discount:50, type:'flat'}
+  };
+  var adminCoupons = {};
+  fetch('/api/admin-settings?key=coupons').then(function(r){return r.json();}).then(function(d){
+    if (Array.isArray(d.value)) d.value.filter(function(c){return c.active!==false;}).forEach(function(c){
+      adminCoupons[c.code] = {discount: c.discount || 0, type: c.type || 'percent'};
+    });
+  }).catch(function(){});
+
+  function getCouponInfo(code) {
+    return adminCoupons[code] || COUPON_DATA[code] || null;
+  }
+
+  function fmt(n) { return INR + n.toLocaleString('en-IN'); }
+
+  function calcDiscount(info, sub) {
+    if (info.type === 'flat') return Math.min(info.discount, sub);
+    return Math.round(sub * info.discount / 100);
+  }
+
+  function applyDiscountUI(discAmt, label) {
+    var sub = Cart.total();
+    var shipEl = document.querySelector('.summary-shipping');
+    var totalEl = document.querySelector('.summary-total');
+    var discRow = document.getElementById('summary-discount-row');
+    var discLabel = document.getElementById('summary-discount-label');
+    var discVal = document.getElementById('summary-discount-val');
+    if (!discRow) return;
+    if (!discAmt) {
+      discRow.style.display = 'none';
+      return;
+    }
+    var shipText = shipEl ? shipEl.textContent : '';
+    var shipAmt = (shipText === 'FREE' || shipText === '') ? 0 : parseInt(shipText.replace(/[^0-9]/g,''), 10) || 0;
+    discRow.style.display = '';
+    if (discLabel) discLabel.textContent = 'Discount (' + label + ')';
+    if (discVal) discVal.textContent = '-' + fmt(discAmt);
+    if (totalEl) totalEl.textContent = fmt(Math.max(0, sub - discAmt + shipAmt));
+  }
+
+  function reapplyStoredCoupon() {
+    try {
+      var stored = JSON.parse(localStorage.getItem('applied_coupon') || 'null');
+      if (!stored || !stored.code) { applyDiscountUI(0, ''); return; }
+      var info = getCouponInfo(stored.code);
+      if (!info) { applyDiscountUI(0, ''); return; }
+      var sub = Cart.total();
+      if (!sub) { applyDiscountUI(0, ''); return; }
+      var discAmt = calcDiscount(info, sub);
+      applyDiscountUI(discAmt, stored.label);
+    } catch(e) { applyDiscountUI(0, ''); }
+  }
+
+  // Patch CartPage to reapply coupon after every render
+  var _origRender = CartPage && CartPage.render ? CartPage.render.bind(CartPage) : null;
+  if (CartPage && _origRender) {
+    CartPage.render = function() {
+      _origRender();
+      setTimeout(reapplyStoredCoupon, 0);
+    };
+  }
 
   function showCartToast(msg, isError) {
-    let t = document.getElementById('cart-toast');
+    var t = document.getElementById('cart-toast');
     if (!t) {
       t = document.createElement('div');
       t.id = 'cart-toast';
@@ -345,19 +412,33 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
     t.querySelector('.toast-icon').textContent = isError ? String.fromCharCode(10060) : String.fromCharCode(10003);
     t.querySelector('.toast-msg').textContent = msg;
     t.className = isError ? 'error' : '';
-    requestAnimationFrame(() => { requestAnimationFrame(() => { t.classList.add('show'); }); });
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ t.classList.add('show'); }); });
     clearTimeout(t._timer);
-    t._timer = setTimeout(() => { t.classList.remove('show'); }, 3500);
+    t._timer = setTimeout(function(){ t.classList.remove('show'); }, 3500);
   }
 
   document.querySelector('.coupon-apply-btn')?.addEventListener('click', function() {
-    const code = document.querySelector('.coupon-input')?.value?.trim()?.toUpperCase();
+    var input = document.querySelector('.coupon-input');
+    var code = input ? input.value.trim().toUpperCase() : '';
     if (!code) return;
-    if (validCoupons.has(code)) { showCartToast('Coupon "' + code + '" applied! Discount at checkout.', false); }
-    else { showCartToast('Invalid coupon code. Please try again.', true); }
+    var info = getCouponInfo(code);
+    if (!info) { showCartToast('Invalid coupon code. Please try again.', true); return; }
+    var sub = Cart.total();
+    if (!sub) { showCartToast('Add items to cart first.', true); return; }
+    var discAmt = calcDiscount(info, sub);
+    var label = info.type === 'flat' ? code + ' (-' + fmt(info.discount) + ')' : code + ' (' + info.discount + '% off)';
+    try { localStorage.setItem('applied_coupon', JSON.stringify({code:code, label:label})); } catch(e){}
+    applyDiscountUI(discAmt, label);
+    showCartToast('Coupon ' + code + ' applied! You save ' + fmt(discAmt), false);
   });
+
   document.querySelector('.coupon-input')?.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') document.querySelector('.coupon-apply-btn')?.click();
+  });
+
+  // Reapply on load if coupon was previously saved
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(reapplyStoredCoupon, 300);
   });
 })();
 </script>
