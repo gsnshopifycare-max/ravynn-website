@@ -25,7 +25,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 @media(max-width:900px){.co-layout{grid-template-columns:1fr;display:flex;flex-direction:column-reverse}}
 
 /*  Left: Main  */
-.co-main{padding:40px 48px 60px;max-width:660px;margin-left:auto;width:100%}
+.co-main{padding:40px 48px 60px;max-width:640px;margin:0 auto;width:100%}
 @media(max-width:900px){.co-main{padding:24px 20px 80px;max-width:100%;margin:0}}
 
 /*  Breadcrumb  */
@@ -187,11 +187,11 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
     <!-- Breadcrumb -->
     <div class="co-breadcrumb" id="co-breadcrumb">
       <a href="cart.html">Cart</a>
-      <span class="co-breadcrumb-sep">&#8218;&#196;&#8747;</span>
+      <span class="co-breadcrumb-sep">&#8250;</span>
       <span class="active" id="bc-contact">Contact</span>
-      <span class="co-breadcrumb-sep">&#8218;&#196;&#8747;</span>
+      <span class="co-breadcrumb-sep">&#8250;</span>
       <span id="bc-shipping">Shipping</span>
-      <span class="co-breadcrumb-sep">&#8218;&#196;&#8747;</span>
+      <span class="co-breadcrumb-sep">&#8250;</span>
       <span id="bc-payment">Payment</span>
     </div>
 
@@ -749,7 +749,7 @@ function showCouponPopup(coupon, savedAmt) {
   pop.id = 'coupon-popup';
   pop.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:16px;padding:28px 32px;text-align:center;z-index:9999;box-shadow:0 8px 40px rgba(0,0,0,.18);min-width:260px;animation:popIn .25s ease';
   pop.innerHTML = `<style>@keyframes popIn{from{transform:translate(-50%,-50%) scale(.85);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}</style>
-  <div style="font-size:36px;margin-bottom:8px">\uF8FF\u00FC\u00E9\u00E2</div>
+  <div style="font-size:36px;margin-bottom:8px">&#127881;</div>
   <div style="font-weight:800;font-size:15px;letter-spacing:.5px;color:#000;margin-bottom:4px">${coupon.code} applied!</div>
   <div style="font-size:28px;font-weight:800;color:#2d7a3e;margin:8px 0">You saved \u20B9${savedAmt}</div>
   <div style="font-size:12px;color:#888;margin-bottom:16px">with this coupon</div>
@@ -818,7 +818,7 @@ function buildWAMsg(payMethod) {
 
   return {
     orderNum,
-    msg: `\uF8FF\u00FC\u00F5\u00E7\u00D4\u220F\u00E8 *New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* \u2212${fmt(disc)}` : ''}\n*Shipping:* ${ship === 0 ? 'FREE' : fmt(ship)} (${method === 'express' ? 'Express' : 'Standard'})\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
+    msg: `*New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* \u2212${fmt(disc)}` : ''}\n*Shipping:* ${ship === 0 ? 'FREE' : fmt(ship)} (${method === 'express' ? 'Express' : 'Standard'})\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
   };
 }
 
