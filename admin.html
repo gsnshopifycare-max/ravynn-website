@@ -598,7 +598,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
     <div class="prod-field">
       <label>Product Images</label>
       <div class="cloudinary-notice" id="cloudinary-notice">
-        ! Cloudinary not configured - images will use URLs only. Set CLOUDINARY_CLOUD_NAME and CLOUDINARY_UPLOAD_PRESET in Vercel env vars to enable upload.
+        ! GitHub upload not configured - add GITHUB_TOKEN in Vercel env vars to enable image upload.
       </div>
       <div class="img-preview-row" id="img-preview-row"></div>
       <div class="img-upload-zone" id="img-upload-zone" onclick="document.getElementById('img-file-input').click()">
@@ -638,7 +638,7 @@ let allCoupons = [];
 let shipConfig = { standard_rate:0, express_rate:99, free_threshold:0, cod_extra:0, per_product:{}, rules:[] };
 let revenueChart = null;
 let paymentChart = null;
-let cloudinaryConfig = { cloud_name:'', upload_preset:'' };
+let githubUploadOk = null; // null=unknown, true=ok, false=no token
 let currentOrderFilter = 'all';
 
 // -- Auth ------------------------------------------------------
@@ -659,7 +659,7 @@ function doLogin() {
       loadShipping();
       loadProducts();
       loadCoupons();
-      loadConfig();
+      setupImageZone();
     })
     .catch(e => {
       document.getElementById('login-err').textContent = e.message === 'Wrong password' ? 'Incorrect password.' : 'Connection error. Try again.';
@@ -691,25 +691,17 @@ function showTab(name) {
   if (name === 'customers') renderCustomers();
 }
 
-// -- Cloudinary config -----------------------------------------
-async function loadConfig() {
-  try {
-    const r = await fetch('/api/config');
-    const d = await r.json();
-    cloudinaryConfig = d;
-    if (!d.cloudinary_cloud_name) {
-      document.getElementById('cloudinary-notice').style.display = 'block';
-    }
-    // Set up drag & drop on upload zone
-    const zone = document.getElementById('img-upload-zone');
-    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
-    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-    zone.addEventListener('drop', e => {
-      e.preventDefault();
-      zone.classList.remove('drag-over');
-      handleImageFiles(e.dataTransfer.files);
-    });
-  } catch {}
+// -- Image upload zone setup -----------------------------------
+function setupImageZone() {
+  const zone = document.getElementById('img-upload-zone');
+  if (!zone) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    handleImageFiles(e.dataTransfer.files);
+  });
 }
 
 // -- Orders ----------------------------------------------------
@@ -1292,9 +1284,6 @@ function openProductModal(id) {
   const sizeVals = p && Array.isArray(p.sizes) ? p.sizes : ['S','M','L','XL'];
   document.querySelectorAll('#pm-sizes input').forEach(cb => { cb.checked = sizeVals.includes(cb.value); });
 
-  if (!cloudinaryConfig.cloud_name) {
-    document.getElementById('cloudinary-notice').style.display = 'block';
-  }
   document.getElementById('prod-modal-overlay').classList.add('open');
 }
 
@@ -1335,30 +1324,35 @@ async function handleImageFiles(files) {
     row.appendChild(div);
 
     try {
-      let url;
-      if (cloudinaryConfig.cloud_name && cloudinaryConfig.upload_preset) {
-        const fd = new FormData();
-        fd.append('file', file);
-        fd.append('upload_preset', cloudinaryConfig.upload_preset);
-        const r = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloud_name}/image/upload`, { method: 'POST', body: fd });
-        const d = await r.json();
-        if (d.error) throw new Error(d.error.message);
-        url = d.secure_url;
-      } else {
-        // Fallback: convert to base64 data URL (not production-safe, but shows preview)
-        url = await new Promise(res => {
-          const reader = new FileReader();
-          reader.onload = e => res(e.target.result);
-          reader.readAsDataURL(file);
-        });
-      }
+      // Read file as base64 (strip data: prefix for GitHub API)
+      const dataUrl = await new Promise(res => {
+        const reader = new FileReader();
+        reader.onload = e => res(e.target.result);
+        reader.readAsDataURL(file);
+      });
+      const base64 = dataUrl.split(',')[1];
+      const ext = file.name.split('.').pop() || 'jpg';
+      const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;
+
+      const r = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+        body: JSON.stringify({ filename, base64 })
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Upload failed');
+
+      const url = d.url;
       div.dataset.url = url;
       div.innerHTML = `<img src="${url}"><button class="img-thumb-remove" onclick="removeThumb(this)">x</button>`;
       const ta = document.getElementById('pm-images');
       ta.value = ta.value ? ta.value + '\n' + url : url;
+
+      document.getElementById('cloudinary-notice').style.display = 'none';
     } catch (e) {
-      div.innerHTML = '<div class="img-thumb-loading" style="color:#e53e3e">Failed</div>';
-      setTimeout(() => div.remove(), 2000);
+      div.innerHTML = `<div class="img-thumb-loading" style="color:#e53e3e">${e.message}</div>`;
+      document.getElementById('cloudinary-notice').style.display = 'block';
+      setTimeout(() => div.remove(), 3000);
     }
   }
 }
