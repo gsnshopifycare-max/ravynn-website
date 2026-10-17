@@ -461,11 +461,14 @@ const RAZORPAY_KEY = '';          // Razorpay key (optional)
 const PHONEPE_FUNCTION_URL = '/api/initiate-payment';
 let VALID_COUPONS = {
   'WELCOME10':  { pct: 10, label: '10% off' },
-  'RAVYNN15':   { pct: 15, label: '15% off' },
-  'TRYSNITCH5': { pct: 5,  label: '5% off'  },
+  'FIRSTORDER': { pct: 10, label: '10% off' },
   'RAVYNN10':   { pct: 10, label: '10% off' },
-  'DIWALI50':   { pct: 50, label: '50% off' },
+  'RAVYNN15':   { pct: 15, label: '15% off' },
   'RAVYNN20':   { pct: 20, label: '20% off' },
+  'TRYRAVYNN5': { pct: 5,  label: '5% off'  },
+  'TRYSNITCH5': { pct: 5,  label: '5% off'  },
+  'DIWALI50':   { pct: 50, label: '50% off' },
+  'FLAT50':     { fixed: 50, label: String.fromCharCode(8377) + '50 off' },
 };
 // Load coupons from admin settings (overrides/extends hardcoded list)
 fetch('/api/admin-settings?key=coupons').then(r => r.json()).then(d => {
@@ -536,10 +539,10 @@ function renderSidebar() {
   const threshold = SHIP_CONFIG.free_threshold ?? 0;
   if (threshold > 0 && sub < threshold && sub > 0) {
     bar.style.display = 'block';
-    bar.textContent = `\uF8FF\u00FC\u00F6\u00F6 Add ${fmt(threshold - sub)} more for free shipping!`;
+    bar.textContent = String.fromCodePoint(128666) + ' Add ' + fmt(threshold - sub) + ' more for free shipping!';
   } else if (threshold === 0 || sub >= threshold) {
     bar.style.display = 'block';
-    bar.textContent = '\uF8FF\u00FC\u00E9\u00E2 Free shipping on your order!';
+    bar.textContent = String.fromCodePoint(127881) + ' Free shipping on your order!';
     bar.style.background = '#e8f5e9';
   } else { bar.style.display = 'none'; }
 
@@ -957,12 +960,23 @@ document.getElementById('inp-pincode').addEventListener('blur', async function()
   } catch {}
 });
 
-//  Init 
+//  Init
 cartItems = getCart();
 if (!cartItems.length) {
   // Redirect to cart if empty
   window.location.href = 'cart.html';
 }
+// Auto-apply coupon saved from cart page
+try {
+  var _stored = JSON.parse(localStorage.getItem('applied_coupon') || 'null');
+  if (_stored && _stored.code && VALID_COUPONS[_stored.code]) {
+    appliedCoupon = Object.assign({}, VALID_COUPONS[_stored.code], { code: _stored.code });
+    var _inp = document.getElementById('co-coupon');
+    var _msg = document.getElementById('co-coupon-msg');
+    if (_inp) _inp.value = _stored.code;
+    if (_msg) { _msg.className = 'co-coupon-msg ok'; _msg.textContent = String.fromCharCode(10003) + ' ' + appliedCoupon.label + ' applied!'; }
+  }
+} catch(e) {}
 renderSidebar();
 // Open sidebar by default on desktop
 if (window.innerWidth > 900) {
