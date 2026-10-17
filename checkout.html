@@ -459,7 +459,7 @@ const WA_NUMBER = '918512045784'; // apna number yahan
 const UPI_ID    = 'ravynn@upi';   // apna UPI ID yahan
 const RAZORPAY_KEY = '';          // Razorpay key (optional)
 const PHONEPE_FUNCTION_URL = '/api/initiate-payment';
-const VALID_COUPONS = {
+let VALID_COUPONS = {
   'WELCOME10':  { pct: 10, label: '10% off' },
   'RAVYNN15':   { pct: 15, label: '15% off' },
   'TRYSNITCH5': { pct: 5,  label: '5% off'  },
@@ -467,6 +467,17 @@ const VALID_COUPONS = {
   'DIWALI50':   { pct: 50, label: '50% off' },
   'RAVYNN20':   { pct: 20, label: '20% off' },
 };
+// Load coupons from admin settings (overrides/extends hardcoded list)
+fetch('/api/admin-settings?key=coupons').then(r => r.json()).then(d => {
+  if (!Array.isArray(d.value)) return;
+  const fromAdmin = {};
+  d.value.filter(c => c.active !== false).forEach(c => {
+    fromAdmin[c.code] = c.type === 'pct'
+      ? { pct: c.value, label: c.value + '% off', min_order: c.min_order || 0 }
+      : { fixed: c.value, label: '‚Çπ' + c.value + ' off', min_order: c.min_order || 0 };
+  });
+  VALID_COUPONS = { ...VALID_COUPONS, ...fromAdmin };
+}).catch(() => {});
 
 // ‚îÄ‚îÄ Dynamic shipping (loaded from /api/shipping) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 let SHIP_CONFIG = { standard_rate: 0, express_rate: 99, free_threshold: 0, cod_extra: 0 };
@@ -492,7 +503,9 @@ function fmt(n) { return '‚Çπ' + n.toLocaleString('en-IN'); }
 
 function calcTotals() {
   const sub = cartItems.reduce((s, i) => s + i.price * i.qty, 0);
-  const disc = appliedCoupon ? Math.round(sub * appliedCoupon.pct / 100) : 0;
+  const disc = appliedCoupon
+    ? (appliedCoupon.fixed ? Math.min(appliedCoupon.fixed, sub) : Math.round(sub * (appliedCoupon.pct || 0) / 100))
+    : 0;
   const afterDisc = sub - disc;
   const ship = getShipRate(selectedShipping, afterDisc);
   return { sub, disc, afterDisc, ship, total: afterDisc + ship };
@@ -676,13 +689,21 @@ function applyCoupon() {
   const code = document.getElementById('co-coupon').value.trim().toUpperCase();
   const msg = document.getElementById('co-coupon-msg');
   if (!code) return;
-  if (VALID_COUPONS[code]) {
-    appliedCoupon = { ...VALID_COUPONS[code], code };
+  const coupon = VALID_COUPONS[code];
+  if (coupon && coupon.active !== false) {
+    const sub = Cart.get().reduce((s,i) => s + i.price * i.qty, 0);
+    if (coupon.min_order && sub < coupon.min_order) {
+      msg.className = 'co-coupon-msg err';
+      msg.textContent = `Minimum order ‚Çπ${coupon.min_order} required for this coupon.`;
+      return;
+    }
+    appliedCoupon = { ...coupon, code };
     msg.className = 'co-coupon-msg ok';
     msg.textContent = `‚úì ${appliedCoupon.label} applied!`;
     renderSidebar();
-    const sub = Cart.get().reduce((s,i) => s + i.price * i.qty, 0);
-    const saved = Math.round(sub * appliedCoupon.pct / 100);
+    const saved = appliedCoupon.fixed
+      ? appliedCoupon.fixed
+      : Math.round(sub * (appliedCoupon.pct || 0) / 100);
     showCouponPopup(appliedCoupon, saved);
   } else {
     msg.className = 'co-coupon-msg err';
