@@ -349,7 +349,7 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
   }).catch(function(){});
 
   function getCouponInfo(code) {
-    return adminCoupons[code] || COUPON_DATA[code] || null;
+    return COUPON_DATA[code] || adminCoupons[code] || null;
   }
 
   function fmt(n) { return INR + n.toLocaleString('en-IN'); }
@@ -388,7 +388,8 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
       var sub = Cart.total();
       if (!sub) { applyDiscountUI(0, ''); return; }
       var discAmt = calcDiscount(info, sub);
-      applyDiscountUI(discAmt, stored.label);
+      var freshLabel = info.type === 'flat' ? stored.code + ' (-' + fmt(info.discount) + ')' : stored.code + ' (' + info.discount + '% off)';
+      applyDiscountUI(discAmt, freshLabel);
     } catch(e) { applyDiscountUI(0, ''); }
   }
 
