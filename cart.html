@@ -63,6 +63,17 @@
 #cart-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #cart-toast.error{background:#c0392b}
 #cart-toast .toast-icon{font-size:16px}
+#cpm-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:10001;opacity:0;pointer-events:none;transition:opacity .25s}
+#cpm-ov.show{opacity:1;pointer-events:all}
+#cpm-card{background:#fff;border-radius:16px;padding:36px 44px 30px;text-align:center;position:relative;transform:scale(.82);transition:transform .35s cubic-bezier(.34,1.56,.64,1);max-width:300px;width:88vw;overflow:visible}
+#cpm-ov.show #cpm-card{transform:scale(1)}
+.cpm-code{font-size:12px;color:#888;letter-spacing:.5px;margin-bottom:10px}
+.cpm-code b{color:#e67e22;font-size:14px}
+.cpm-save{font-size:26px;font-weight:800;color:#111;margin-bottom:6px}
+.cpm-sub{font-size:12px;color:#aaa}
+.cpm-sparkles{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.cpm-sp{position:absolute;top:50%;left:50%;font-size:13px;color:#bbb;line-height:1;animation:cpm-burst .55s ease-out forwards}
+@keyframes cpm-burst{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(1);opacity:.65}}
 .footer-gray{background:#f5f2f0;border-top:1px solid #e8e8e8}
 .footer-top{padding:36px 20px 24px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px}
 @media(max-width:767px){.footer-top{grid-template-columns:1fr 1fr;gap:24px}}
@@ -418,6 +429,36 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
     t._timer = setTimeout(function(){ t.classList.remove('show'); }, 3500);
   }
 
+  function showCouponModal(code, savedAmt) {
+    var ov = document.getElementById('cpm-ov');
+    if (!ov) {
+      ov = document.createElement('div');
+      ov.id = 'cpm-ov';
+      ov.innerHTML = '<div id="cpm-card"><div class="cpm-sparkles" id="cpm-sparkles"></div><div class="cpm-code"><b id="cpm-code-val"></b> applied</div><div class="cpm-save" id="cpm-save-val"></div><div class="cpm-sub">with this coupon</div></div>';
+      document.body.appendChild(ov);
+      ov.addEventListener('click', function(){ ov.classList.remove('show'); });
+    }
+    document.getElementById('cpm-code-val').textContent = code;
+    document.getElementById('cpm-save-val').textContent = 'You saved ' + String.fromCharCode(8377) + savedAmt.toLocaleString('en-IN');
+    var sp = document.getElementById('cpm-sparkles');
+    sp.innerHTML = '';
+    var shapes = ['+', String.fromCharCode(9633), String.fromCharCode(9675), String.fromCharCode(9651), String.fromCharCode(9671), '\xd7'];
+    var n = 16;
+    for (var i = 0; i < n; i++) {
+      var el = document.createElement('span');
+      el.className = 'cpm-sp';
+      el.textContent = shapes[i % shapes.length];
+      var ang = (i / n) * 360;
+      var r = 85 + (i % 3) * 28;
+      el.style.cssText = '--tx:' + (Math.cos(ang * Math.PI / 180) * r).toFixed(1) + 'px;--ty:' + (Math.sin(ang * Math.PI / 180) * r).toFixed(1) + 'px;animation-delay:' + (i * 0.03) + 's';
+      sp.appendChild(el);
+    }
+    ov.classList.remove('show');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ ov.classList.add('show'); }); });
+    clearTimeout(ov._t);
+    ov._t = setTimeout(function(){ ov.classList.remove('show'); }, 2600);
+  }
+
   document.querySelector('.coupon-apply-btn')?.addEventListener('click', function() {
     var input = document.querySelector('.coupon-input');
     var code = input ? input.value.trim().toUpperCase() : '';
@@ -430,7 +471,7 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
     var label = info.type === 'flat' ? code + ' (-' + fmt(info.discount) + ')' : code + ' (' + info.discount + '% off)';
     try { localStorage.setItem('applied_coupon', JSON.stringify({code:code, label:label})); } catch(e){}
     applyDiscountUI(discAmt, label);
-    showCartToast('Coupon ' + code + ' applied! You save ' + fmt(discAmt), false);
+    showCouponModal(code, discAmt);
   });
 
   document.querySelector('.coupon-input')?.addEventListener('keydown', function(e) {
