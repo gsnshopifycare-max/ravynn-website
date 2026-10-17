@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — RAVYNN</title>
+<title>Admin ‚Äî RAVYNN</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f5f5;min-height:100vh}
 
-/* ── Login ── */
+/* ‚îÄ‚îÄ Login ‚îÄ‚îÄ */
 #login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#fff}
 .login-box{width:100%;max-width:360px;padding:40px 32px;border:1px solid #e8e8e8;border-radius:8px}
 .login-logo{font-size:18px;font-weight:800;letter-spacing:5px;text-align:center;margin-bottom:28px}
@@ -20,7 +21,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .login-box button:hover{background:#222}
 .login-err{font-size:12px;color:#e53e3e;text-align:center;margin-top:8px;min-height:18px}
 
-/* ── Admin shell ── */
+/* ‚îÄ‚îÄ Admin shell ‚îÄ‚îÄ */
 #admin-panel{display:none;min-height:100vh}
 .adm-header{background:#000;color:#fff;padding:0 24px;height:56px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
 .adm-logo{font-size:14px;font-weight:800;letter-spacing:4px}
@@ -31,7 +32,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .adm-body{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 56px)}
 @media(max-width:768px){.adm-body{grid-template-columns:1fr;display:flex;flex-direction:column}}
 
-/* ── Sidebar ── */
+/* ‚îÄ‚îÄ Sidebar ‚îÄ‚îÄ */
 .adm-sidebar{background:#fff;border-right:1px solid #e8e8e8;padding:24px 0}
 @media(max-width:768px){.adm-sidebar{padding:0;border-right:none;border-bottom:1px solid #e8e8e8}}
 .adm-nav{display:flex;flex-direction:column}
@@ -43,7 +44,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 @media(max-width:768px){.adm-nav-btn.active{border-left-color:transparent;border-bottom-color:#000}}
 .adm-nav-btn svg{width:16px;height:16px;flex-shrink:0}
 
-/* ── Content ── */
+/* ‚îÄ‚îÄ Content ‚îÄ‚îÄ */
 .adm-content{padding:28px 32px;max-width:1100px}
 @media(max-width:768px){.adm-content{padding:20px 16px}}
 .adm-tab{display:none}
@@ -51,15 +52,14 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .adm-section-title{font-size:18px;font-weight:700;margin-bottom:6px}
 .adm-section-sub{font-size:13px;color:#888;margin-bottom:24px}
 
-/* ── Orders ── */
-.adm-filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.adm-filter-btn{background:#fff;border:1.5px solid #e8e8e8;padding:7px 16px;font-size:12px;font-weight:600;border-radius:4px;cursor:pointer;letter-spacing:.5px;transition:all .15s}
-.adm-filter-btn:hover,.adm-filter-btn.active{background:#000;color:#fff;border-color:#000}
+/* ‚îÄ‚îÄ Stat rows ‚îÄ‚îÄ */
 .adm-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
 @media(max-width:768px){.adm-stat-row{grid-template-columns:repeat(2,1fr)}}
 .adm-stat{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:16px 18px}
 .adm-stat-val{font-size:22px;font-weight:700;margin-bottom:4px}
 .adm-stat-label{font-size:11px;color:#888;letter-spacing:.5px;text-transform:uppercase}
+
+/* ‚îÄ‚îÄ Tables ‚îÄ‚îÄ */
 .adm-table-wrap{background:#fff;border:1px solid #e8e8e8;border-radius:6px;overflow:hidden}
 .adm-table{width:100%;border-collapse:collapse}
 .adm-table th{background:#f5f5f5;padding:11px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;white-space:nowrap}
@@ -69,11 +69,20 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .badge-paid{background:#e8f5e9;color:#2d7a3e}
 .badge-pending{background:#fff8e1;color:#b45309}
 .badge-failed{background:#fef2f2;color:#e53e3e}
+.badge-shipped{background:#e3f2fd;color:#1565c0}
+.badge-unfulfilled{background:#f5f5f5;color:#888}
 .adm-empty{text-align:center;padding:60px 20px;color:#aaa;font-size:14px}
 .adm-loading{text-align:center;padding:40px;color:#aaa}
 
-/* Order detail drawer */
-.adm-drawer{position:fixed;top:0;right:-400px;width:400px;max-width:100vw;height:100vh;background:#fff;border-left:1px solid #e8e8e8;z-index:200;transition:right .25s;overflow-y:auto;padding:24px}
+/* ‚îÄ‚îÄ Filter row ‚îÄ‚îÄ */
+.adm-filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.adm-filter-btn{background:#fff;border:1.5px solid #e8e8e8;padding:7px 16px;font-size:12px;font-weight:600;border-radius:4px;cursor:pointer;letter-spacing:.5px;transition:all .15s}
+.adm-filter-btn:hover,.adm-filter-btn.active{background:#000;color:#fff;border-color:#000}
+.adm-search{border:1.5px solid #e8e8e8;padding:7px 14px;border-radius:4px;font-size:13px;font-family:inherit;outline:none;min-width:200px;margin-left:auto}
+.adm-search:focus{border-color:#000}
+
+/* ‚îÄ‚îÄ Order detail drawer ‚îÄ‚îÄ */
+.adm-drawer{position:fixed;top:0;right:-420px;width:420px;max-width:100vw;height:100vh;background:#fff;border-left:1px solid #e8e8e8;z-index:200;transition:right .25s;overflow-y:auto;padding:24px}
 .adm-drawer.open{right:0}
 .adm-drawer-close{background:none;border:none;font-size:20px;cursor:pointer;float:right;color:#888}
 .adm-drawer h3{font-size:16px;font-weight:700;margin-bottom:16px}
@@ -83,7 +92,45 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .adm-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:199;display:none}
 .adm-drawer-overlay.open{display:block}
 
-/* ── Shipping settings ── */
+/* Fulfillment section in drawer */
+.fulfill-section{margin-top:20px;padding-top:16px;border-top:1px solid #e8e8e8}
+.fulfill-section h4{font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;margin-bottom:12px}
+.fulfill-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fulfill-input{flex:1;min-width:140px;border:1.5px solid #d4d4d4;padding:8px 12px;border-radius:5px;font-size:13px;font-family:inherit;outline:none}
+.fulfill-input:focus{border-color:#000}
+.fulfill-btn{background:#000;color:#fff;border:none;padding:9px 16px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px;white-space:nowrap}
+.fulfill-btn:hover{background:#222}
+.fulfill-btn.shipped{background:#1565c0}
+
+/* ‚îÄ‚îÄ Analytics tab ‚îÄ‚îÄ */
+.analytics-chart-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:20px 24px;margin-bottom:20px}
+.analytics-chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.analytics-chart-head h3{font-size:14px;font-weight:700}
+.chart-range-btns{display:flex;gap:6px}
+.chart-range-btn{background:#f5f5f5;border:none;padding:5px 12px;font-size:11px;font-weight:700;border-radius:3px;cursor:pointer;letter-spacing:.5px}
+.chart-range-btn.active{background:#000;color:#fff}
+.analytics-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.analytics-two-col{grid-template-columns:1fr}}
+
+/* ‚îÄ‚îÄ Discounts tab ‚îÄ‚îÄ */
+.disc-add-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:20px 24px;margin-bottom:20px}
+.disc-add-card h3{font-size:14px;font-weight:700;margin-bottom:16px}
+.disc-form-row{display:grid;grid-template-columns:1fr 1fr 100px 100px auto;gap:10px;align-items:end;flex-wrap:wrap}
+@media(max-width:700px){.disc-form-row{grid-template-columns:1fr 1fr;}}
+.disc-field label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;margin-bottom:5px}
+.disc-field input,.disc-field select{width:100%;border:1.5px solid #d4d4d4;padding:9px 12px;border-radius:5px;font-size:13px;font-family:inherit;outline:none;text-transform:uppercase}
+.disc-field input:focus,.disc-field select:focus{border-color:#000}
+.disc-field select{text-transform:none}
+.disc-add-btn{background:#000;color:#fff;border:none;padding:10px 18px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px;white-space:nowrap;height:40px}
+.disc-add-btn:hover{background:#222}
+.disc-toggle{position:relative;display:inline-block;width:36px;height:20px}
+.disc-toggle input{opacity:0;width:0;height:0}
+.disc-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:20px;transition:.2s}
+.disc-slider:before{position:absolute;content:"";height:14px;width:14px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+input:checked+.disc-slider{background:#000}
+input:checked+.disc-slider:before{transform:translateX(16px)}
+
+/* ‚îÄ‚îÄ Shipping settings ‚îÄ‚îÄ */
 .ship-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px}
 @media(max-width:600px){.ship-grid{grid-template-columns:1fr}}
 .ship-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:20px 22px}
@@ -96,7 +143,6 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .ship-save-btn{background:#000;color:#fff;border:none;padding:10px 18px;font-size:12px;font-weight:700;letter-spacing:.5px;cursor:pointer;border-radius:5px;white-space:nowrap}
 .ship-save-btn:hover{background:#222}
 .ship-save-btn.saved{background:#2d7a3e}
-
 .ship-section{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:20px 22px;margin-bottom:16px}
 .ship-section-head{font-size:14px;font-weight:700;margin-bottom:4px}
 .ship-section-sub{font-size:12px;color:#aaa;margin-bottom:16px}
@@ -108,7 +154,6 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .rule-select{border:1.5px solid #d4d4d4;padding:9px 10px;border-radius:5px;font-size:13px;font-family:inherit;outline:none;background:#fff}
 .rule-input{border:1.5px solid #d4d4d4;padding:9px 10px;border-radius:5px;font-size:13px;width:90px;font-family:inherit;outline:none}
 .rule-add-btn{background:#000;color:#fff;border:none;padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;border-radius:5px}
-
 .pp-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
 .pp-item{display:flex;align-items:center;gap:10px;background:#f5f5f5;padding:10px 14px;border-radius:5px;font-size:13px}
 .pp-item span{flex:1}
@@ -116,7 +161,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .pp-select{border:1.5px solid #d4d4d4;padding:9px 10px;border-radius:5px;font-size:13px;font-family:inherit;outline:none;background:#fff;flex:1;min-width:180px}
 .ship-notice{background:#fff8e1;border:1px solid #fde68a;color:#92400e;font-size:12px;padding:10px 14px;border-radius:5px;margin-bottom:20px}
 
-/* ── Products tab ── */
+/* ‚îÄ‚îÄ Products tab ‚îÄ‚îÄ */
 .prod-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
 .prod-add-btn{background:#000;color:#fff;border:none;padding:10px 18px;font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;border-radius:5px;display:flex;align-items:center;gap:6px}
 .prod-add-btn:hover{background:#222}
@@ -139,7 +184,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 /* Product modal */
 .prod-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
 .prod-modal-overlay.open{display:flex}
-.prod-modal{background:#fff;border-radius:8px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;padding:28px}
+.prod-modal{background:#fff;border-radius:8px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;padding:28px}
 .prod-modal h3{font-size:16px;font-weight:700;margin-bottom:20px}
 .prod-field{margin-bottom:16px}
 .prod-field label{display:block;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;margin-bottom:6px}
@@ -155,7 +200,18 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 .prod-save-btn:hover{background:#222}
 .prod-cancel-btn{background:#fff;color:#000;border:1.5px solid #e8e8e8;padding:11px 22px;font-size:13px;font-weight:600;cursor:pointer;border-radius:5px}
 .prod-cancel-btn:hover{border-color:#000}
-.prod-imgs-help{font-size:11px;color:#aaa;margin-top:4px}
+
+/* Image upload area */
+.img-upload-zone{border:2px dashed #d4d4d4;border-radius:6px;padding:20px;text-align:center;cursor:pointer;transition:all .15s;margin-bottom:10px;background:#fafafa}
+.img-upload-zone:hover,.img-upload-zone.drag-over{border-color:#000;background:#f0f0f0}
+.img-upload-zone p{font-size:13px;color:#888;margin-top:6px}
+.img-upload-zone small{font-size:11px;color:#bbb}
+.img-preview-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.img-thumb-item{position:relative;width:60px;height:60px}
+.img-thumb-item img{width:60px;height:60px;object-fit:cover;border-radius:4px;border:1px solid #e8e8e8}
+.img-thumb-remove{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#e53e3e;color:#fff;border:none;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
+.img-thumb-loading{width:60px;height:60px;background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#aaa;border:1px solid #e8e8e8}
+.cloudinary-notice{font-size:11px;color:#f59e0b;background:#fffbeb;border:1px solid #fde68a;padding:6px 10px;border-radius:4px;margin-bottom:8px;display:none}
 </style>
 </head>
 <body>
@@ -183,43 +239,94 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
   <div class="adm-body">
     <aside class="adm-sidebar">
       <nav class="adm-nav">
-        <button class="adm-nav-btn active" onclick="showTab('orders')">
+        <button class="adm-nav-btn active" onclick="showTab('analytics')" id="nav-analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Analytics
+        </button>
+        <button class="adm-nav-btn" onclick="showTab('orders')" id="nav-orders">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
           Orders
         </button>
-        <button class="adm-nav-btn" onclick="showTab('products')">
+        <button class="adm-nav-btn" onclick="showTab('customers')" id="nav-customers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Customers
+        </button>
+        <button class="adm-nav-btn" onclick="showTab('products')" id="nav-products">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           Products
         </button>
-        <button class="adm-nav-btn" onclick="showTab('shipping')">
+        <button class="adm-nav-btn" onclick="showTab('discounts')" id="nav-discounts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          Discounts
+        </button>
+        <button class="adm-nav-btn" onclick="showTab('shipping')" id="nav-shipping">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           Shipping
         </button>
       </nav>
     </aside>
+
     <div class="adm-content">
 
-      <!-- ── ORDERS TAB ── -->
-      <div class="adm-tab active" id="tab-orders">
+      <!-- ‚îÄ‚îÄ ANALYTICS TAB ‚îÄ‚îÄ -->
+      <div class="adm-tab active" id="tab-analytics">
+        <div class="adm-section-title">Analytics</div>
+        <div class="adm-section-sub">Sales overview and performance</div>
+
+        <div class="adm-stat-row" id="ana-stats">
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-total-rev">‚Äî</div><div class="adm-stat-label">Total Revenue</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-month-orders">‚Äî</div><div class="adm-stat-label">Orders This Month</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-avg">‚Äî</div><div class="adm-stat-label">Avg Order Value</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-products">‚Äî</div><div class="adm-stat-label">Active Products</div></div>
+        </div>
+
+        <div class="analytics-chart-card">
+          <div class="analytics-chart-head">
+            <h3>Revenue</h3>
+            <div class="chart-range-btns">
+              <button class="chart-range-btn active" onclick="setChartRange(7,this)">7 Days</button>
+              <button class="chart-range-btn" onclick="setChartRange(30,this)">30 Days</button>
+            </div>
+          </div>
+          <canvas id="revenue-chart" height="100"></canvas>
+        </div>
+
+        <div class="analytics-two-col">
+          <div class="analytics-chart-card">
+            <div class="analytics-chart-head"><h3>Top Products</h3></div>
+            <div id="top-products-list" style="font-size:13px"></div>
+          </div>
+          <div class="analytics-chart-card">
+            <div class="analytics-chart-head"><h3>Payment Methods</h3></div>
+            <canvas id="payment-chart" height="160"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- ‚îÄ‚îÄ ORDERS TAB ‚îÄ‚îÄ -->
+      <div class="adm-tab" id="tab-orders">
         <div class="adm-section-title">Orders</div>
-        <div class="adm-section-sub">All customer orders from PhonePe + COD</div>
+        <div class="adm-section-sub">All customer orders ‚Äî click any row for details</div>
 
         <div class="adm-stat-row" id="stats-row">
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-total">—</div><div class="adm-stat-label">Total Orders</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-paid">—</div><div class="adm-stat-label">Paid</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-pending">—</div><div class="adm-stat-label">Pending / COD</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="stat-revenue">—</div><div class="adm-stat-label">Revenue (paid)</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-total">‚Äî</div><div class="adm-stat-label">Total Orders</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-paid">‚Äî</div><div class="adm-stat-label">Paid</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-pending">‚Äî</div><div class="adm-stat-label">Pending / COD</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="stat-revenue">‚Äî</div><div class="adm-stat-label">Revenue (paid)</div></div>
         </div>
 
         <div class="adm-filter-row">
           <button class="adm-filter-btn active" onclick="filterOrders('all',this)">All</button>
           <button class="adm-filter-btn" onclick="filterOrders('paid',this)">Paid</button>
           <button class="adm-filter-btn" onclick="filterOrders('pending',this)">Pending</button>
-          <button class="adm-filter-btn" onclick="loadOrders()">↻ Refresh</button>
+          <button class="adm-filter-btn" onclick="filterOrders('unfulfilled',this)">Unfulfilled</button>
+          <button class="adm-filter-btn" onclick="filterOrders('shipped',this)">Shipped</button>
+          <button class="adm-filter-btn" onclick="loadOrders()">‚Üª Refresh</button>
+          <input type="text" class="adm-search" id="order-search" placeholder="Search by name, phone, order ID‚Ä¶" oninput="searchOrders()">
         </div>
 
         <div class="adm-table-wrap">
-          <div class="adm-loading" id="orders-loading">Loading orders…</div>
+          <div class="adm-loading" id="orders-loading">Loading orders‚Ä¶</div>
           <table class="adm-table" id="orders-table" style="display:none">
             <thead><tr>
               <th>Order</th>
@@ -227,6 +334,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
               <th>Amount</th>
               <th>Payment</th>
               <th>Status</th>
+              <th>Fulfillment</th>
               <th>Date</th>
             </tr></thead>
             <tbody id="orders-tbody"></tbody>
@@ -235,22 +343,48 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         </div>
       </div>
 
-      <!-- ── PRODUCTS TAB ── -->
+      <!-- ‚îÄ‚îÄ CUSTOMERS TAB ‚îÄ‚îÄ -->
+      <div class="adm-tab" id="tab-customers">
+        <div class="adm-section-title">Customers</div>
+        <div class="adm-section-sub">All unique customers derived from orders</div>
+
+        <div class="adm-filter-row">
+          <input type="text" class="adm-search" id="customer-search" placeholder="Search by name or phone‚Ä¶" oninput="renderCustomers()" style="margin-left:0">
+        </div>
+
+        <div class="adm-table-wrap">
+          <div class="adm-loading" id="customers-loading">Loading customers‚Ä¶</div>
+          <table class="adm-table" id="customers-table" style="display:none">
+            <thead><tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Orders</th>
+              <th>Total Spent</th>
+              <th>Last Order</th>
+              <th>Action</th>
+            </tr></thead>
+            <tbody id="customers-tbody"></tbody>
+          </table>
+          <div class="adm-empty" id="customers-empty" style="display:none">No customers found.</div>
+        </div>
+      </div>
+
+      <!-- ‚îÄ‚îÄ PRODUCTS TAB ‚îÄ‚îÄ -->
       <div class="adm-tab" id="tab-products">
         <div class="prod-header-row">
           <div>
             <div class="adm-section-title">Products</div>
             <div class="adm-section-sub" style="margin:0">Add, edit, or remove products from your store.</div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <input type="text" class="prod-search" id="prod-search" placeholder="Search products…" oninput="renderProductTable()">
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <input type="text" class="prod-search" id="prod-search" placeholder="Search products‚Ä¶" oninput="renderProductTable()">
             <button class="prod-import-btn" onclick="importProductsFromJSON()">Import from JSON</button>
             <button class="prod-add-btn" onclick="openProductModal()">+ Add Product</button>
           </div>
         </div>
 
         <div class="adm-table-wrap">
-          <div class="adm-loading" id="products-loading">Loading products…</div>
+          <div class="adm-loading" id="products-loading">Loading products‚Ä¶</div>
           <table class="adm-table" id="products-table" style="display:none">
             <thead><tr>
               <th style="width:60px">Image</th>
@@ -262,32 +396,79 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
             </tr></thead>
             <tbody id="products-tbody"></tbody>
           </table>
-          <div class="adm-empty" id="products-empty" style="display:none">No products found. Click "Import from JSON" to seed from products.json, or "Add Product" to create one.</div>
+          <div class="adm-empty" id="products-empty" style="display:none">No products. Click "Import from JSON" or "Add Product".</div>
         </div>
       </div>
 
-      <!-- ── SHIPPING TAB ── -->
+      <!-- ‚îÄ‚îÄ DISCOUNTS TAB ‚îÄ‚îÄ -->
+      <div class="adm-tab" id="tab-discounts">
+        <div class="adm-section-title">Discounts</div>
+        <div class="adm-section-sub">Manage coupon codes ‚Äî changes apply to checkout immediately</div>
+
+        <div class="disc-add-card">
+          <h3>Add New Coupon</h3>
+          <div class="disc-form-row">
+            <div class="disc-field">
+              <label>Code</label>
+              <input type="text" id="dc-code" placeholder="WELCOME10" style="text-transform:uppercase">
+            </div>
+            <div class="disc-field">
+              <label>Type</label>
+              <select id="dc-type" style="text-transform:none">
+                <option value="pct">Percentage (%)</option>
+                <option value="fixed">Fixed (‚Çπ)</option>
+              </select>
+            </div>
+            <div class="disc-field">
+              <label>Value</label>
+              <input type="number" id="dc-value" placeholder="10" min="1" style="text-transform:none">
+            </div>
+            <div class="disc-field">
+              <label>Min Order ‚Çπ</label>
+              <input type="number" id="dc-min" placeholder="0" min="0" style="text-transform:none">
+            </div>
+            <button class="disc-add-btn" onclick="addCoupon()">+ Add</button>
+          </div>
+        </div>
+
+        <div class="adm-table-wrap">
+          <div class="adm-loading" id="discounts-loading">Loading coupons‚Ä¶</div>
+          <table class="adm-table" id="discounts-table" style="display:none">
+            <thead><tr>
+              <th>Code</th>
+              <th>Discount</th>
+              <th>Min Order</th>
+              <th>Active</th>
+              <th>Action</th>
+            </tr></thead>
+            <tbody id="discounts-tbody"></tbody>
+          </table>
+          <div class="adm-empty" id="discounts-empty" style="display:none">No coupon codes yet. Add one above.</div>
+        </div>
+      </div>
+
+      <!-- ‚îÄ‚îÄ SHIPPING TAB ‚îÄ‚îÄ -->
       <div class="adm-tab" id="tab-shipping">
         <div class="adm-section-title">Shipping Settings</div>
         <div class="adm-section-sub">Changes apply immediately across cart and checkout.</div>
 
-        <div class="ship-notice" id="ship-status">Loading current settings…</div>
+        <div class="ship-notice" id="ship-status">Loading current settings‚Ä¶</div>
 
         <div class="ship-grid">
           <div class="ship-card">
             <div class="ship-card-title">Standard Shipping</div>
             <div class="ship-card-desc">Default delivery rate per order. Set 0 for always free.</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">₹</span>
+              <span class="ship-prefix">‚Çπ</span>
               <input type="number" class="ship-input" id="inp-standard" min="0" placeholder="0">
               <button class="ship-save-btn" onclick="saveField('standard_rate','inp-standard',this)">Save</button>
             </div>
           </div>
           <div class="ship-card">
             <div class="ship-card-title">Express Shipping</div>
-            <div class="ship-card-desc">Rate shown when customer picks Express (2–3 days).</div>
+            <div class="ship-card-desc">Rate shown when customer picks Express (2‚Äì3 days).</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">₹</span>
+              <span class="ship-prefix">‚Çπ</span>
               <input type="number" class="ship-input" id="inp-express" min="0" placeholder="99">
               <button class="ship-save-btn" onclick="saveField('express_rate','inp-express',this)">Save</button>
             </div>
@@ -296,7 +477,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
             <div class="ship-card-title">Free Shipping Threshold</div>
             <div class="ship-card-desc">Orders above this amount get free shipping. Set 0 = always free.</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">₹</span>
+              <span class="ship-prefix">‚Çπ</span>
               <input type="number" class="ship-input" id="inp-threshold" min="0" placeholder="0">
               <button class="ship-save-btn" onclick="saveField('free_threshold','inp-threshold',this)">Save</button>
             </div>
@@ -305,40 +486,36 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
             <div class="ship-card-title">COD Extra Fee</div>
             <div class="ship-card-desc">Extra charge added for Cash on Delivery orders. 0 = none.</div>
             <div class="ship-input-row">
-              <span class="ship-prefix">₹</span>
+              <span class="ship-prefix">‚Çπ</span>
               <input type="number" class="ship-input" id="inp-cod" min="0" placeholder="0">
               <button class="ship-save-btn" onclick="saveField('cod_extra','inp-cod',this)">Save</button>
             </div>
           </div>
         </div>
 
-        <!-- Shipping Rules -->
         <div class="ship-section">
           <div class="ship-section-head">Shipping Rules</div>
           <div class="ship-section-sub">Conditions that override the default rate. First matching rule wins.</div>
           <div class="rules-list" id="rules-list"></div>
           <div class="rule-add-row">
             <select class="rule-select" id="rule-type">
-              <option value="above_amount">Order above ₹</option>
+              <option value="above_amount">Order above ‚Çπ</option>
               <option value="above_qty">Qty above</option>
             </select>
             <input type="number" class="rule-input" id="rule-val" placeholder="Value" min="0">
-            <span style="font-size:13px;color:#888">→ Rate ₹</span>
+            <span style="font-size:13px;color:#888">‚Üí Rate ‚Çπ</span>
             <input type="number" class="rule-input" id="rule-rate" placeholder="0" min="0">
             <button class="rule-add-btn" onclick="addRule()">+ Add Rule</button>
           </div>
         </div>
 
-        <!-- Per-Product Shipping -->
         <div class="ship-section">
           <div class="ship-section-head">Per-Product Shipping</div>
           <div class="ship-section-sub">Override shipping rate for a specific product. 0 = free for that product.</div>
           <div class="pp-list" id="pp-list"></div>
           <div class="pp-add-row">
-            <select class="pp-select" id="pp-product">
-              <option value="">Select product…</option>
-            </select>
-            <span class="ship-prefix">₹</span>
+            <select class="pp-select" id="pp-product"><option value="">Select product‚Ä¶</option></select>
+            <span class="ship-prefix">‚Çπ</span>
             <input type="number" class="rule-input" id="pp-rate" placeholder="0" min="0">
             <button class="rule-add-btn" onclick="addPP()">+ Add</button>
           </div>
@@ -352,7 +529,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 <!-- Order detail drawer -->
 <div class="adm-drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
 <div class="adm-drawer" id="order-drawer">
-  <button class="adm-drawer-close" onclick="closeDrawer()">×</button>
+  <button class="adm-drawer-close" onclick="closeDrawer()">√ó</button>
   <div id="drawer-content"></div>
 </div>
 
@@ -375,11 +552,11 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 
     <div class="prod-field-row">
       <div class="prod-field">
-        <label>Price (₹) *</label>
+        <label>Price (‚Çπ) *</label>
         <input type="number" id="pm-price" placeholder="699" min="0">
       </div>
       <div class="prod-field">
-        <label>Compare-at Price (₹)</label>
+        <label>Compare-at Price (‚Çπ)</label>
         <input type="number" id="pm-compare" placeholder="999 (leave blank if no discount)" min="0">
       </div>
     </div>
@@ -403,7 +580,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <label class="prod-check-label"><input type="checkbox" value="oversized-essentials"> Oversized Essentials</label>
         <label class="prod-check-label"><input type="checkbox" value="statement-tees"> Statement Tees</label>
         <label class="prod-check-label"><input type="checkbox" value="anime-pop-culture"> Anime & Pop Culture</label>
-        <label class="prod-check-label"><input type="checkbox" value="under-999"> Under ₹999</label>
+        <label class="prod-check-label"><input type="checkbox" value="under-999"> Under ‚Çπ999</label>
       </div>
     </div>
 
@@ -419,14 +596,24 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
     </div>
 
     <div class="prod-field">
-      <label>Image URLs (one per line)</label>
-      <textarea id="pm-images" placeholder="https://cdn.shopify.com/...&#10;https://cdn.shopify.com/..." rows="4"></textarea>
-      <div class="prod-imgs-help">First image is the main display image. Use Shopify CDN, Google Drive (direct link), or any image URL.</div>
+      <label>Product Images</label>
+      <div class="cloudinary-notice" id="cloudinary-notice">
+        ‚ö†Ô∏è Cloudinary not configured ‚Äî images will use URLs only. Set CLOUDINARY_CLOUD_NAME and CLOUDINARY_UPLOAD_PRESET in Vercel env vars to enable upload.
+      </div>
+      <div class="img-preview-row" id="img-preview-row"></div>
+      <div class="img-upload-zone" id="img-upload-zone" onclick="document.getElementById('img-file-input').click()">
+        <input type="file" id="img-file-input" accept="image/*" multiple style="display:none" onchange="handleImageFiles(this.files)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" width="28" height="28"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <p>Click to upload or drag & drop</p>
+        <small>PNG, JPG, WEBP ‚Äî up to 10MB each</small>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:#aaa">Or paste image URLs (one per line):</div>
+      <textarea id="pm-images" placeholder="https://cdn.example.com/image.jpg&#10;https://..." rows="3" style="margin-top:4px"></textarea>
     </div>
 
     <div class="prod-field">
       <label>Description (HTML allowed)</label>
-      <textarea id="pm-description" placeholder="<p>Product description here.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>" rows="4"></textarea>
+      <textarea id="pm-description" placeholder="<p>Product description here.</p>" rows="4"></textarea>
     </div>
 
     <div class="prod-field">
@@ -446,14 +633,19 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 <script>
 let ADMIN_KEY = '';
 let allOrders = [];
+let allProducts = [];
+let allCoupons = [];
 let shipConfig = { standard_rate:0, express_rate:99, free_threshold:0, cod_extra:0, per_product:{}, rules:[] };
+let revenueChart = null;
+let paymentChart = null;
+let cloudinaryConfig = { cloud_name:'', upload_preset:'' };
+let currentOrderFilter = 'all';
 
-// ── Auth ──────────────────────────────────────────────────────
+// ‚îÄ‚îÄ Auth ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function doLogin() {
   const k = document.getElementById('admin-key-input').value.trim();
   if (!k) return;
   ADMIN_KEY = k;
-  // Verify by calling orders API
   fetch('/api/orders', { headers: { 'x-admin-key': k } })
     .then(r => {
       if (r.status === 401) throw new Error('Wrong password');
@@ -466,6 +658,8 @@ function doLogin() {
       processOrders(data.orders || []);
       loadShipping();
       loadProducts();
+      loadCoupons();
+      loadConfig();
     })
     .catch(e => {
       document.getElementById('login-err').textContent = e.message === 'Wrong password' ? 'Incorrect password.' : 'Connection error. Try again.';
@@ -482,27 +676,48 @@ function doLogout() {
   document.getElementById('admin-key-input').value = '';
 }
 
-// Auto-login if key stored
 window.addEventListener('DOMContentLoaded', () => {
   const saved = sessionStorage.getItem('ravynn_admin_key');
   if (saved) { document.getElementById('admin-key-input').value = saved; doLogin(); }
 });
 
-// ── Navigation ────────────────────────────────────────────────
+// ‚îÄ‚îÄ Navigation ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function showTab(name) {
   document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.adm-nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  document.querySelectorAll('.adm-nav-btn').forEach(b => { if(b.textContent.trim().toLowerCase().startsWith(name)) b.classList.add('active'); });
+  document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'analytics') renderAnalytics();
+  if (name === 'customers') renderCustomers();
 }
 
-// ── Orders ────────────────────────────────────────────────────
-function loadOrders(status) {
-  const url = status ? `/api/orders?status=${status}` : '/api/orders?limit=100';
+// ‚îÄ‚îÄ Cloudinary config ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+async function loadConfig() {
+  try {
+    const r = await fetch('/api/config');
+    const d = await r.json();
+    cloudinaryConfig = d;
+    if (!d.cloudinary_cloud_name) {
+      document.getElementById('cloudinary-notice').style.display = 'block';
+    }
+    // Set up drag & drop on upload zone
+    const zone = document.getElementById('img-upload-zone');
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      handleImageFiles(e.dataTransfer.files);
+    });
+  } catch {}
+}
+
+// ‚îÄ‚îÄ Orders ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+function loadOrders() {
   document.getElementById('orders-loading').style.display = 'block';
   document.getElementById('orders-table').style.display = 'none';
   document.getElementById('orders-empty').style.display = 'none';
-  fetch(url, { headers: { 'x-admin-key': ADMIN_KEY } })
+  fetch('/api/orders?limit=200', { headers: { 'x-admin-key': ADMIN_KEY } })
     .then(r => r.json())
     .then(d => processOrders(d.orders || []))
     .catch(() => { document.getElementById('orders-loading').textContent = 'Error loading orders.'; });
@@ -513,6 +728,7 @@ function processOrders(orders) {
   document.getElementById('orders-loading').style.display = 'none';
   updateStats(orders);
   renderOrderRows(orders);
+  document.getElementById('customers-loading').textContent = 'Click Customers tab to load.';
 }
 
 function updateStats(orders) {
@@ -521,7 +737,7 @@ function updateStats(orders) {
   document.getElementById('stat-total').textContent = orders.length;
   document.getElementById('stat-paid').textContent = paid.length;
   document.getElementById('stat-pending').textContent = orders.filter(o => o.payment_status !== 'paid').length;
-  document.getElementById('stat-revenue').textContent = '₹' + rev.toLocaleString('en-IN');
+  document.getElementById('stat-revenue').textContent = '‚Çπ' + rev.toLocaleString('en-IN');
 }
 
 function renderOrderRows(orders) {
@@ -533,45 +749,72 @@ function renderOrderRows(orders) {
   document.getElementById('orders-table').style.display = 'table';
   document.getElementById('orders-empty').style.display = 'none';
   document.getElementById('orders-tbody').innerHTML = orders.map(o => {
-    const date = o.created_at ? new Date(o.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
-    const badgeCls = o.payment_status === 'paid' ? 'badge-paid' : o.payment_status === 'failed' ? 'badge-failed' : 'badge-pending';
-    const items = Array.isArray(o.items) ? o.items.length + ' item' + (o.items.length !== 1 ? 's' : '') : '—';
+    const date = o.created_at ? new Date(o.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '‚Äî';
+    const payBadge = o.payment_status === 'paid' ? 'badge-paid' : o.payment_status === 'failed' ? 'badge-failed' : 'badge-pending';
+    const fulfill = o.fulfillment_status || 'unfulfilled';
+    const fulfillBadge = fulfill === 'shipped' ? 'badge-shipped' : 'badge-unfulfilled';
+    const items = Array.isArray(o.items) ? o.items.length + ' item' + (o.items.length !== 1 ? 's' : '') : '‚Äî';
     return `<tr onclick="openDrawer('${o.id}')">
       <td><strong>#${o.id}</strong><br><span style="color:#aaa;font-size:11px">${items}</span></td>
-      <td>${o.customer_name || '—'}<br><span style="color:#aaa;font-size:11px">${o.customer_phone || ''}</span></td>
-      <td><strong>₹${Number(o.amount||0).toLocaleString('en-IN')}</strong></td>
+      <td>${o.customer_name || '‚Äî'}<br><span style="color:#aaa;font-size:11px">${o.customer_phone || ''}</span></td>
+      <td><strong>‚Çπ${Number(o.amount||0).toLocaleString('en-IN')}</strong></td>
       <td style="text-transform:capitalize">${o.phonepe_txn_id ? 'PhonePe' : 'COD'}</td>
-      <td><span class="adm-badge ${badgeCls}">${o.payment_status||'pending'}</span></td>
+      <td><span class="adm-badge ${payBadge}">${o.payment_status||'pending'}</span></td>
+      <td><span class="adm-badge ${fulfillBadge}">${fulfill}</span></td>
       <td style="color:#888;font-size:12px">${date}</td>
     </tr>`;
   }).join('');
 }
 
 function filterOrders(status, btn) {
+  currentOrderFilter = status;
+  document.getElementById('order-search').value = '';
   document.querySelectorAll('.adm-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   if (status === 'all') { renderOrderRows(allOrders); updateStats(allOrders); }
-  else { const f = allOrders.filter(o => o.payment_status === status); renderOrderRows(f); }
+  else if (status === 'unfulfilled') {
+    const f = allOrders.filter(o => !o.fulfillment_status || o.fulfillment_status === 'unfulfilled');
+    renderOrderRows(f);
+  } else if (status === 'shipped') {
+    renderOrderRows(allOrders.filter(o => o.fulfillment_status === 'shipped'));
+  } else {
+    renderOrderRows(allOrders.filter(o => o.payment_status === status));
+  }
 }
 
-// ── Order drawer ──────────────────────────────────────────────
+function searchOrders() {
+  const q = document.getElementById('order-search').value.toLowerCase().trim();
+  document.querySelectorAll('.adm-filter-btn').forEach(b => b.classList.remove('active'));
+  if (!q) { renderOrderRows(allOrders); return; }
+  renderOrderRows(allOrders.filter(o =>
+    (o.customer_name||'').toLowerCase().includes(q) ||
+    (o.customer_phone||'').includes(q) ||
+    String(o.id).includes(q)
+  ));
+}
+
+// ‚îÄ‚îÄ Order drawer + fulfillment ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function openDrawer(orderId) {
-  const o = allOrders.find(x => x.id === orderId);
+  const o = allOrders.find(x => String(x.id) === String(orderId));
   if (!o) return;
   const items = Array.isArray(o.items) ? o.items.map(i =>
-    `<div class="adm-detail-row"><span>${i.title || i.id || '—'} × ${i.qty||1}</span><span>₹${Number(i.price||0)*Number(i.qty||1)}</span></div>`
+    `<div class="adm-detail-row"><span>${i.title || i.id || '‚Äî'}${i.size ? ' / ' + i.size : ''} √ó ${i.qty||1}</span><span>‚Çπ${Number(i.price||0)*Number(i.qty||1)}</span></div>`
   ).join('') : '';
-  const date = o.created_at ? new Date(o.created_at).toLocaleString('en-IN') : '—';
-  const paidAt = o.paid_at ? new Date(o.paid_at).toLocaleString('en-IN') : '—';
+  const date = o.created_at ? new Date(o.created_at).toLocaleString('en-IN') : '‚Äî';
+  const paidAt = o.paid_at ? new Date(o.paid_at).toLocaleString('en-IN') : '‚Äî';
+  const fulfill = o.fulfillment_status || 'unfulfilled';
+  const fulfillBadge = fulfill === 'shipped' ? 'badge-shipped' : 'badge-unfulfilled';
+
   document.getElementById('drawer-content').innerHTML = `
     <h3>Order #${o.id}</h3>
-    <div class="adm-detail-row"><span class="adm-detail-label">Status</span><span class="adm-badge ${o.payment_status==='paid'?'badge-paid':o.payment_status==='failed'?'badge-failed':'badge-pending'}">${o.payment_status||'pending'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Amount</span><span><strong>₹${Number(o.amount||0).toLocaleString('en-IN')}</strong></span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Customer</span><span>${o.customer_name||'—'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Phone</span><span>${o.customer_phone||'—'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Payment</span><span>${o.phonepe_txn_id ? 'PhonePe' : o.notes?.includes('UPI') ? 'UPI' : 'COD'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Notes</span><span style="font-size:12px">${o.notes||'—'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">TxnID</span><span style="font-size:11px;word-break:break-all">${o.phonepe_txn_id||'—'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Payment</span><span class="adm-badge ${o.payment_status==='paid'?'badge-paid':o.payment_status==='failed'?'badge-failed':'badge-pending'}">${o.payment_status||'pending'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Fulfillment</span><span class="adm-badge ${fulfillBadge}">${fulfill}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Amount</span><span><strong>‚Çπ${Number(o.amount||0).toLocaleString('en-IN')}</strong></span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Customer</span><span>${o.customer_name||'‚Äî'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Phone</span><span>${o.customer_phone||'‚Äî'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Payment via</span><span>${o.phonepe_txn_id ? 'PhonePe' : 'COD'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Notes</span><span style="font-size:12px">${o.notes||'‚Äî'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">TxnID</span><span style="font-size:11px;word-break:break-all">${o.phonepe_txn_id||'‚Äî'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Created</span><span>${date}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Paid at</span><span>${paidAt}</span></div>
     ${o.address && typeof o.address === 'object' ? `
@@ -579,11 +822,24 @@ function openDrawer(orderId) {
     <div style="background:#f5f5f5;border-radius:5px;padding:12px;font-size:13px;line-height:1.6">
       ${o.address.name || o.customer_name || ''}<br>
       ${o.address.address || ''}<br>
-      ${o.address.city || ''}${o.address.pincode ? ' – ' + o.address.pincode : ''}<br>
+      ${o.address.city || ''}${o.address.pincode ? ' ‚Äì ' + o.address.pincode : ''}<br>
       ${o.address.state || ''}
     </div>` : ''}
     <div style="margin-top:16px;font-size:12px;font-weight:700;letter-spacing:.5px;color:#888;text-transform:uppercase;margin-bottom:8px">Items</div>
     ${items || '<div style="color:#aaa;font-size:13px">No item details</div>'}
+
+    <div class="fulfill-section">
+      <h4>Fulfillment</h4>
+      ${o.tracking_number ? `<div style="font-size:12px;color:#1565c0;margin-bottom:8px">Tracking: <strong>${o.tracking_number}</strong></div>` : ''}
+      <div class="fulfill-row">
+        <input type="text" class="fulfill-input" id="drawer-tracking" placeholder="Tracking number (optional)" value="${o.tracking_number||''}">
+        <button class="fulfill-btn ${fulfill==='shipped'?'shipped':''}" onclick="markShipped('${o.id}')">
+          ${fulfill === 'shipped' ? '‚úì Shipped' : 'Mark as Shipped'}
+        </button>
+        ${fulfill === 'shipped' ? `<button class="fulfill-btn" onclick="markUnfulfilled('${o.id}')" style="background:#888">Mark Unfulfilled</button>` : ''}
+      </div>
+    </div>
+
     ${o.customer_phone ? `<div style="margin-top:20px"><a href="https://wa.me/91${o.customer_phone}?text=Hi%20${encodeURIComponent(o.customer_name||'')}%2C%20your%20RAVYNN%20order%20%23${o.id}%20is%20confirmed!" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:10px 18px;border-radius:5px;font-size:13px;font-weight:700;text-decoration:none">
       <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.524 5.843L.057 23.25l5.538-1.451A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.656-.497-5.187-1.363l-.371-.22-3.288.862.877-3.205-.24-.391A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
       WhatsApp Customer
@@ -592,28 +848,272 @@ function openDrawer(orderId) {
   document.getElementById('order-drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('open');
 }
+
+async function markShipped(orderId) {
+  const tracking = document.getElementById('drawer-tracking')?.value?.trim() || '';
+  await updateFulfillment(orderId, 'shipped', tracking);
+}
+
+async function markUnfulfilled(orderId) {
+  await updateFulfillment(orderId, 'unfulfilled', '');
+}
+
+async function updateFulfillment(orderId, status, tracking) {
+  try {
+    const r = await fetch('/api/orders', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ id: orderId, fulfillment_status: status, tracking_number: tracking })
+    });
+    if (!r.ok) throw new Error('Failed');
+    const o = allOrders.find(x => String(x.id) === String(orderId));
+    if (o) { o.fulfillment_status = status; o.tracking_number = tracking; }
+    closeDrawer();
+    renderOrderRows(allOrders);
+  } catch (e) { alert('Error updating fulfillment: ' + e.message); }
+}
+
 function closeDrawer() {
   document.getElementById('order-drawer').classList.remove('open');
   document.getElementById('drawer-overlay').classList.remove('open');
 }
 
-// ── Shipping ──────────────────────────────────────────────────
+// ‚îÄ‚îÄ Customers ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+function renderCustomers() {
+  const q = (document.getElementById('customer-search')?.value || '').toLowerCase().trim();
+  const loading = document.getElementById('customers-loading');
+  const table = document.getElementById('customers-table');
+  const empty = document.getElementById('customers-empty');
+
+  if (!allOrders.length) {
+    loading.style.display = 'block';
+    loading.textContent = 'No orders data. Go to Orders tab first.';
+    return;
+  }
+  loading.style.display = 'none';
+
+  // Group by phone
+  const map = {};
+  allOrders.forEach(o => {
+    const key = o.customer_phone || o.customer_name || 'unknown';
+    if (!map[key]) map[key] = { name: o.customer_name, phone: o.customer_phone, orders: 0, total: 0, lastDate: null };
+    map[key].orders++;
+    if (o.payment_status === 'paid') map[key].total += Number(o.amount || 0);
+    const d = new Date(o.created_at);
+    if (!map[key].lastDate || d > map[key].lastDate) map[key].lastDate = d;
+  });
+
+  let customers = Object.values(map);
+  if (q) customers = customers.filter(c =>
+    (c.name||'').toLowerCase().includes(q) || (c.phone||'').includes(q)
+  );
+  customers.sort((a, b) => b.lastDate - a.lastDate);
+
+  if (!customers.length) { table.style.display = 'none'; empty.style.display = 'block'; return; }
+  table.style.display = 'table';
+  empty.style.display = 'none';
+
+  document.getElementById('customers-tbody').innerHTML = customers.map(c => {
+    const date = c.lastDate ? c.lastDate.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '‚Äî';
+    const wa = c.phone ? `<a href="https://wa.me/91${c.phone}" target="_blank" style="color:#25D366;font-weight:700;text-decoration:none;font-size:12px">WhatsApp</a>` : '';
+    return `<tr>
+      <td><strong>${c.name||'‚Äî'}</strong></td>
+      <td>${c.phone||'‚Äî'}</td>
+      <td>${c.orders}</td>
+      <td><strong>‚Çπ${c.total.toLocaleString('en-IN')}</strong></td>
+      <td style="color:#888;font-size:12px">${date}</td>
+      <td>${wa}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ‚îÄ‚îÄ Analytics ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+function renderAnalytics() {
+  if (!allOrders.length) return;
+  const paid = allOrders.filter(o => o.payment_status === 'paid');
+  const rev = paid.reduce((s, o) => s + Number(o.amount||0), 0);
+  const now = new Date();
+  const thisMonth = allOrders.filter(o => {
+    const d = new Date(o.created_at);
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  });
+  const avg = paid.length ? Math.round(rev / paid.length) : 0;
+
+  document.getElementById('ana-total-rev').textContent = '‚Çπ' + rev.toLocaleString('en-IN');
+  document.getElementById('ana-month-orders').textContent = thisMonth.length;
+  document.getElementById('ana-avg').textContent = '‚Çπ' + avg.toLocaleString('en-IN');
+  document.getElementById('ana-products').textContent = allProducts.filter(p => p.available !== false).length || '‚Äî';
+
+  setChartRange(7, document.querySelector('.chart-range-btn.active'));
+  renderPaymentChart();
+  renderTopProducts();
+}
+
+function setChartRange(days, btn) {
+  document.querySelectorAll('.chart-range-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const labels = [], data = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const key = d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+    labels.push(key);
+    const dayRev = allOrders
+      .filter(o => o.payment_status === 'paid' && new Date(o.created_at).toDateString() === d.toDateString())
+      .reduce((s, o) => s + Number(o.amount||0), 0);
+    data.push(dayRev);
+  }
+
+  const ctx = document.getElementById('revenue-chart').getContext('2d');
+  if (revenueChart) revenueChart.destroy();
+  revenueChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: 'Revenue (‚Çπ)', data, backgroundColor: '#000', borderRadius: 4 }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: v => '‚Çπ' + v.toLocaleString('en-IN') } }
+      }
+    }
+  });
+}
+
+function renderPaymentChart() {
+  const phonepe = allOrders.filter(o => o.phonepe_txn_id).length;
+  const cod = allOrders.length - phonepe;
+  const ctx = document.getElementById('payment-chart').getContext('2d');
+  if (paymentChart) paymentChart.destroy();
+  paymentChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['PhonePe', 'COD'],
+      datasets: [{ data: [phonepe, cod], backgroundColor: ['#5f5fff', '#f59e0b'], borderWidth: 0 }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+  });
+}
+
+function renderTopProducts() {
+  const map = {};
+  allOrders.forEach(o => {
+    if (!Array.isArray(o.items)) return;
+    o.items.forEach(item => {
+      const key = item.title || item.id || 'Unknown';
+      map[key] = (map[key] || 0) + Number(item.qty || 1);
+    });
+  });
+  const sorted = Object.entries(map).sort((a,b) => b[1]-a[1]).slice(0,5);
+  const max = sorted[0]?.[1] || 1;
+  document.getElementById('top-products-list').innerHTML = sorted.length
+    ? sorted.map(([name, qty]) => `
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+          <span style="font-size:12px;font-weight:600">${name.replace(/^RAVYNN\s+/,'').slice(0,40)}</span>
+          <span style="font-size:12px;color:#888">${qty} sold</span>
+        </div>
+        <div style="background:#f0f0f0;border-radius:3px;height:6px">
+          <div style="background:#000;height:6px;border-radius:3px;width:${Math.round(qty/max*100)}%"></div>
+        </div>
+      </div>`).join('')
+    : '<p style="color:#aaa;font-size:13px">No item data available</p>';
+}
+
+// ‚îÄ‚îÄ Discounts ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+async function loadCoupons() {
+  try {
+    const r = await fetch('/api/admin-settings?key=coupons', { headers: { 'x-admin-key': ADMIN_KEY } });
+    const d = await r.json();
+    allCoupons = Array.isArray(d.value) ? d.value : [];
+    renderCoupons();
+  } catch {
+    document.getElementById('discounts-loading').textContent = 'Error loading coupons.';
+  }
+}
+
+function renderCoupons() {
+  const loading = document.getElementById('discounts-loading');
+  const table = document.getElementById('discounts-table');
+  const empty = document.getElementById('discounts-empty');
+  loading.style.display = 'none';
+
+  if (!allCoupons.length) { table.style.display = 'none'; empty.style.display = 'block'; return; }
+  table.style.display = 'table';
+  empty.style.display = 'none';
+
+  document.getElementById('discounts-tbody').innerHTML = allCoupons.map((c, i) => {
+    const disc = c.type === 'pct' ? c.value + '% off' : '‚Çπ' + c.value + ' off';
+    const min = c.min_order ? '‚Çπ' + c.min_order : '‚Äî';
+    return `<tr>
+      <td><strong>${c.code}</strong></td>
+      <td>${disc}</td>
+      <td>${min}</td>
+      <td>
+        <label class="disc-toggle">
+          <input type="checkbox" ${c.active !== false ? 'checked' : ''} onchange="toggleCoupon(${i}, this.checked)">
+          <span class="disc-slider"></span>
+        </label>
+      </td>
+      <td><button class="prod-action-btn prod-del-btn" onclick="deleteCoupon(${i})">Delete</button></td>
+    </tr>`;
+  }).join('');
+}
+
+async function saveCoupons() {
+  await fetch('/api/admin-settings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ key: 'coupons', value: allCoupons })
+  });
+}
+
+async function addCoupon() {
+  const code = document.getElementById('dc-code').value.trim().toUpperCase();
+  const type = document.getElementById('dc-type').value;
+  const value = Number(document.getElementById('dc-value').value);
+  const min = Number(document.getElementById('dc-min').value) || 0;
+  if (!code || !value) return alert('Enter code and discount value.');
+  if (allCoupons.find(c => c.code === code)) return alert('Code already exists.');
+  allCoupons.push({ code, type, value, min_order: min, active: true });
+  await saveCoupons();
+  renderCoupons();
+  document.getElementById('dc-code').value = '';
+  document.getElementById('dc-value').value = '';
+  document.getElementById('dc-min').value = '';
+}
+
+async function deleteCoupon(i) {
+  if (!confirm('Delete coupon "' + allCoupons[i].code + '"?')) return;
+  allCoupons.splice(i, 1);
+  await saveCoupons();
+  renderCoupons();
+}
+
+async function toggleCoupon(i, active) {
+  allCoupons[i].active = active;
+  await saveCoupons();
+}
+
+// ‚îÄ‚îÄ Shipping ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function loadShipping() {
   fetch('/api/admin-settings?key=shipping', { headers: { 'x-admin-key': ADMIN_KEY } })
     .then(r => r.json())
     .then(d => {
       shipConfig = d.value || shipConfig;
-      fillShipInputs();
-      renderRules();
-      renderPP();
-      document.getElementById('ship-status').textContent = '✓ Settings loaded. Changes are saved instantly.';
+      fillShipInputs(); renderRules(); renderPP();
+      document.getElementById('ship-status').textContent = '‚úì Settings loaded.';
       document.getElementById('ship-status').style.background = '#e8f5e9';
       document.getElementById('ship-status').style.color = '#2d7a3e';
       document.getElementById('ship-status').style.borderColor = '#a7f3d0';
     })
-    .catch(() => {
-      document.getElementById('ship-status').textContent = 'Could not load shipping settings. Check DATABASE_URL env var.';
-    });
+    .catch(() => { document.getElementById('ship-status').textContent = 'Could not load shipping settings.'; });
 }
 
 function fillShipInputs() {
@@ -623,7 +1123,7 @@ function fillShipInputs() {
   document.getElementById('inp-cod').value = shipConfig.cod_extra ?? 0;
 }
 
-async function saveConfig() {
+async function saveConfig2() {
   const r = await fetch('/api/admin-settings', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
@@ -635,23 +1135,21 @@ async function saveConfig() {
 async function saveField(field, inputId, btn) {
   const val = Number(document.getElementById(inputId).value) || 0;
   shipConfig[field] = val;
-  btn.textContent = 'Saving…';
-  btn.disabled = true;
-  const ok = await saveConfig();
+  btn.textContent = 'Saving‚Ä¶'; btn.disabled = true;
+  const ok = await saveConfig2();
   btn.disabled = false;
-  btn.textContent = ok ? 'Saved ✓' : 'Error!';
+  btn.textContent = ok ? 'Saved ‚úì' : 'Error!';
   btn.className = 'ship-save-btn ' + (ok ? 'saved' : '');
   setTimeout(() => { btn.textContent = 'Save'; btn.className = 'ship-save-btn'; }, 2000);
 }
 
-// Rules
 function renderRules() {
   const rules = shipConfig.rules || [];
   const el = document.getElementById('rules-list');
-  if (!rules.length) { el.innerHTML = '<div style="color:#aaa;font-size:13px;padding:4px 0">No rules set. Standard rate applies.</div>'; return; }
+  if (!rules.length) { el.innerHTML = '<div style="color:#aaa;font-size:13px;padding:4px 0">No rules set.</div>'; return; }
   el.innerHTML = rules.map((r, i) => {
-    const desc = r.type === 'above_qty' ? `Qty > ${r.val} → ₹${r.rate}` : `Order > ₹${r.val} → ₹${r.rate}`;
-    return `<div class="rule-item"><span>${desc}</span><button class="rule-del" onclick="deleteRule(${i})">×</button></div>`;
+    const desc = r.type === 'above_qty' ? `Qty > ${r.val} ‚Üí ‚Çπ${r.rate}` : `Order > ‚Çπ${r.val} ‚Üí ‚Çπ${r.rate}`;
+    return `<div class="rule-item"><span>${desc}</span><button class="rule-del" onclick="deleteRule(${i})">√ó</button></div>`;
   }).join('');
 }
 
@@ -662,25 +1160,22 @@ async function addRule() {
   if (!val) return alert('Enter a value for the condition.');
   if (!shipConfig.rules) shipConfig.rules = [];
   shipConfig.rules.push({ type, val, rate });
-  await saveConfig();
-  renderRules();
+  await saveConfig2(); renderRules();
   document.getElementById('rule-val').value = '';
   document.getElementById('rule-rate').value = '';
 }
 
 async function deleteRule(i) {
   shipConfig.rules.splice(i, 1);
-  await saveConfig();
-  renderRules();
+  await saveConfig2(); renderRules();
 }
 
-// Per-product
 function renderPP() {
   const pp = shipConfig.per_product || {};
   const el = document.getElementById('pp-list');
   const keys = Object.keys(pp);
-  if (!keys.length) { el.innerHTML = '<div style="color:#aaa;font-size:13px;padding:4px 0">No per-product overrides set.</div>'; return; }
-  el.innerHTML = keys.map(handle => `<div class="pp-item"><span>${handle} → ₹${pp[handle]}</span><button class="rule-del" onclick="deletePP('${handle}')">×</button></div>`).join('');
+  if (!keys.length) { el.innerHTML = '<div style="color:#aaa;font-size:13px;padding:4px 0">No per-product overrides.</div>'; return; }
+  el.innerHTML = keys.map(h => `<div class="pp-item"><span>${h} ‚Üí ‚Çπ${pp[h]}</span><button class="rule-del" onclick="deletePP('${h}')">√ó</button></div>`).join('');
 }
 
 async function addPP() {
@@ -689,29 +1184,24 @@ async function addPP() {
   if (!handle) return alert('Select a product.');
   if (!shipConfig.per_product) shipConfig.per_product = {};
   shipConfig.per_product[handle] = rate;
-  await saveConfig();
-  renderPP();
+  await saveConfig2(); renderPP();
   document.getElementById('pp-product').value = '';
   document.getElementById('pp-rate').value = '';
 }
 
 async function deletePP(handle) {
   delete shipConfig.per_product[handle];
-  await saveConfig();
-  renderPP();
+  await saveConfig2(); renderPP();
 }
 
-// Load products into per-product selector (shipping tab) + product tab
-let allProducts = [];
-
+// ‚îÄ‚îÄ Products ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 async function loadProducts() {
   try {
     const r = await fetch('/api/products', { headers: { 'x-admin-key': ADMIN_KEY } });
     const d = await r.json();
     allProducts = d.products || [];
-    // Populate shipping per-product selector
     const sel = document.getElementById('pp-product');
-    sel.innerHTML = '<option value="">Select product…</option>';
+    sel.innerHTML = '<option value="">Select product‚Ä¶</option>';
     allProducts.forEach(p => {
       const opt = document.createElement('option');
       opt.value = p.handle;
@@ -719,20 +1209,7 @@ async function loadProducts() {
       sel.appendChild(opt);
     });
     renderProductTable();
-  } catch (e) {
-    // Fallback to products.json for shipping selector
-    try {
-      const r = await fetch('assets/products.json');
-      const d = await r.json();
-      const sel = document.getElementById('pp-product');
-      sel.innerHTML = '<option value="">Select product…</option>';
-      (d.products || []).forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p.handle;
-        opt.textContent = p.title.replace(/^RAVYNN\s+/,'').slice(0, 50);
-        sel.appendChild(opt);
-      });
-    } catch {}
+  } catch {
     document.getElementById('products-loading').textContent = 'Could not load products from database.';
   }
 }
@@ -740,29 +1217,21 @@ async function loadProducts() {
 function renderProductTable() {
   const q = (document.getElementById('prod-search')?.value || '').toLowerCase();
   const filtered = q ? allProducts.filter(p => p.title?.toLowerCase().includes(q) || p.handle?.toLowerCase().includes(q)) : allProducts;
-
   const loading = document.getElementById('products-loading');
-  const table   = document.getElementById('products-table');
-  const empty   = document.getElementById('products-empty');
-
+  const table = document.getElementById('products-table');
+  const empty = document.getElementById('products-empty');
   loading.style.display = 'none';
-  if (!filtered.length) {
-    table.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  table.style.display = 'table';
-  empty.style.display = 'none';
-
+  if (!filtered.length) { table.style.display = 'none'; empty.style.display = 'block'; return; }
+  table.style.display = 'table'; empty.style.display = 'none';
   document.getElementById('products-tbody').innerHTML = filtered.map(p => {
     const img = Array.isArray(p.images) && p.images[0] ? `<img src="${p.images[0]}" class="prod-thumb" loading="lazy">` : '<div class="prod-thumb" style="display:inline-block"></div>';
-    const price = '₹' + Number(p.price || 0).toLocaleString('en-IN');
-    const compare = p.compare_at_price ? '<span style="text-decoration:line-through;color:#aaa;font-size:11px;margin-left:4px">₹' + Number(p.compare_at_price).toLocaleString('en-IN') + '</span>' : '';
+    const price = '‚Çπ' + Number(p.price || 0).toLocaleString('en-IN');
+    const compare = p.compare_at_price ? '<span style="text-decoration:line-through;color:#aaa;font-size:11px;margin-left:4px">‚Çπ' + Number(p.compare_at_price).toLocaleString('en-IN') + '</span>' : '';
     return `<tr>
       <td>${img}</td>
       <td><strong style="font-size:13px">${(p.title || '').replace(/^RAVYNN\s+/,'').slice(0,60)}</strong><br><span style="color:#aaa;font-size:11px">${p.handle || ''}</span></td>
       <td>${price}${compare}</td>
-      <td style="color:#888;font-size:12px">${p.type || '—'}</td>
+      <td style="color:#888;font-size:12px">${p.type || '‚Äî'}</td>
       <td>
         <label class="prod-avail-toggle" onclick="toggleAvailable(${p.id}, this)">
           <input type="checkbox" ${p.available ? 'checked' : ''} readonly onclick="return false">
@@ -796,10 +1265,9 @@ async function deleteProduct(id, title) {
   renderProductTable();
 }
 
+// ‚îÄ‚îÄ Product modal + image upload ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function openProductModal(id) {
-  const modal = document.getElementById('prod-modal-overlay');
   const p = id ? allProducts.find(x => x.id === id) : null;
-
   document.getElementById('prod-modal-title').textContent = p ? 'Edit Product' : 'Add Product';
   document.getElementById('prod-edit-id').value = p ? p.id : '';
   document.getElementById('pm-title').value = p ? p.title : '';
@@ -810,16 +1278,24 @@ function openProductModal(id) {
   document.getElementById('pm-description').value = p ? (p.description || '') : '';
   document.getElementById('pm-available').checked = p ? p.available !== false : true;
   document.getElementById('pm-images').value = p && Array.isArray(p.images) ? p.images.join('\n') : '';
+  document.getElementById('img-file-input').value = '';
 
-  // Collections checkboxes
+  // Show existing images as preview
+  const previewRow = document.getElementById('img-preview-row');
+  previewRow.innerHTML = '';
+  if (p && Array.isArray(p.images)) {
+    p.images.filter(Boolean).forEach(url => addPreviewThumb(url));
+  }
+
   const colVals = p && Array.isArray(p.collections) ? p.collections : ['all'];
   document.querySelectorAll('#pm-collections input').forEach(cb => { cb.checked = colVals.includes(cb.value); });
-
-  // Sizes checkboxes
   const sizeVals = p && Array.isArray(p.sizes) ? p.sizes : ['S','M','L','XL'];
   document.querySelectorAll('#pm-sizes input').forEach(cb => { cb.checked = sizeVals.includes(cb.value); });
 
-  modal.classList.add('open');
+  if (!cloudinaryConfig.cloud_name) {
+    document.getElementById('cloudinary-notice').style.display = 'block';
+  }
+  document.getElementById('prod-modal-overlay').classList.add('open');
 }
 
 function closeProdModal() {
@@ -827,10 +1303,64 @@ function closeProdModal() {
 }
 
 function autoHandle() {
-  const id = document.getElementById('prod-edit-id').value;
-  if (id) return; // Don't auto-change handle when editing
+  if (document.getElementById('prod-edit-id').value) return;
   const title = document.getElementById('pm-title').value;
   document.getElementById('pm-handle').value = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+function addPreviewThumb(url) {
+  const row = document.getElementById('img-preview-row');
+  const div = document.createElement('div');
+  div.className = 'img-thumb-item';
+  div.dataset.url = url;
+  div.innerHTML = `<img src="${url}" onerror="this.style.display='none'"><button class="img-thumb-remove" onclick="removeThumb(this)">√ó</button>`;
+  row.appendChild(div);
+}
+
+function removeThumb(btn) {
+  const item = btn.parentElement;
+  const url = item.dataset.url;
+  item.remove();
+  // Also remove from textarea
+  const ta = document.getElementById('pm-images');
+  ta.value = ta.value.split('\n').filter(u => u.trim() !== url).join('\n');
+}
+
+async function handleImageFiles(files) {
+  for (const file of Array.from(files)) {
+    const row = document.getElementById('img-preview-row');
+    const div = document.createElement('div');
+    div.className = 'img-thumb-item';
+    div.innerHTML = '<div class="img-thumb-loading">Uploading‚Ä¶</div>';
+    row.appendChild(div);
+
+    try {
+      let url;
+      if (cloudinaryConfig.cloud_name && cloudinaryConfig.upload_preset) {
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('upload_preset', cloudinaryConfig.upload_preset);
+        const r = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloud_name}/image/upload`, { method: 'POST', body: fd });
+        const d = await r.json();
+        if (d.error) throw new Error(d.error.message);
+        url = d.secure_url;
+      } else {
+        // Fallback: convert to base64 data URL (not production-safe, but shows preview)
+        url = await new Promise(res => {
+          const reader = new FileReader();
+          reader.onload = e => res(e.target.result);
+          reader.readAsDataURL(file);
+        });
+      }
+      div.dataset.url = url;
+      div.innerHTML = `<img src="${url}"><button class="img-thumb-remove" onclick="removeThumb(this)">√ó</button>`;
+      const ta = document.getElementById('pm-images');
+      ta.value = ta.value ? ta.value + '\n' + url : url;
+    } catch (e) {
+      div.innerHTML = '<div class="img-thumb-loading" style="color:#e53e3e">Failed</div>';
+      setTimeout(() => div.remove(), 2000);
+    }
+  }
 }
 
 async function saveProduct() {
@@ -855,9 +1385,7 @@ async function saveProduct() {
   };
 
   const btn = document.querySelector('.prod-save-btn');
-  btn.textContent = 'Saving…';
-  btn.disabled = true;
-
+  btn.textContent = 'Saving‚Ä¶'; btn.disabled = true;
   try {
     let r;
     if (id) {
@@ -867,28 +1395,21 @@ async function saveProduct() {
     }
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || 'Save failed');
-
-    if (id) {
-      const idx = allProducts.findIndex(p => p.id === parseInt(id));
-      if (idx !== -1) allProducts[idx] = d.product;
-    } else {
-      allProducts.unshift(d.product);
-    }
+    if (id) { const idx = allProducts.findIndex(p => p.id === parseInt(id)); if (idx !== -1) allProducts[idx] = d.product; }
+    else allProducts.unshift(d.product);
     renderProductTable();
     closeProdModal();
   } catch (e) {
     alert('Error: ' + e.message);
   } finally {
-    btn.textContent = 'Save Product';
-    btn.disabled = false;
+    btn.textContent = 'Save Product'; btn.disabled = false;
   }
 }
 
 async function importProductsFromJSON() {
-  if (!confirm('This will import all products from assets/products.json into the database. Existing products with the same handle will be updated. Continue?')) return;
+  if (!confirm('Import all products from assets/products.json? Existing handles will be updated.')) return;
   const btn = document.querySelector('.prod-import-btn');
-  btn.textContent = 'Importing…';
-  btn.disabled = true;
+  btn.textContent = 'Importing‚Ä¶'; btn.disabled = true;
   try {
     const r = await fetch('assets/products.json');
     const d = await r.json();
@@ -907,15 +1428,14 @@ async function importProductsFromJSON() {
         })
       });
       done++;
-      btn.textContent = `Importing… ${done}/${list.length}`;
+      btn.textContent = `Importing‚Ä¶ ${done}/${list.length}`;
     }
     await loadProducts();
-    btn.textContent = `Imported ${done} products ✓`;
+    btn.textContent = `Imported ${done} ‚úì`;
     setTimeout(() => { btn.textContent = 'Import from JSON'; btn.disabled = false; }, 3000);
   } catch (e) {
     alert('Import failed: ' + e.message);
-    btn.textContent = 'Import from JSON';
-    btn.disabled = false;
+    btn.textContent = 'Import from JSON'; btn.disabled = false;
   }
 }
 </script>
