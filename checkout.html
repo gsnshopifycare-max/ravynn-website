@@ -324,36 +324,9 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
       <h2 class="co-section-title" style="margin-top:20px">Payment</h2>
       <div class="co-pay-opts">
-        <!-- COD -->
-        <div class="co-pay-opt selected" data-pay="cod" onclick="selectPay('cod')">
-          <input type="radio" name="payment" value="cod" checked>
-          <span class="co-pay-opt-label">Cash on Delivery</span>
-          <div class="co-pay-opt-icons"><span class="pay-badge">COD</span></div>
-        </div>
-        <div class="co-pay-panel open" id="panel-cod">
-          <p>Pay with cash when your order arrives. No extra charges.</p>
-        </div>
-
-        <!-- UPI -->
-        <div class="co-pay-opt" data-pay="upi" onclick="selectPay('upi')">
-          <input type="radio" name="payment" value="upi">
-          <span class="co-pay-opt-label">UPI</span>
-          <div class="co-pay-opt-icons">
-            <span class="pay-badge">GPay</span>
-            <span class="pay-badge">PhonePe</span>
-            <span class="pay-badge">Paytm</span>
-          </div>
-        </div>
-        <div class="co-pay-panel" id="panel-upi">
-          <p>Pay via UPI. Open any UPI app and pay to:</p>
-          <div class="upi-id-display" id="upi-id-display">ravynn@upi</div>
-          <p style="font-size:12px;color:#888">After payment, take a screenshot and WhatsApp it to us for order confirmation.</p>
-          <button class="upi-copy-btn" onclick="copyUPI()">Copy UPI ID</button>
-        </div>
-
         <!-- Razorpay -->
-        <div class="co-pay-opt" data-pay="card" onclick="selectPay('card')">
-          <input type="radio" name="payment" value="card">
+        <div class="co-pay-opt selected" data-pay="card" onclick="selectPay('card')">
+          <input type="radio" name="payment" value="card" checked>
           <span class="co-pay-opt-label">Pay Online</span>
           <div class="co-pay-opt-icons">
             <span class="pay-badge">UPI</span>
@@ -361,12 +334,22 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
             <span class="pay-badge">NetBanking</span>
           </div>
         </div>
-        <div class="co-pay-panel" id="panel-card">
+        <div class="co-pay-panel open" id="panel-card">
           <p>Pay via UPI, Cards, Net Banking or Wallets &#8212; powered by Razorpay. 100% secure.</p>
+        </div>
+
+        <!-- COD -->
+        <div class="co-pay-opt" data-pay="cod" onclick="selectPay('cod')">
+          <input type="radio" name="payment" value="cod">
+          <span class="co-pay-opt-label">Cash on Delivery</span>
+          <div class="co-pay-opt-icons"><span class="pay-badge">COD</span></div>
+        </div>
+        <div class="co-pay-panel" id="panel-cod">
+          <p>Pay with cash when your order arrives. No extra charges.</p>
         </div>
       </div>
 
-      <button class="co-cta" id="btn-place-order">Pay &amp; Place Order</button>
+      <button class="co-cta" id="btn-place-order">Pay with Razorpay &#8594;</button>
       <span class="co-back-link" onclick="goTo(2)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
         Return to shipping
@@ -379,7 +362,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
         </div>
         <div class="co-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Easy 7-day returns
+          Easy 7-day exchange
         </div>
         <div class="co-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -712,8 +695,7 @@ function selectPay(type) {
   // Update CTA label
   const cta = document.getElementById('btn-place-order');
   if (type === 'cod')  cta.textContent = 'Place Order \u2014 Cash on Delivery';
-  if (type === 'upi')  cta.textContent = 'I have paid via UPI';
-  if (type === 'card') cta.textContent = 'Pay with Razorpay \u2192';
+  if (type === 'card') cta.innerHTML   = 'Pay with Razorpay &#8594;';
 }
 
 //  UPI copy 
@@ -913,8 +895,6 @@ document.getElementById('btn-to-shipping').addEventListener('click', () => {
 document.getElementById('btn-to-payment').addEventListener('click', () => {
   selectedShipping = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
   fillShippingSummary();
-  // Update UPI ID
-  document.getElementById('upi-id-display').textContent = UPI_ID;
   goTo(3);
 });
 
@@ -928,14 +908,6 @@ document.getElementById('btn-place-order').addEventListener('click', async () =>
     } else {
       showConfirmation(orderNum, payMethod);
     }
-    return;
-  }
-
-  if (payMethod === 'upi') {
-    const { total } = calcTotals();
-    const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=RAVYNN&am=${total}&cu=INR&tn=Order ${orderNum}`;
-    window.open(upiLink, '_blank');
-    showConfirmation(orderNum, payMethod);
     return;
   }
 
