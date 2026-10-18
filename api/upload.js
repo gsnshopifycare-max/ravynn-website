@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   const owner = 'gsnshopifycare-max';
   const repo = 'ravynn-website';
   const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const path = `public/products/${safeName}`;
+  const path = `assets/products/${safeName}`;
 
   let sha;
   try {
