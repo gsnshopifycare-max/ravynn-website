@@ -10,9 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/theme.css">
 <style>
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ===================================
    GLOBAL OVERRIDES FOR RAVYNN.IN MATCH
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+=================================== */
 :root {
   --c-black: #000;
   --c-white: #fff;
@@ -22,7 +22,7 @@
 }
 body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 0; }
 
-/* ‚îÄ‚îÄ Announcement Bar ‚îÄ‚îÄ */
+/* -- Announcement Bar -- */
 .announcement-bar {
   background: #000;
   color: #fff;
@@ -35,7 +35,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 }
 .announcement-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; line-height: 1; padding: 0; }
 
-/* ‚îÄ‚îÄ Header ‚îÄ‚îÄ */
+/* -- Header -- */
 .site-header {
   position: sticky;
   top: 0;
@@ -69,7 +69,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .header-icon-btn svg { width: 20px; height: 20px; }
 .cart-count { position: absolute; top: 0; right: 0; background: #000; color: #fff; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-/* ‚îÄ‚îÄ Search Overlay ‚îÄ‚îÄ */
+/* -- Search Overlay -- */
 .search-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.5); }
 .search-overlay.open { display: block; }
 .search-inner { background: #fff; padding: 24px 20px; max-height: 90vh; overflow-y: auto; }
@@ -77,7 +77,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .search-input { flex: 1; border: none; outline: none; font-size: 16px; font-family: inherit; }
 .search-close { background: none; border: none; font-size: 24px; cursor: pointer; line-height: 1; padding: 0; }
 
-/* ‚îÄ‚îÄ Mobile Menu ‚îÄ‚îÄ */
+/* -- Mobile Menu -- */
 .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 290px; height: 100%; background: #fff; z-index: 300; flex-direction: column; overflow-y: auto; }
 .mobile-menu.open { display: flex; }
 .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e8e8e8; flex-shrink: 0; }
@@ -109,9 +109,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .site-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 200; }
 .site-overlay.active { display: block; }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-   HERO ‚Äî Split-screen 2-panel (ravynn.in exact)
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ===================================
+   HERO -- Split-screen 2-panel (ravynn.in exact)
+=================================== */
 .hero-carousel {
   position: relative;
   overflow: hidden;
@@ -120,7 +120,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   max-height: 720px;
   min-height: 480px;
 }
-/* Desktop: show 2 panels side by side ‚Äî use opacity crossfade for smooth transitions
+/* Desktop: show 2 panels side by side -- use opacity crossfade for smooth transitions
    Override theme.css: aspect-ratio:9/14, flex:0 0 50%, max-height:90vh on .hero-slide */
 .hero-slide {
   display: flex !important;
@@ -247,9 +247,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   .hero-title { font-size: 36px; }
 }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-   SHOP BY CATEGORY ‚Äî 5 cols horizontal scroll
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ===================================
+   SHOP BY CATEGORY -- 5 cols horizontal scroll
+=================================== */
 .categories-section { padding: 16px 12px 12px; }
 .section-eyebrow { text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 10px; }
 .cat-grid {
@@ -280,9 +280,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   padding: 8px 0 6px;
 }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-   EDITORIAL GRID ‚Äî 4 cols 1 row (ravynn.in exact)
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ===================================
+   EDITORIAL GRID -- 4 cols 1 row (ravynn.in exact)
+=================================== */
 .editorial-section { padding: 0 0 6px; }
 .editorial-grid-2x2 {
   display: grid;
@@ -311,9 +311,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .editorial-tile-tag { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: .7; margin-bottom: 6px; }
 .editorial-tile-title { font-size: clamp(14px, 1.6vw, 20px); font-weight: 900; text-transform: uppercase; line-height: 1.2; }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-   COLLECTION TILES ‚Äî 4 tall banners
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ===================================
+   COLLECTION TILES -- 4 tall banners
+=================================== */
 .collection-tiles-section { padding: 0 0 16px; }
 .collection-tiles-grid {
   display: grid;
@@ -344,9 +344,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .col-tile-tag { display: none; }
 .col-tile-title { font-size: clamp(12px, 1.4vw, 17px); font-weight: 900; text-transform: uppercase; line-height: 1.3; letter-spacing: .3px; }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-   PROMO BANNER ‚Äî "FLAT 10% OFF FIRST ORDER"
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ===================================
+   PROMO BANNER -- "FLAT 10% OFF FIRST ORDER"
+=================================== */
 .promo-banner-full {
   background: #f5f2eb;
   padding: 32px 48px;
@@ -385,9 +385,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .promo-last-chance { font-size: clamp(18px, 2.5vw, 28px); font-style: italic; font-weight: 400; color: #333; margin-bottom: 4px; }
 .promo-few-sizes { font-size: 12px; color: #888; letter-spacing: 1px; margin-bottom: 20px; }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ===================================
    NEW AND POPULAR
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+=================================== */
 .new-popular-section { padding: 28px 20px 40px; max-width: 1200px; margin: 0 auto; }
 .new-popular-eyebrow { text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 16px; }
 .new-popular-tabs {
@@ -414,9 +414,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .new-popular-tab:hover { border-color: #000; }
 .new-popular-tab.active { background: #000; color: #fff; border-color: #000; }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-   PRODUCT GRID ‚Äî 5 col desktop, 2 col mobile
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ===================================
+   PRODUCT GRID -- 5 col desktop, 2 col mobile
+=================================== */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -475,9 +475,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .search-products { grid-template-columns: repeat(4, 1fr); }
 @media(max-width: 767px) { .search-products { grid-template-columns: repeat(2, 1fr); } }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ===================================
    FOOTER
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+=================================== */
 .site-footer { background: #fff; border-top: 1px solid #e8e8e8; }
 .footer-gray { background: #f5f2f0; border-top: 1px solid #e8e8e8; }
 .footer-top { padding: 36px 20px 24px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -491,7 +491,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .footer-popular-tags { display: flex; flex-wrap: wrap; gap: 0; }
 .footer-popular-tag { font-size: 13px; color: #555; text-decoration: none; }
 .footer-popular-tag:hover { color: #000; }
-.footer-popular-tag::after { content: "    ¬∑    "; color: #bbb; white-space: pre; }
+.footer-popular-tag::after { content: "    \00B7     "; color: #bbb; white-space: pre; }
 .footer-popular-tag:last-child::after { content: ""; }
 .footer-inner { padding: 36px 20px 24px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 @media(max-width: 767px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 20px; } }
@@ -505,9 +505,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .footer-bottom { border-top: 1px solid #e8e8e8; padding: 16px 20px; text-align: center; }
 .footer-copy { font-size: 12px; color: #888; }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ===================================
    MOBILE BOTTOM NAV
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+=================================== */
 .mobile-bottom-nav {
   display: none;
   position: fixed;
@@ -568,7 +568,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     <a href="collection.html?c=new-drops">New Drops</a>
     <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
     <a href="collection.html?c=graphic-tees">Graphic Tees</a>
-    <a href="collection.html?c=under-999">Under ‚Çπ999</a>
+    <a href="collection.html?c=under-999">Under &#8377;999</a>
     <a href="collection.html">Shop All</a>
   </nav>
 
@@ -592,7 +592,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     <div class="search-bar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="search" class="search-input" placeholder="Search products..." autocomplete="off">
-      <button class="search-close" aria-label="Close">√ó</button>
+      <button class="search-close" aria-label="Close">&times;</button>
     </div>
     <div class="search-products"></div>
   </div>
@@ -602,7 +602,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true">
   <div class="mobile-menu-header">
     <span class="mobile-menu-logo">CATEGORIES</span>
-    <button data-close-menu class="mobile-menu-close">√ó</button>
+    <button data-close-menu class="mobile-menu-close">&times;</button>
   </div>
   <!-- Category thumbnails -->
   <div class="mobile-menu-thumbs">
@@ -619,8 +619,8 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
       <span>Oversized</span>
     </a>
     <a href="collection.html?c=under-999" class="mobile-menu-thumb">
-      <img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ‚Çπ999">
-      <span>‚Çπ999</span>
+      <img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under &#8377;999">
+      <span>&#8377;999</span>
     </a>
   </div>
   <!-- Nav links -->
@@ -628,7 +628,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     <a href="collection.html?c=new-drops">New Drops <span class="menu-new-badge">NEW</span></a>
     <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
     <a href="collection.html?c=graphic-tees">Graphic Tees</a>
-    <a href="collection.html?c=under-999">Under ‚Çπ999</a>
+    <a href="collection.html?c=under-999">Under &#8377;999</a>
     <a href="collection.html">Shop All</a>
   </nav>
   <!-- New and Popular section -->
@@ -639,14 +639,14 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
       <button data-col="new-drops">New Drops</button>
       <button data-col="graphic-tees">Graphic</button>
       <button data-col="oversized-essentials">Oversized</button>
-      <button data-col="under-999">Under ‚Çπ999</button>
+      <button data-col="under-999">Under &#8377;999</button>
     </div>
     <div class="mobile-menu-products" id="menu-products"></div>
   </div>
 </div>
 <div id="site-overlay" class="site-overlay"></div>
 
-<!-- ‚ïê‚ïê‚ïê HERO CAROUSEL (Split-screen 2-panel) ‚ïê‚ïê‚ïê -->
+<!-- === HERO CAROUSEL (Split-screen 2-panel) === -->
 <section class="hero-carousel" aria-label="Hero">
 
   <!-- Slide 1: Oversized Essentials (left) + New Drops (right) -->
@@ -669,7 +669,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     </div>
   </div>
 
-  <!-- Slide 2: Graphic Tees (left) + Under ‚Çπ999 (right) -->
+  <!-- Slide 2: Graphic Tees (left) + Under &#8377;999 (right) -->
   <div class="hero-slide">
     <div class="hero-panel">
       <img src="https://ravynn.in/cdn/shop/files/fckk_mck.png" alt="Graphic Tees">
@@ -680,10 +680,10 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
       </div>
     </div>
     <div class="hero-panel">
-      <img src="https://ravynn.in/cdn/shop/files/adfq.png" alt="Under ‚Çπ999">
+      <img src="https://ravynn.in/cdn/shop/files/adfq.png" alt="Under &#8377;999">
       <div class="hero-content">
         <p class="hero-eyebrow">Streetwear Tees, Priced Right</p>
-        <h1 class="hero-title">Under<br>‚Çπ999</h1>
+        <h1 class="hero-title">Under<br>&#8377;999</h1>
         <a href="collection.html?c=under-999" class="hero-cta">Shop Now</a>
       </div>
     </div>
@@ -709,13 +709,13 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     </div>
   </div>
 
-  <!-- Slide 4: Under ‚Çπ999 (left) + Graphic Tees (right) -->
+  <!-- Slide 4: Under &#8377;999 (left) + Graphic Tees (right) -->
   <div class="hero-slide">
     <div class="hero-panel">
-      <img src="https://ravynn.in/cdn/shop/files/adfq.png" alt="Under ‚Çπ999">
+      <img src="https://ravynn.in/cdn/shop/files/adfq.png" alt="Under &#8377;999">
       <div class="hero-content">
         <p class="hero-eyebrow">Streetwear Tees, Priced Right</p>
-        <h1 class="hero-title">Under<br>‚Çπ999</h1>
+        <h1 class="hero-title">Under<br>&#8377;999</h1>
         <a href="collection.html?c=under-999" class="hero-cta">Shop Now</a>
       </div>
     </div>
@@ -737,7 +737,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   </div>
 </section>
 
-<!-- ‚ïê‚ïê‚ïê SHOP BY CATEGORY ‚ïê‚ïê‚ïê -->
+<!-- === SHOP BY CATEGORY === -->
 <section class="categories-section">
   <p class="section-eyebrow">Shop by Category</p>
   <div class="cat-grid">
@@ -754,8 +754,8 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
       <span class="cat-name">Graphic Tees</span>
     </a>
     <a href="collection.html?c=under-999" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ‚Çπ999" loading="lazy"></div>
-      <span class="cat-name">Under ‚Çπ999</span>
+      <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under &#8377;999" loading="lazy"></div>
+      <span class="cat-name">Under &#8377;999</span>
     </a>
     <a href="collection.html" class="cat-card">
       <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/gvgcxc.png" alt="Shop All" loading="lazy"></div>
@@ -764,7 +764,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   </div>
 </section>
 
-<!-- ‚ïê‚ïê‚ïê EDITORIAL 2√ó2 GRID ‚ïê‚ïê‚ïê -->
+<!-- === EDITORIAL 2&times;2 GRID === -->
 <section class="editorial-section">
   <div class="editorial-grid-2x2">
     <a href="collection.html?c=anime-pop-culture" class="editorial-tile">
@@ -798,7 +798,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   </div>
 </section>
 
-<!-- ‚ïê‚ïê‚ïê COLLECTION TILES ‚ïê‚ïê‚ïê -->
+<!-- === COLLECTION TILES === -->
 <section class="collection-tiles-section">
   <div class="collection-tiles-grid">
     <a href="collection.html?c=oversized-essentials" class="col-tile">
@@ -816,7 +816,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     <a href="collection.html?c=under-999" class="col-tile">
       <img src="https://ravynn.in/cdn/shop/files/GD.png" alt="Under 999" loading="lazy">
       <div class="col-tile-content">
-        <h3 class="col-tile-title">Under ‚Çπ999 - Budget Picks</h3>
+        <h3 class="col-tile-title">Under &#8377;999 - Budget Picks</h3>
       </div>
     </a>
     <a href="collection.html?c=new-drops" class="col-tile">
@@ -828,7 +828,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   </div>
 </section>
 
-<!-- ‚ïê‚ïê‚ïê PROMO BANNER ‚ïê‚ïê‚ïê -->
+<!-- === PROMO BANNER === -->
 <div class="promo-banner-full">
   <h2>Flat 10% Off First Order</h2>
   <div class="promo-right-block">
@@ -838,7 +838,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   </div>
 </div>
 
-<!-- ‚ïê‚ïê‚ïê NEW AND POPULAR ‚ïê‚ïê‚ïê -->
+<!-- === NEW AND POPULAR === -->
 <section class="new-popular-section">
   <p class="new-popular-eyebrow">New and Popular</p>
   <div class="new-popular-tabs" role="tablist">
@@ -846,12 +846,12 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     <button class="new-popular-tab" data-type="new-drops">New Drops</button>
     <button class="new-popular-tab" data-type="oversized-essentials">Oversized Essentials</button>
     <button class="new-popular-tab" data-type="graphic-tees">Graphic Tees</button>
-    <button class="new-popular-tab" data-type="under-999">Under ‚Çπ999</button>
+    <button class="new-popular-tab" data-type="under-999">Under &#8377;999</button>
   </div>
   <div class="product-grid new-popular-grid"></div>
 </section>
 
-<!-- ‚ïê‚ïê‚ïê FOOTER ‚ïê‚ïê‚ïê -->
+<!-- === FOOTER === -->
 <footer class="site-footer">
   <!-- Gray top: Categories + Quick Links + Popular Searches -->
   <div class="footer-gray">
@@ -862,7 +862,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
           <a href="collection.html?c=new-drops">New Drops</a>
           <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
           <a href="collection.html?c=graphic-tees">Graphic Tees</a>
-          <a href="collection.html?c=under-999">Under ‚Çπ999</a>
+          <a href="collection.html?c=under-999">Under &#8377;999</a>
           <a href="collection.html">Shop All</a>
         </div>
       </div>
@@ -897,7 +897,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
         <li><a href="collection.html?c=new-drops">New Drops</a></li>
         <li><a href="collection.html?c=oversized-essentials">Oversized Essentials</a></li>
         <li><a href="collection.html?c=graphic-tees">Graphic Tees</a></li>
-        <li><a href="collection.html?c=under-999">Under ‚Çπ999</a></li>
+        <li><a href="collection.html?c=under-999">Under &#8377;999</a></li>
         <li><a href="collection.html">Shop All</a></li>
       </ul>
     </div>
@@ -935,8 +935,8 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   </div>
 
   <div class="footer-bottom">
-    <p class="footer-copy">¬© 2026 Ravynn. All rights reserved.</p>
-    <p class="footer-made">Made with ‚ù§Ô∏è by <a href="https://drpshippr.com" target="_blank" rel="noopener">Drpshippr Ecomm Pvt Ltd</a></p>
+    <p class="footer-copy">&copy; 2026 Ravynn. All rights reserved.</p>
+    <p class="footer-made">Made with &#10084; by <a href="https://drpshippr.com" target="_blank" rel="noopener">Drpshippr Ecomm Pvt Ltd</a></p>
   </div>
 </footer>
 
@@ -991,8 +991,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="product-card-info">
         <div class="product-card-name">${p.title}</div>
         <div class="product-card-price">
-          ${p.compare_at_price > 0 ? `<span class="compare">‚Çπ${p.compare_at_price}</span>` : ''}
-          <span class="sale-price">‚Çπ${p.price}</span>
+          ${p.compare_at_price > 0 ? `<span class="compare">\u20B9${p.compare_at_price}</span>` : ''}
+          <span class="sale-price">\u20B9${p.price}</span>
         </div>
       </div>
     </a>`;
@@ -1009,13 +1009,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const origCard = Products.card.bind(Products);
   Products.card = (p) => productCardHTML(p);
 
-  // ‚îÄ‚îÄ Menu New & Popular section ‚îÄ‚îÄ
+  // -- Menu New & Popular section --
   function menuProductHTML(p) {
-    const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^‚Äì]*‚Äì\s*/,'').split(' ').slice(0,5).join(' ');
+    const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^\u2013]*\u2013\s*/,'').split(' ').slice(0,5).join(' ');
     return `<a href="product.html?p=${p.handle}" class="menu-product-card">
       <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
       <div class="menu-product-name">${shortTitle}</div>
-      <div class="menu-product-price">‚Çπ${p.price}</div>
+      <div class="menu-product-price">\u20B9${p.price}</div>
     </a>`;
   }
   function loadMenuProducts(col) {
