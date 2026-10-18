@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const sql = neon(process.env.DATABASE_URL);
 
-  // Public GET — no auth needed
+  // Public GET \u2014 no auth needed
   if (req.method === 'GET') {
     const { handle, id, admin } = req.query;
     const isAdmin = req.headers['x-admin-key'] && req.headers['x-admin-key'] === process.env.ADMIN_KEY;
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     return res.json({ products: rows });
   }
 
-  // Write operations — admin only
+  // Write operations \u2014 admin only
   if (!process.env.ADMIN_KEY || req.headers['x-admin-key'] !== process.env.ADMIN_KEY) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
