@@ -507,8 +507,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Buy Now \u2014 add to cart then go to cart page
   document.getElementById('buy-now-btn')?.addEventListener('click', () => {
-    const addBtn = document.querySelector('.add-to-bag-btn');
-    addBtn?.click();
+    if (!document.querySelector('.size-btn.active')) {
+      document.querySelector('.add-to-bag-btn')?.click();
+      return;
+    }
+    document.querySelector('.add-to-bag-btn')?.click();
     setTimeout(() => { window.location.href = 'cart.html'; }, 150);
   });
 });
