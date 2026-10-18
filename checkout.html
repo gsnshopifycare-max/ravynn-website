@@ -849,6 +849,8 @@ async function showConfirmation(orderNum, payMethod) {
   };
 
   localStorage.removeItem('ravynn_cart');
+  var upsellWrap = document.getElementById('co-upsell-wrap');
+  if (upsellWrap) upsellWrap.style.display = 'none';
   goTo(4);
 }
 
