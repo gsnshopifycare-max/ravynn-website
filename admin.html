@@ -180,6 +180,8 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 .prod-action-btn:hover{border-color:#000}
 .prod-del-btn{color:#e53e3e;border-color:#fecaca}
 .prod-del-btn:hover{background:#fef2f2;border-color:#e53e3e}
+.prod-view-btn{color:#2563eb;border-color:#bfdbfe}
+.prod-view-btn:hover{background:#eff6ff;border-color:#2563eb}
 
 /* Product modal */
 .prod-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
@@ -1233,6 +1235,7 @@ function renderProductTable() {
       <td>
         <button class="prod-action-btn" onclick="openProductModal(${p.id})" style="margin-right:6px">Edit</button>
         <button class="prod-action-btn prod-del-btn" onclick="deleteProduct(${p.id},'${(p.title||'').replace(/'/g,'')}')">Delete</button>
+        <a class="prod-action-btn prod-view-btn" href="/product.html?p=${p.handle}" target="_blank" style="display:inline-block;margin-top:6px;text-decoration:none">View</a>
       </td>
     </tr>`;
   }).join('');
