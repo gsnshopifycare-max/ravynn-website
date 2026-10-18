@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   const sql = neon(process.env.DATABASE_URL);
 
-  // Public GET ‚Äî coupons and shipping needed by checkout
+  // Public GET \u2014 coupons and shipping needed by checkout
   if (req.method === 'GET') {
     const { key = 'shipping' } = req.query;
     if (!isAdmin && key !== 'coupons' && key !== 'shipping') {
