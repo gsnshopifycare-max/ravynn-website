@@ -392,7 +392,7 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
 
   function reapplyStoredCoupon() {
     try {
-      var stored = JSON.parse(localStorage.getItem('applied_coupon') || 'null');
+      var stored = JSON.parse(sessionStorage.getItem('applied_coupon') || 'null');
       if (!stored || !stored.code) { applyDiscountUI(0, ''); return; }
       var info = getCouponInfo(stored.code);
       if (!info) { applyDiscountUI(0, ''); return; }
@@ -469,7 +469,7 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
     if (!sub) { showCartToast('Add items to cart first.', true); return; }
     var discAmt = calcDiscount(info, sub);
     var label = info.type === 'flat' ? code + ' (-' + fmt(info.discount) + ')' : code + ' (' + info.discount + '% off)';
-    try { localStorage.setItem('applied_coupon', JSON.stringify({code:code, label:label})); } catch(e){}
+    try { sessionStorage.setItem('applied_coupon', JSON.stringify({code:code, label:label})); } catch(e){}
     applyDiscountUI(discAmt, label);
     showCouponModal(code, discAmt);
   });
@@ -480,6 +480,7 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
 
   // Reapply on load if coupon was previously saved
   document.addEventListener('DOMContentLoaded', function() {
+    try { localStorage.removeItem('applied_coupon'); } catch(e) {}
     setTimeout(reapplyStoredCoupon, 300);
   });
 })();
