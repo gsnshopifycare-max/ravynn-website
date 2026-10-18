@@ -849,7 +849,7 @@ async function showConfirmation(orderNum, payMethod) {
   };
 
   localStorage.removeItem('ravynn_cart');
-  localStorage.removeItem('applied_coupon');
+  sessionStorage.removeItem('applied_coupon');
   var upsellWrap = document.getElementById('co-upsell-wrap');
   if (upsellWrap) upsellWrap.style.display = 'none';
   var sidebar = document.querySelector('.co-sidebar');
@@ -949,7 +949,7 @@ if (!cartItems.length) {
 }
 // Auto-apply coupon saved from cart page
 try {
-  var _stored = JSON.parse(localStorage.getItem('applied_coupon') || 'null');
+  var _stored = JSON.parse(sessionStorage.getItem('applied_coupon') || 'null');
   if (_stored && _stored.code && VALID_COUPONS[_stored.code]) {
     appliedCoupon = Object.assign({}, VALID_COUPONS[_stored.code], { code: _stored.code });
     var _inp = document.getElementById('co-coupon');
