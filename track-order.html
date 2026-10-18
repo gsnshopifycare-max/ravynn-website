@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Track Order ‚Äî RAVYNN</title>
+<title>Track Order &mdash; RAVYNN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -155,13 +155,13 @@ try {
 } catch(e) {}
 
 const STATUS_MAP = {
-  pending:   { label: 'Order Placed',  cls: 'status-pending',   icon: 'üì¶' },
-  confirmed: { label: 'Confirmed',     cls: 'status-confirmed', icon: '‚úÖ' },
-  shipped:   { label: 'Shipped',       cls: 'status-shipped',   icon: 'üöö' },
-  delivered: { label: 'Delivered',     cls: 'status-delivered', icon: 'üéâ' },
+  pending:   { label: 'Order Placed',  cls: 'status-pending',   icon: '\uD83D\uDCE6' },
+  confirmed: { label: 'Confirmed',     cls: 'status-confirmed', icon: '\u2705' },
+  shipped:   { label: 'Shipped',       cls: 'status-shipped',   icon: '\uD83D\uDE9A' },
+  delivered: { label: 'Delivered',     cls: 'status-delivered', icon: '\uD83C\uDF89' },
 };
 
-function fmt(n) { return '‚Çπ' + Number(n).toLocaleString('en-IN'); }
+function fmt(n) { return '\u20B9' + Number(n).toLocaleString('en-IN'); }
 
 async function trackOrder() {
   const orderId = document.getElementById('track-order-id').value.trim().toUpperCase();
@@ -228,14 +228,14 @@ async function trackOrder() {
         <span class="order-status ${s.cls}">${s.label}</span>
       </div>
       ${order.tracking_id ? `<div style="background:#f0f8ff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px">
-        üìç Tracking ID: <strong>${order.tracking_id}</strong>
+        \uD83D\uDCCD Tracking ID: <strong>${order.tracking_id}</strong>
         ${order.courier ? ` (${order.courier})` : ''}
       </div>` : ''}
       <div class="order-items">
-        ${items.map(i => `<div class="order-item"><span>${i.title || i.name}${i.size ? ` ‚Äî ${i.size}` : ''} √ó ${i.qty||1}</span><span>${fmt((i.price||0)*(i.qty||1))}</span></div>`).join('')}
+        ${items.map(i => `<div class="order-item"><span>${i.title || i.name}${i.size ? ` \u2014 ${i.size}` : ''} \u00D7 ${i.qty||1}</span><span>${fmt((i.price||0)*(i.qty||1))}</span></div>`).join('')}
         <div class="order-total"><span>Total</span><span>${fmt(order.amount || 0)}</span></div>
       </div>
-      ${addr.address ? `<div style="margin-top:12px;font-size:12px;color:#666;border-top:1px solid #f0f0f0;padding-top:10px">üìç ${addr.name || ''}, ${addr.address}, ${addr.city} ‚Äì ${addr.pincode}</div>` : ''}
+      ${addr.address ? `<div style="margin-top:12px;font-size:12px;color:#666;border-top:1px solid #f0f0f0;padding-top:10px">\uD83D\uDCCD ${addr.name || ''}, ${addr.address}, ${addr.city} \u2013 ${addr.pincode}</div>` : ''}
     </div>`;
     resultEl.classList.add('show');
   } catch(e) {
