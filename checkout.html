@@ -446,11 +446,11 @@ const WA_NUMBER = '918512045784'; // apna number yahan
 const UPI_ID    = 'ravynn@upi';   // apna UPI ID yahan
 const RAZORPAY_KEY = 'rzp_live_Tp1eGSspVzsUwx';
 let VALID_COUPONS = {
-  'WELCOME10':  { pct: 10, label: '10% off' },
-  'FIRSTORDER': { pct: 10, label: '10% off' },
+  'WELCOME10':  { pct: 10, label: '10% off', first_order_only: true },
+  'FIRSTORDER': { pct: 10, label: '10% off', first_order_only: true },
   'RAVYNN10':   { pct: 10, label: '10% off' },
-  'RAVYNN15':   { pct: 15, label: '15% off' },
-  'RAVYNN20':   { pct: 20, label: '20% off' },
+  'RAVYNN15':   { pct: 15, label: '15% off', not_first_order: true },
+  'RAVYNN20':   { pct: 20, label: '20% off', not_first_order: true },
   'TRYRAVYNN5': { pct: 5,  label: '5% off'  },
   'TRYSNITCH5': { pct: 5,  label: '5% off'  },
   'DIWALI50':   { pct: 50, label: '50% off' },
@@ -474,7 +474,7 @@ fetch('/api/shipping').then(r => r.json()).then(c => { SHIP_CONFIG = c; renderSi
 
 function getShipRate(method, subtotal) {
   const t = SHIP_CONFIG.free_threshold ?? 0;
-  if (t === 0 || subtotal >= t) return 0;
+  if (t > 0 && subtotal >= t) return 0;
   return method === 'express' ? (SHIP_CONFIG.express_rate ?? 99) : (SHIP_CONFIG.standard_rate ?? 0);
 }
 
@@ -850,6 +850,10 @@ async function showConfirmation(orderNum, payMethod) {
 
   localStorage.removeItem('ravynn_cart');
   sessionStorage.removeItem('applied_coupon');
+  // Save customer details for next checkout autofill
+  try {
+    localStorage.setItem('ravynn_customer', JSON.stringify({ phone, name, addr1, addr2, city, pin, state }));
+  } catch(e) {}
   var upsellWrap = document.getElementById('co-upsell-wrap');
   if (upsellWrap) upsellWrap.style.display = 'none';
   var sidebar = document.querySelector('.co-sidebar');
@@ -891,8 +895,27 @@ function toggleSummary() {
 }
 
 //  Event listeners 
-document.getElementById('btn-to-shipping').addEventListener('click', () => {
+document.getElementById('btn-to-shipping').addEventListener('click', async () => {
   if (!validateContact()) return;
+  // Check first-order coupon restriction via Firebase
+  if (appliedCoupon && appliedCoupon.not_first_order) {
+    const phone = document.getElementById('inp-phone').value.trim();
+    try {
+      if (typeof firebase !== 'undefined' && firebase.apps.length) {
+        const snap = await firebase.firestore().collection('orders')
+          .where('customer.phone', '==', phone).limit(1).get();
+        if (snap.empty) {
+          appliedCoupon = null;
+          var _ci = document.getElementById('co-coupon'); if (_ci) _ci.value = '';
+          var _cm = document.getElementById('co-coupon-msg');
+          if (_cm) { _cm.className = 'co-coupon-msg err'; _cm.textContent = 'This coupon is valid for returning customers only.'; }
+          sessionStorage.removeItem('applied_coupon');
+          renderSidebar();
+          return;
+        }
+      }
+    } catch(e) {}
+  }
   fillSummaries();
   goTo(2);
 });
@@ -947,6 +970,25 @@ if (!cartItems.length) {
   // Redirect to cart if empty
   window.location.href = 'cart.html';
 }
+// Autofill saved customer details
+try {
+  var _saved = JSON.parse(localStorage.getItem('ravynn_customer') || 'null');
+  if (_saved) {
+    var _set = function(id, v) { var el = document.getElementById(id); if (el && v) el.value = v; };
+    _set('inp-phone', _saved.phone);
+    _set('inp-name', _saved.name);
+    _set('inp-addr1', _saved.addr1);
+    _set('inp-addr2', _saved.addr2);
+    _set('inp-pincode', _saved.pin);
+    _set('inp-city', _saved.city);
+    var stateEl = document.getElementById('inp-state');
+    if (stateEl && _saved.state) {
+      for (var _i = 0; _i < stateEl.options.length; _i++) {
+        if (stateEl.options[_i].text === _saved.state) { stateEl.selectedIndex = _i; break; }
+      }
+    }
+  }
+} catch(e) {}
 // Auto-apply coupon saved from cart page
 try {
   var _stored = JSON.parse(sessionStorage.getItem('applied_coupon') || 'null');
