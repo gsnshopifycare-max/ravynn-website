@@ -126,6 +126,17 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
 .pf-stat strong{color:#111;font-size:15px;font-weight:700}
 .btn-wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:11px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:opacity .2s}
 .btn-wa:hover{opacity:.9}
+.pf-edit-btn{background:none;border:1.5px solid #e0e0e0;border-radius:7px;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.5px;cursor:pointer;color:#555;font-family:inherit;transition:all .2s;margin-bottom:14px}
+.pf-edit-btn:hover{border-color:#000;color:#000}
+.pf-form{display:none;border:1.5px solid #e8e8e8;border-radius:10px;padding:18px;margin-bottom:14px}
+.pf-form.open{display:block}
+.pf-form label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;margin-top:12px}
+.pf-form label:first-child{margin-top:0}
+.pf-form input,.pf-form select{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:10px 12px;font-size:13px;font-family:inherit;box-sizing:border-box}
+.pf-form input:focus,.pf-form select:focus{outline:none;border-color:#000}
+.pf-save-btn{background:#000;color:#fff;border:none;border-radius:7px;padding:11px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:16px;letter-spacing:.5px}
+.pf-save-btn:disabled{background:#aaa}
+.pf-save-msg{font-size:12px;color:#2e7d32;margin-top:8px;display:none}
 
 /* Empty / loading states */
 .empty-state{text-align:center;padding:50px 20px}
@@ -276,7 +287,7 @@ firebase.initializeApp({
 });
 var db = firebase.firestore();
 
-var STATE = { phone: '', name: '', orders: [] };
+var STATE = { phone: '', name: '', orders: [], profileName: '', profileAddress: {} };
 
 function rs(n) { return '\u20B9' + Number(n || 0).toLocaleString('en-IN'); }
 function fdate(iso) {
@@ -343,12 +354,24 @@ function mountDashboard() {
   document.getElementById('dash-sub').textContent = '+91 ' + STATE.phone;
   renderOrders();
   renderWallet();
-  renderProfile();
+  // Load saved profile from Firebase, then render
+  db.collection('customers').doc(STATE.phone).get()
+    .then(function(doc) {
+      if (doc.exists) {
+        var d = doc.data();
+        STATE.profileName = d.name || '';
+        STATE.profileAddress = { address: d.address || '', city: d.city || '', pincode: d.pincode || '', state: d.state || '' };
+        var first2 = STATE.profileName ? STATE.profileName.split(' ')[0] : first;
+        if (first2) document.getElementById('dash-greet').textContent = 'Hello, ' + first2 + '!';
+      }
+    })
+    .catch(function() {})
+    .finally(function() { renderProfile(); });
 }
 
 document.getElementById('btn-logout').addEventListener('click', function() {
   try { sessionStorage.removeItem('rvn_ph'); } catch(e) {}
-  STATE = { phone: '', name: '', orders: [] };
+  STATE = { phone: '', name: '', orders: [], profileName: '', profileAddress: {} };
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('login-wrap').style.display = 'block';
   loginPhone.value = '';
@@ -505,16 +528,71 @@ function renderProfile() {
   var orders = STATE.orders;
   var c = (orders.length && orders[0].customer) ? orders[0].customer : {};
   var totalSpent = orders.reduce(function(s, o) { return s + (o.total || 0); }, 0);
+  var savedName = STATE.profileName || c.name || '';
+  var savedAddr = STATE.profileAddress || {};
+  var dispName = savedName || c.name || '';
+  var dispAddr = savedAddr.address || c.address || '';
+  var dispCity = savedAddr.city || c.city || '';
+  var dispState = savedAddr.state || c.state || '';
+  var dispPin = savedAddr.pincode || c.pincode || '';
+
+  var stateOptions = ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
+  var stateOpts = stateOptions.map(function(s) { return '<option' + (s === dispState ? ' selected' : '') + '>' + s + '</option>'; }).join('');
+
   var html = '';
-  if (c.name) html += '<div class="pf-card"><div class="pf-label">Name</div><div class="pf-val">' + c.name + '</div></div>';
+  if (dispName) html += '<div class="pf-card"><div class="pf-label">Name</div><div class="pf-val">' + dispName + '</div></div>';
   html += '<div class="pf-card"><div class="pf-label">Phone</div><div class="pf-val">+91 ' + STATE.phone + '</div></div>';
-  if (c.address) {
-    html += '<div class="pf-card"><div class="pf-label">Last Used Address</div>';
-    html += '<div class="pf-val">' + [c.address, c.city, c.state, c.pincode].filter(Boolean).join(', ') + '</div></div>';
+  if (dispAddr) {
+    html += '<div class="pf-card"><div class="pf-label">Default Address</div>';
+    html += '<div class="pf-val">' + [dispAddr, dispCity, dispState, dispPin].filter(Boolean).join(', ') + '</div></div>';
   }
   html += '<div class="pf-stats"><span class="pf-stat">Orders: <strong>' + orders.length + '</strong></span><span class="pf-stat">Total Spent: <strong>' + rs(totalSpent) + '</strong></span></div>';
+
+  html += '<button class="pf-edit-btn" id="pf-toggle-btn" onclick="toggleProfileEdit()">Edit Profile &amp; Address</button>';
+  html += '<div class="pf-form" id="pf-edit-form">';
+  html += '<label>Full Name</label><input type="text" id="pf-name" value="' + (dispName || '') + '" placeholder="Your name">';
+  html += '<label>Address</label><input type="text" id="pf-addr" value="' + (dispAddr || '') + '" placeholder="House / Flat, Street">';
+  html += '<label>City</label><input type="text" id="pf-city" value="' + (dispCity || '') + '" placeholder="City">';
+  html += '<label>Pincode</label><input type="text" id="pf-pin" value="' + (dispPin || '') + '" placeholder="6-digit pincode" maxlength="6" inputmode="numeric">';
+  html += '<label>State</label><select id="pf-state"><option value="">Select state</option>' + stateOpts + '</select>';
+  html += '<button class="pf-save-btn" id="pf-save-btn" onclick="saveProfile()">Save Profile</button>';
+  html += '<div class="pf-save-msg" id="pf-save-msg">Profile saved successfully!</div>';
+  html += '</div>';
+
   html += '<a href="https://wa.me/918512045784?text=Hi%20Ravynn!%20I%20need%20help%20with%20my%20account." target="_blank" class="btn-wa"><svg viewBox="0 0 32 32" width="16" height="16" fill="#fff"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.29 19.39c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg>Chat on WhatsApp</a>';
   el.innerHTML = html;
+}
+
+function toggleProfileEdit() {
+  var form = document.getElementById('pf-edit-form');
+  var btn = document.getElementById('pf-toggle-btn');
+  if (!form || !btn) return;
+  var open = form.classList.toggle('open');
+  btn.textContent = open ? 'Cancel' : 'Edit Profile & Address';
+}
+
+function saveProfile() {
+  var nameVal = (document.getElementById('pf-name').value || '').trim();
+  var addrVal = (document.getElementById('pf-addr').value || '').trim();
+  var cityVal = (document.getElementById('pf-city').value || '').trim();
+  var pinVal  = (document.getElementById('pf-pin').value  || '').trim();
+  var stateVal= (document.getElementById('pf-state').value|| '').trim();
+  var btn = document.getElementById('pf-save-btn');
+  var msg = document.getElementById('pf-save-msg');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  var profileData = { name: nameVal, address: addrVal, city: cityVal, pincode: pinVal, state: stateVal, phone: STATE.phone, updatedAt: new Date().toISOString() };
+  db.collection('customers').doc(STATE.phone).set(profileData, { merge: true })
+    .then(function() {
+      STATE.profileName = nameVal;
+      STATE.profileAddress = { address: addrVal, city: cityVal, pincode: pinVal, state: stateVal };
+      btn.disabled = false; btn.textContent = 'Save Profile';
+      msg.style.display = 'block';
+      setTimeout(function() { msg.style.display = 'none'; }, 3000);
+    })
+    .catch(function() {
+      btn.disabled = false; btn.textContent = 'Save Profile';
+      alert('Could not save. Please try again.');
+    });
 }
 
 // ---- CANCEL MODAL ----
