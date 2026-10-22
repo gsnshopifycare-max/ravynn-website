@@ -16,13 +16,19 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
 .header-menu-btn,.header-icon-btn{background:none;border:none;cursor:pointer;padding:6px;display:flex;align-items:center;text-decoration:none;color:#000}
 .header-menu-btn svg,.header-icon-btn svg{width:22px;height:22px}
 
-/* Login */
-.login-wrap{max-width:440px;margin:60px auto;padding:0 20px 80px}
-.login-card{border:1.5px solid #e8e8e8;border-radius:12px;padding:32px 28px}
-.login-icon{width:52px;height:52px;background:#f5f5f5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.login-title{font-size:20px;font-weight:800;letter-spacing:.5px;margin-bottom:6px}
-.login-sub{font-size:13px;color:#888;margin-bottom:28px;line-height:1.6}
-.field{margin-bottom:16px}
+/* Auth (Login / Sign Up) */
+.auth-wrap{max-width:440px;margin:48px auto;padding:0 20px 80px}
+.auth-card{border:1.5px solid #e8e8e8;border-radius:12px;overflow:hidden}
+.auth-tabs{display:flex;border-bottom:1.5px solid #e8e8e8}
+.auth-tab{flex:1;background:none;border:none;padding:14px;font-size:13px;font-weight:700;cursor:pointer;color:#999;font-family:inherit;letter-spacing:.3px;transition:all .15s;border-bottom:2.5px solid transparent;margin-bottom:-1.5px}
+.auth-tab.active{color:#000;border-bottom-color:#000;background:#fafafa}
+.auth-body{padding:24px 24px 28px}
+.auth-icon{width:48px;height:48px;background:#f5f5f5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.auth-title{font-size:18px;font-weight:800;letter-spacing:.3px;margin-bottom:5px}
+.auth-sub{font-size:13px;color:#888;margin-bottom:22px;line-height:1.6}
+.auth-panel{display:none}
+.auth-panel.active{display:block}
+.field{margin-bottom:14px}
 .field label{display:block;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#555;margin-bottom:7px}
 .field input{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:13px 14px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
 .field input:focus{border-color:#000}
@@ -30,6 +36,11 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
 .btn-primary:hover{background:#222}
 .btn-primary:disabled{background:#aaa;cursor:not-allowed}
 .form-error{color:#e53e3e;font-size:13px;margin-top:12px;text-align:center;display:none}
+.form-success{color:#2e7d32;font-size:13px;margin-top:12px;text-align:center;display:none}
+.auth-link{font-size:12px;color:#777;text-align:center;margin-top:14px}
+.auth-link a{color:#000;font-weight:700;text-decoration:none;cursor:pointer}
+.auth-link a:hover{text-decoration:underline}
+.auth-divider{border:none;border-top:1px solid #f0f0f0;margin:18px 0}
 
 /* Dashboard */
 .dashboard{display:none;max-width:680px;margin:0 auto;padding:0 20px 100px}
@@ -38,6 +49,11 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
 .dash-sub{font-size:13px;color:#888}
 .btn-logout{background:none;border:1.5px solid #e0e0e0;border-radius:7px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;color:#555;transition:all .2s;font-family:inherit;white-space:nowrap}
 .btn-logout:hover{border-color:#000;color:#000}
+
+/* Page loading */
+.page-loading{text-align:center;padding:100px 20px;color:#aaa;font-size:13px}
+.spinner{width:28px;height:28px;border:3px solid #eee;border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Tabs */
 .tabs{display:flex;border-bottom:1.5px solid #e8e8e8;margin:24px 0 0}
@@ -138,14 +154,23 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
 .pf-save-btn:disabled{background:#aaa}
 .pf-save-msg{font-size:12px;color:#2e7d32;margin-top:8px;display:none}
 
+/* Change password */
+.chpw-form{display:none;border:1.5px solid #e8e8e8;border-radius:10px;padding:18px;margin-bottom:14px}
+.chpw-form.open{display:block}
+.chpw-form label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;margin-top:12px}
+.chpw-form label:first-child{margin-top:0}
+.chpw-form input{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:10px 12px;font-size:13px;font-family:inherit;box-sizing:border-box}
+.chpw-form input:focus{outline:none;border-color:#000}
+.chpw-save-btn{background:#000;color:#fff;border:none;border-radius:7px;padding:11px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:16px;letter-spacing:.5px}
+.chpw-save-btn:disabled{background:#aaa}
+.chpw-msg{font-size:12px;margin-top:8px;display:none}
+
 /* Empty / loading states */
 .empty-state{text-align:center;padding:50px 20px}
 .empty-state svg{stroke:#ddd;margin-bottom:16px}
 .empty-state p{font-size:14px;color:#aaa;margin-bottom:16px}
 .empty-state a{color:#000;text-decoration:none;font-weight:700}
 .loading{text-align:center;padding:50px 20px;color:#aaa;font-size:13px}
-.spinner{width:28px;height:28px;border:3px solid #eee;border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
-@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;align-items:center;justify-content:center;padding:16px}
@@ -197,20 +222,85 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
   </div>
 </header>
 
-<!-- LOGIN -->
-<div class="login-wrap" id="login-wrap">
-  <div class="login-card">
-    <div class="login-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+<!-- PAGE LOADING -->
+<div id="page-loading" class="page-loading">
+  <div class="spinner"></div>
+  Loading...
+</div>
+
+<!-- AUTH (Login / Sign Up) -->
+<div class="auth-wrap" id="auth-wrap" style="display:none">
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" id="tab-signup-btn" onclick="switchAuthTab('signup')">Create Account</button>
     </div>
-    <div class="login-title">My Account</div>
-    <div class="login-sub">Enter your phone number to view your orders, wallet and profile.</div>
-    <div class="field">
-      <label>Phone Number</label>
-      <input type="tel" id="login-phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
+
+    <!-- Login Panel -->
+    <div class="auth-body">
+      <div class="auth-panel active" id="panel-login">
+        <div class="auth-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="auth-title">Welcome back</div>
+        <div class="auth-sub">Login to view your orders, wallet and profile.</div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="l-email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="l-pass" placeholder="Your password" autocomplete="current-password">
+        </div>
+        <button class="btn-primary" id="l-btn" onclick="doLogin()">Login</button>
+        <div class="form-error" id="l-error"></div>
+        <div class="auth-link" style="margin-top:10px"><a onclick="showForgot()">Forgot password?</a></div>
+      </div>
+
+      <!-- Sign Up Panel -->
+      <div class="auth-panel" id="panel-signup">
+        <div class="auth-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </div>
+        <div class="auth-title">Create Account</div>
+        <div class="auth-sub">Join RAVYNN for faster checkout, order tracking and more.</div>
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="s-name" placeholder="Your full name" autocomplete="name">
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="s-email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+        </div>
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="tel" id="s-phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="s-pass" placeholder="Min. 6 characters" autocomplete="new-password">
+        </div>
+        <button class="btn-primary" id="s-btn" onclick="doSignup()">Create Account</button>
+        <div class="form-error" id="s-error"></div>
+      </div>
+
+      <!-- Forgot Password Panel -->
+      <div class="auth-panel" id="panel-forgot">
+        <div class="auth-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="auth-title">Reset Password</div>
+        <div class="auth-sub">Enter your email and we'll send you a reset link.</div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="f-email" placeholder="you@example.com" inputmode="email">
+        </div>
+        <button class="btn-primary" id="f-btn" onclick="doForgot()">Send Reset Link</button>
+        <div class="form-error" id="f-error"></div>
+        <div class="form-success" id="f-success">Reset link sent! Check your inbox.</div>
+        <div class="auth-link"><a onclick="switchAuthTab('login')">&#8592; Back to Login</a></div>
+      </div>
     </div>
-    <button class="btn-primary" id="login-btn">View My Orders</button>
-    <div class="form-error" id="login-error"></div>
   </div>
 </div>
 
@@ -275,6 +365,7 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
 firebase.initializeApp({
@@ -286,10 +377,11 @@ firebase.initializeApp({
   appId: "1:1043146014819:web:b75c63746e60afaadaf856"
 });
 var db = firebase.firestore();
+var auth = firebase.auth();
 
-var STATE = { phone: '', name: '', orders: [], profileName: '', profileAddress: {} };
+var STATE = { uid: '', phone: '', name: '', email: '', orders: [], profileName: '', profileAddress: {} };
 
-function rs(n) { return '\u20B9' + Number(n || 0).toLocaleString('en-IN'); }
+function rs(n) { return '‚Çπ' + Number(n || 0).toLocaleString('en-IN'); }
 function fdate(iso) {
   if (!iso) return '';
   try { return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e) { return ''; }
@@ -304,82 +396,173 @@ function daysSince(iso) {
   if (!iso) return 999;
   return Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
 }
+function showErr(id, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideErr(id) {
+  var el = document.getElementById(id);
+  if (el) el.style.display = 'none';
+}
+
+// ---- AUTH TABS ----
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.auth-panel').forEach(function(p) { p.classList.remove('active'); });
+  if (tab === 'login') {
+    document.getElementById('tab-login-btn').classList.add('active');
+    document.getElementById('panel-login').classList.add('active');
+  } else if (tab === 'signup') {
+    document.getElementById('tab-signup-btn').classList.add('active');
+    document.getElementById('panel-signup').classList.add('active');
+  }
+}
+function showForgot() {
+  document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.auth-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('panel-forgot').classList.add('active');
+}
 
 // ---- LOGIN ----
-var loginBtn = document.getElementById('login-btn');
-var loginPhone = document.getElementById('login-phone');
-var loginError = document.getElementById('login-error');
-
-loginBtn.addEventListener('click', doLogin);
-loginPhone.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
-
+document.getElementById('l-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
 function doLogin() {
-  var ph = loginPhone.value.trim().replace(/\D/g, '');
-  loginError.style.display = 'none';
-  if (!ph || ph.length !== 10) {
-    loginError.textContent = 'Please enter a valid 10-digit phone number.';
-    loginError.style.display = 'block';
-    return;
-  }
-  loginBtn.disabled = true;
-  loginBtn.textContent = 'Loading...';
-
-  db.collection('orders').where('customer.phone', '==', ph).get()
-    .then(function(snap) {
-      var orders = [];
-      snap.forEach(function(doc) { var d = doc.data(); d._docId = doc.id; orders.push(d); });
-      orders.sort(function(a, b) { return new Date(b.createdAt || 0) - new Date(a.createdAt || 0); });
-      STATE.orders = orders;
-      STATE.phone = ph;
-      STATE.name = (orders.length && orders[0].customer) ? (orders[0].customer.name || '') : '';
-      try { sessionStorage.setItem('rvn_ph', ph); } catch(e) {}
-      mountDashboard();
-    })
-    .catch(function() {
-      loginError.textContent = 'Connection error. Please try again.';
-      loginError.style.display = 'block';
-    })
-    .finally(function() {
-      loginBtn.disabled = false;
-      loginBtn.textContent = 'View My Orders';
+  var email = (document.getElementById('l-email').value || '').trim();
+  var pass  = (document.getElementById('l-pass').value  || '');
+  hideErr('l-error');
+  if (!email || !pass) { showErr('l-error', 'Please enter your email and password.'); return; }
+  var btn = document.getElementById('l-btn');
+  btn.disabled = true; btn.textContent = 'Logging in...';
+  auth.signInWithEmailAndPassword(email, pass)
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Login';
+      var msg = 'Login failed. Please try again.';
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') msg = 'Incorrect email or password.';
+      else if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Please try later.';
+      showErr('l-error', msg);
     });
 }
 
-function mountDashboard() {
-  document.getElementById('login-wrap').style.display = 'none';
-  var dash = document.getElementById('dashboard');
-  dash.style.display = 'block';
-  var first = STATE.name ? STATE.name.split(' ')[0] : null;
-  document.getElementById('dash-greet').textContent = first ? ('Hello, ' + first + '!') : 'Hello!';
-  document.getElementById('dash-sub').textContent = '+91 ' + STATE.phone;
-  renderOrders();
-  renderWallet();
-  // Load saved profile from Firebase, then render
-  db.collection('customers').doc(STATE.phone).get()
-    .then(function(doc) {
-      if (doc.exists) {
-        var d = doc.data();
-        STATE.profileName = d.name || '';
-        STATE.profileAddress = { address: d.address || '', city: d.city || '', pincode: d.pincode || '', state: d.state || '' };
-        var first2 = STATE.profileName ? STATE.profileName.split(' ')[0] : first;
-        if (first2) document.getElementById('dash-greet').textContent = 'Hello, ' + first2 + '!';
-      }
+// ---- SIGN UP ----
+document.getElementById('s-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doSignup(); });
+function doSignup() {
+  var name  = (document.getElementById('s-name').value  || '').trim();
+  var email = (document.getElementById('s-email').value || '').trim();
+  var phone = (document.getElementById('s-phone').value || '').replace(/\D/g,'');
+  var pass  = (document.getElementById('s-pass').value  || '');
+  hideErr('s-error');
+  if (!name)  { showErr('s-error', 'Please enter your name.'); return; }
+  if (!email) { showErr('s-error', 'Please enter your email.'); return; }
+  if (!phone || phone.length !== 10) { showErr('s-error', 'Please enter a valid 10-digit phone number.'); return; }
+  if (pass.length < 6) { showErr('s-error', 'Password must be at least 6 characters.'); return; }
+  var btn = document.getElementById('s-btn');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  auth.createUserWithEmailAndPassword(email, pass)
+    .then(function(cred) {
+      var uid = cred.user.uid;
+      return db.collection('customers').doc(uid).set({
+        name: name, email: email, phone: phone,
+        createdAt: new Date().toISOString()
+      });
     })
-    .catch(function() {})
-    .finally(function() { renderProfile(); });
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Create Account';
+      var msg = 'Could not create account. Please try again.';
+      if (err.code === 'auth/email-already-in-use') msg = 'This email is already registered. Please login instead.';
+      else if (err.code === 'auth/invalid-email') msg = 'Please enter a valid email address.';
+      else if (err.code === 'auth/weak-password') msg = 'Password is too weak.';
+      showErr('s-error', msg);
+    });
+  // onAuthStateChanged will fire and mount dashboard automatically
 }
 
+// ---- FORGOT PASSWORD ----
+function doForgot() {
+  var email = (document.getElementById('f-email').value || '').trim();
+  hideErr('f-error');
+  document.getElementById('f-success').style.display = 'none';
+  if (!email) { showErr('f-error', 'Please enter your email address.'); return; }
+  var btn = document.getElementById('f-btn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  auth.sendPasswordResetEmail(email)
+    .then(function() {
+      btn.disabled = false; btn.textContent = 'Send Reset Link';
+      document.getElementById('f-success').style.display = 'block';
+    })
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Send Reset Link';
+      var msg = 'Could not send reset email.';
+      if (err.code === 'auth/user-not-found') msg = 'No account found with this email.';
+      showErr('f-error', msg);
+    });
+}
+
+// ---- AUTH STATE ----
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    // Logged in ‚Äî load profile then orders
+    STATE.uid = user.uid;
+    STATE.email = user.email || '';
+    db.collection('customers').doc(user.uid).get()
+      .then(function(doc) {
+        if (doc.exists) {
+          var d = doc.data();
+          STATE.phone = d.phone || '';
+          STATE.name  = d.name  || '';
+          STATE.email = d.email || user.email || '';
+          STATE.profileName    = d.name || '';
+          STATE.profileAddress = { address: d.address||'', city: d.city||'', pincode: d.pincode||'', state: d.state||'' };
+        }
+        if (STATE.phone) {
+          return db.collection('orders').where('customer.phone', '==', STATE.phone).get();
+        }
+        return null;
+      })
+      .then(function(snap) {
+        if (snap) {
+          var orders = [];
+          snap.forEach(function(doc) { var d = doc.data(); d._docId = doc.id; orders.push(d); });
+          orders.sort(function(a, b) { return new Date(b.createdAt||0) - new Date(a.createdAt||0); });
+          STATE.orders = orders;
+          if (!STATE.name && orders.length && orders[0].customer) STATE.name = orders[0].customer.name || '';
+        }
+        showDashboard();
+      })
+      .catch(function() { showDashboard(); });
+  } else {
+    // Not logged in ‚Äî show auth
+    document.getElementById('page-loading').style.display = 'none';
+    document.getElementById('auth-wrap').style.display = 'block';
+    document.getElementById('dashboard').style.display = 'none';
+  }
+});
+
+function showDashboard() {
+  document.getElementById('page-loading').style.display = 'none';
+  document.getElementById('auth-wrap').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  var first = STATE.profileName ? STATE.profileName.split(' ')[0] : (STATE.name ? STATE.name.split(' ')[0] : null);
+  document.getElementById('dash-greet').textContent = first ? ('Hello, ' + first + '!') : 'Hello!';
+  document.getElementById('dash-sub').textContent = STATE.email;
+  renderOrders();
+  renderWallet();
+  renderProfile();
+}
+
+// ---- LOGOUT ----
 document.getElementById('btn-logout').addEventListener('click', function() {
-  try { sessionStorage.removeItem('rvn_ph'); } catch(e) {}
-  STATE = { phone: '', name: '', orders: [], profileName: '', profileAddress: {} };
-  document.getElementById('dashboard').style.display = 'none';
-  document.getElementById('login-wrap').style.display = 'block';
-  loginPhone.value = '';
-  // reset tabs
-  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelector('[data-tab="orders"]').classList.add('active');
-  document.getElementById('tab-orders').classList.add('active');
+  auth.signOut().then(function() {
+    STATE = { uid:'', phone:'', name:'', email:'', orders:[], profileName:'', profileAddress:{} };
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('auth-wrap').style.display = 'block';
+    // reset tabs
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelector('[data-tab="orders"]').classList.add('active');
+    document.getElementById('tab-orders').classList.add('active');
+    switchAuthTab('login');
+  });
 });
 
 // ---- TABS ----
@@ -396,7 +579,7 @@ document.querySelectorAll('.tab').forEach(function(btn) {
 function renderOrders() {
   var el = document.getElementById('orders-content');
   if (!STATE.orders.length) {
-    el.innerHTML = '<div class="empty-state"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p>No orders found for this number.</p><a href="collection.html">Start Shopping &rarr;</a></div>';
+    el.innerHTML = '<div class="empty-state"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p>No orders found yet.</p><a href="collection.html">Start Shopping &rarr;</a></div>';
     return;
   }
   var html = '';
@@ -497,6 +680,10 @@ function buildDetail(o, idx) {
 // ---- WALLET ----
 function renderWallet() {
   var el = document.getElementById('wallet-content');
+  if (!STATE.phone) {
+    el.innerHTML = '<div class="wallet-card"><div class="wc-label">Store Wallet Balance</div><div class="wc-amount">' + rs(0) + '</div><div class="wc-sub">Redeemable at checkout</div></div>';
+    return;
+  }
   db.collection('wallets').doc(STATE.phone).get()
     .then(function(snap) {
       var bal = 0, txns = [];
@@ -518,7 +705,7 @@ function renderWallet() {
       el.innerHTML = html;
     })
     .catch(function() {
-      el.innerHTML = '<div class="wallet-card"><div class="wc-label">Store Wallet Balance</div><div class="wc-amount">' + rs(0) + '</div><div class="wc-sub">Redeemable at checkout</div></div><div style="text-align:center;padding:30px;color:#bbb;font-size:13px">No transactions yet.</div>';
+      el.innerHTML = '<div class="wallet-card"><div class="wc-label">Store Wallet Balance</div><div class="wc-amount">' + rs(0) + '</div><div class="wc-sub">Redeemable at checkout</div></div>';
     });
 }
 
@@ -526,22 +713,21 @@ function renderWallet() {
 function renderProfile() {
   var el = document.getElementById('profile-content');
   var orders = STATE.orders;
-  var c = (orders.length && orders[0].customer) ? orders[0].customer : {};
   var totalSpent = orders.reduce(function(s, o) { return s + (o.total || 0); }, 0);
-  var savedName = STATE.profileName || c.name || '';
+  var dispName  = STATE.profileName || STATE.name || '';
   var savedAddr = STATE.profileAddress || {};
-  var dispName = savedName || c.name || '';
-  var dispAddr = savedAddr.address || c.address || '';
-  var dispCity = savedAddr.city || c.city || '';
-  var dispState = savedAddr.state || c.state || '';
-  var dispPin = savedAddr.pincode || c.pincode || '';
+  var dispAddr  = savedAddr.address || '';
+  var dispCity  = savedAddr.city    || '';
+  var dispState = savedAddr.state   || '';
+  var dispPin   = savedAddr.pincode || '';
 
   var stateOptions = ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
   var stateOpts = stateOptions.map(function(s) { return '<option' + (s === dispState ? ' selected' : '') + '>' + s + '</option>'; }).join('');
 
   var html = '';
   if (dispName) html += '<div class="pf-card"><div class="pf-label">Name</div><div class="pf-val">' + dispName + '</div></div>';
-  html += '<div class="pf-card"><div class="pf-label">Phone</div><div class="pf-val">+91 ' + STATE.phone + '</div></div>';
+  html += '<div class="pf-card"><div class="pf-label">Email</div><div class="pf-val">' + STATE.email + '</div></div>';
+  if (STATE.phone) html += '<div class="pf-card"><div class="pf-label">Phone</div><div class="pf-val">+91 ' + STATE.phone + '</div></div>';
   if (dispAddr) {
     html += '<div class="pf-card"><div class="pf-label">Default Address</div>';
     html += '<div class="pf-val">' + [dispAddr, dispCity, dispState, dispPin].filter(Boolean).join(', ') + '</div></div>';
@@ -550,48 +736,99 @@ function renderProfile() {
 
   html += '<button class="pf-edit-btn" id="pf-toggle-btn" onclick="toggleProfileEdit()">Edit Profile &amp; Address</button>';
   html += '<div class="pf-form" id="pf-edit-form">';
-  html += '<label>Full Name</label><input type="text" id="pf-name" value="' + (dispName || '') + '" placeholder="Your name">';
-  html += '<label>Address</label><input type="text" id="pf-addr" value="' + (dispAddr || '') + '" placeholder="House / Flat, Street">';
-  html += '<label>City</label><input type="text" id="pf-city" value="' + (dispCity || '') + '" placeholder="City">';
-  html += '<label>Pincode</label><input type="text" id="pf-pin" value="' + (dispPin || '') + '" placeholder="6-digit pincode" maxlength="6" inputmode="numeric">';
+  html += '<label>Full Name</label><input type="text" id="pf-name" value="' + (dispName||'') + '" placeholder="Your name">';
+  html += '<label>Phone Number</label><input type="tel" id="pf-phone" value="' + (STATE.phone||'') + '" placeholder="10-digit mobile" maxlength="10" inputmode="numeric">';
+  html += '<label>Address</label><input type="text" id="pf-addr" value="' + (dispAddr||'') + '" placeholder="House / Flat, Street">';
+  html += '<label>City</label><input type="text" id="pf-city" value="' + (dispCity||'') + '" placeholder="City">';
+  html += '<label>Pincode</label><input type="text" id="pf-pin" value="' + (dispPin||'') + '" placeholder="6-digit pincode" maxlength="6" inputmode="numeric">';
   html += '<label>State</label><select id="pf-state"><option value="">Select state</option>' + stateOpts + '</select>';
   html += '<button class="pf-save-btn" id="pf-save-btn" onclick="saveProfile()">Save Profile</button>';
-  html += '<div class="pf-save-msg" id="pf-save-msg">Profile saved successfully!</div>';
+  html += '<div class="pf-save-msg" id="pf-save-msg">Profile saved!</div>';
   html += '</div>';
 
-  html += '<a href="https://wa.me/918512045784?text=Hi%20Ravynn!%20I%20need%20help%20with%20my%20account." target="_blank" class="btn-wa"><svg viewBox="0 0 32 32" width="16" height="16" fill="#fff"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.29 19.39c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg>Chat on WhatsApp</a>';
+  // Change password section
+  html += '<button class="pf-edit-btn" id="chpw-toggle-btn" onclick="toggleChpw()" style="margin-top:4px">Change Password</button>';
+  html += '<div class="chpw-form" id="chpw-form">';
+  html += '<label>New Password</label><input type="password" id="chpw-new" placeholder="Min. 6 characters">';
+  html += '<label>Confirm Password</label><input type="password" id="chpw-conf" placeholder="Repeat password">';
+  html += '<button class="chpw-save-btn" id="chpw-btn" onclick="changePassword()">Update Password</button>';
+  html += '<div class="chpw-msg" id="chpw-msg"></div>';
+  html += '</div>';
+
+  html += '<a href="https://wa.me/918512045784?text=Hi%20Ravynn!%20I%20need%20help%20with%20my%20account." target="_blank" class="btn-wa" style="margin-top:16px"><svg viewBox="0 0 32 32" width="16" height="16" fill="#fff"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.29 19.39c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg>Chat on WhatsApp</a>';
   el.innerHTML = html;
 }
 
 function toggleProfileEdit() {
   var form = document.getElementById('pf-edit-form');
-  var btn = document.getElementById('pf-toggle-btn');
+  var btn  = document.getElementById('pf-toggle-btn');
   if (!form || !btn) return;
   var open = form.classList.toggle('open');
   btn.textContent = open ? 'Cancel' : 'Edit Profile & Address';
 }
 
 function saveProfile() {
-  var nameVal = (document.getElementById('pf-name').value || '').trim();
-  var addrVal = (document.getElementById('pf-addr').value || '').trim();
-  var cityVal = (document.getElementById('pf-city').value || '').trim();
-  var pinVal  = (document.getElementById('pf-pin').value  || '').trim();
-  var stateVal= (document.getElementById('pf-state').value|| '').trim();
+  var nameVal  = (document.getElementById('pf-name').value  || '').trim();
+  var phoneVal = (document.getElementById('pf-phone').value || '').replace(/\D/g,'');
+  var addrVal  = (document.getElementById('pf-addr').value  || '').trim();
+  var cityVal  = (document.getElementById('pf-city').value  || '').trim();
+  var pinVal   = (document.getElementById('pf-pin').value   || '').trim();
+  var stateVal = (document.getElementById('pf-state').value || '').trim();
   var btn = document.getElementById('pf-save-btn');
   var msg = document.getElementById('pf-save-msg');
   btn.disabled = true; btn.textContent = 'Saving...';
-  var profileData = { name: nameVal, address: addrVal, city: cityVal, pincode: pinVal, state: stateVal, phone: STATE.phone, updatedAt: new Date().toISOString() };
-  db.collection('customers').doc(STATE.phone).set(profileData, { merge: true })
+  var profileData = { name: nameVal, phone: phoneVal, email: STATE.email, address: addrVal, city: cityVal, pincode: pinVal, state: stateVal, updatedAt: new Date().toISOString() };
+  db.collection('customers').doc(STATE.uid).set(profileData, { merge: true })
     .then(function() {
-      STATE.profileName = nameVal;
+      STATE.profileName    = nameVal;
       STATE.profileAddress = { address: addrVal, city: cityVal, pincode: pinVal, state: stateVal };
+      if (phoneVal && phoneVal.length === 10) STATE.phone = phoneVal;
       btn.disabled = false; btn.textContent = 'Save Profile';
       msg.style.display = 'block';
       setTimeout(function() { msg.style.display = 'none'; }, 3000);
+      var first = nameVal ? nameVal.split(' ')[0] : null;
+      if (first) document.getElementById('dash-greet').textContent = 'Hello, ' + first + '!';
     })
     .catch(function() {
       btn.disabled = false; btn.textContent = 'Save Profile';
       alert('Could not save. Please try again.');
+    });
+}
+
+function toggleChpw() {
+  var form = document.getElementById('chpw-form');
+  var btn  = document.getElementById('chpw-toggle-btn');
+  if (!form || !btn) return;
+  var open = form.classList.toggle('open');
+  btn.textContent = open ? 'Cancel' : 'Change Password';
+}
+
+function changePassword() {
+  var np = (document.getElementById('chpw-new').value  || '');
+  var cp = (document.getElementById('chpw-conf').value || '');
+  var btn = document.getElementById('chpw-btn');
+  var msg = document.getElementById('chpw-msg');
+  msg.style.display = 'none';
+  if (np.length < 6) { msg.textContent = 'Password must be at least 6 characters.'; msg.className = 'chpw-msg'; msg.style.display = 'block'; msg.style.color = '#e53e3e'; return; }
+  if (np !== cp)     { msg.textContent = 'Passwords do not match.'; msg.className = 'chpw-msg'; msg.style.display = 'block'; msg.style.color = '#e53e3e'; return; }
+  btn.disabled = true; btn.textContent = 'Updating...';
+  var user = auth.currentUser;
+  if (!user) { btn.disabled = false; btn.textContent = 'Update Password'; return; }
+  user.updatePassword(np)
+    .then(function() {
+      btn.disabled = false; btn.textContent = 'Update Password';
+      document.getElementById('chpw-new').value = '';
+      document.getElementById('chpw-conf').value = '';
+      msg.textContent = 'Password updated successfully!';
+      msg.style.color = '#2e7d32';
+      msg.style.display = 'block';
+      setTimeout(function() { msg.style.display = 'none'; }, 4000);
+    })
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Update Password';
+      var m = 'Could not update password.';
+      if (err.code === 'auth/requires-recent-login') m = 'Please log out and log back in before changing your password.';
+      msg.textContent = m; msg.style.color = '#e53e3e'; msg.style.display = 'block';
     });
 }
 
@@ -630,20 +867,13 @@ function submitRequest(type, docId, label) {
     reqType = t;
   }
   if (!reason) { alert('Please select a reason.'); return; }
-
   var btn = document.getElementById('m-submit');
   if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
-
   db.collection('requests').add({
-    type: reqType,
-    orderId: label,
-    docId: docId,
-    phone: STATE.phone,
-    name: STATE.name,
-    reason: reason,
-    comment: comment,
-    createdAt: new Date().toISOString(),
-    status: 'pending'
+    type: reqType, orderId: label, docId: docId,
+    phone: STATE.phone, email: STATE.email, name: STATE.name,
+    reason: reason, comment: comment,
+    createdAt: new Date().toISOString(), status: 'pending'
   }).then(function() {
     var typeLabel = reqType === 'cancel' ? 'cancellation' : (reqType === 'replace' ? 'replacement' : 'return');
     document.getElementById('modal-inner').innerHTML =
@@ -663,12 +893,6 @@ function closeModal() {
   document.getElementById('req-modal').classList.remove('open');
 }
 document.getElementById('req-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-
-// ---- AUTO LOGIN ----
-try {
-  var saved = sessionStorage.getItem('rvn_ph');
-  if (saved && saved.length === 10) { loginPhone.value = saved; doLogin(); }
-} catch(e) {}
 </script>
 </body>
 </html>
