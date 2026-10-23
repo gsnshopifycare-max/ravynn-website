@@ -752,7 +752,7 @@ function renderOrderRows(orders) {
       <td><strong>#${o.id}</strong><br><span style="color:#aaa;font-size:11px">${items}</span></td>
       <td>${o.customer_name || '-'}<br><span style="color:#aaa;font-size:11px">${o.customer_phone || ''}</span></td>
       <td><strong>\u20B9${Number(o.amount||0).toLocaleString('en-IN')}</strong></td>
-      <td style="text-transform:capitalize">${o.phonepe_txn_id ? 'PhonePe' : 'COD'}</td>
+      <td style="text-transform:capitalize">${payVia(o)}</td>
       <td><span class="adm-badge ${payBadge}">${o.payment_status||'pending'}</span></td>
       <td><span class="adm-badge ${fulfillBadge}">${fulfill}</span></td>
       <td style="color:#888;font-size:12px">${date}</td>
@@ -806,7 +806,7 @@ function openDrawer(orderId) {
     <div class="adm-detail-row"><span class="adm-detail-label">Amount</span><span><strong>\u20B9${Number(o.amount||0).toLocaleString('en-IN')}</strong></span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Customer</span><span>${o.customer_name||'-'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Phone</span><span>${o.customer_phone||'-'}</span></div>
-    <div class="adm-detail-row"><span class="adm-detail-label">Payment via</span><span>${o.phonepe_txn_id ? 'PhonePe' : 'COD'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Payment via</span><span>${payVia(o)}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Notes</span><span style="font-size:12px">${o.notes||'-'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">TxnID</span><span style="font-size:11px;word-break:break-all">${o.phonepe_txn_id||'-'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Created</span><span>${date}</span></div>
@@ -823,7 +823,7 @@ function openDrawer(orderId) {
     ${items || '<div style="color:#aaa;font-size:13px">No item details</div>'}
 
     <div class="fulfill-section">
-      <h4>Fulfillment</h4>
+      ${o.payment_status !== 'paid' ? `<div class="fulfill-section" style="margin-bottom:12px"><div class="fulfill-row"><button class="fulfill-btn" onclick="markPaid('${o.id}')" style="background:#2e7d32">&#10003; Mark as Paid</button></div></div>` : ''}<h4>Fulfillment</h4>
       ${o.tracking_number ? `<div style="font-size:12px;color:#1565c0;margin-bottom:8px">Tracking: <strong>${o.tracking_number}</strong></div>` : ''}
       <div class="fulfill-row">
         <input type="text" class="fulfill-input" id="drawer-tracking" placeholder="Tracking number (optional)" value="${o.tracking_number||''}">
@@ -843,7 +843,7 @@ function openDrawer(orderId) {
   document.getElementById('drawer-overlay').classList.add('open');
 }
 
-async function markShipped(orderId) {
+function payVia(o) {  if (o.phonepe_txn_id) return 'PhonePe';  if (o.payment_method) {    if (o.payment_method === 'card') return 'Card/Online';    if (o.payment_method === 'upi') return 'UPI';    if (o.payment_method === 'cod') return 'COD';  }  if (o.notes) {    var m = o.notes.match(/Payment:\s*([^|]+)/i);    if (m) {      var pm = m[1].trim().toUpperCase();      if (pm === 'CARD') return 'Card/Online';      if (pm === 'UPI') return 'UPI';    }  }  return 'COD';}async function markPaid(orderId) {  if (!confirm('Mark order #' + orderId + ' as PAID?')) return;  try {    const r = await fetch('/api/orders', {      method: 'PATCH',      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },      body: JSON.stringify({ id: orderId, payment_status: 'paid' })    });    if (!r.ok) throw new Error('Failed');    const o = allOrders.find(x => String(x.id) === String(orderId));    if (o) o.payment_status = 'paid';    closeDrawer();    renderOrderRows(allOrders);  } catch (e) { alert('Error: ' + e.message); }}async function markShipped(orderId) {
   const tracking = document.getElementById('drawer-tracking')?.value?.trim() || '';
   await updateFulfillment(orderId, 'shipped', tracking);
 }
