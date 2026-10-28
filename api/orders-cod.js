@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     if (!orderId) return res.status(400).json({ error: 'orderId required' });
 
     const sql = neon(process.env.DATABASE_URL);
+const paymentStatus = (!payment_method || payment_method === 'cod') ? 'pending' : 'paid'
     const notes = [
       payment_method ? `Payment: ${payment_method.toUpperCase()}` : 'COD',
       coupon ? `Coupon: ${coupon}` : null,
@@ -21,7 +22,7 @@ export default async function handler(req, res) {
     await sql`
       INSERT INTO orders (id, payment_status, amount, customer_name, customer_phone, items, address, notes)
       VALUES (
-        ${orderId}, 'pending', ${Number(amount)},
+        ${orderId}, ${paymentStatus}}, ${Number(amount)},
         ${customer_name || ''}, ${customer_phone || ''},
         ${JSON.stringify(items || [])},
         ${JSON.stringify(address || {})},
