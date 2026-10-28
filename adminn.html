@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+adminn.html<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,7 +17,8 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .login-box h2{font-size:16px;font-weight:700;margin-bottom:24px;text-align:center;color:#555}
 .login-box input{width:100%;border:1.5px solid #d4d4d4;padding:12px 14px;font-size:14px;border-radius:6px;outline:none;margin-bottom:12px;font-family:inherit}
 .login-box input:focus{border-color:#000}
-.login-box button{width:100%;background:#000;color:#fff;border:none;padding:14px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;border-radius:6px}
+renderOrderRows(orders).function renderOrderRows
+login-box button{width:100%;background:#000;color:#fff;border:none;padding:14px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;border-radius:6px}
 .login-box button:hover{background:#222}
 .login-err{font-size:12px;color:#e53e3e;text-align:center;margin-top:8px;min-height:18px}
 
@@ -332,7 +333,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           <table class="adm-table" id="orders-table" style="display:none">
             <thead><tr>
               <th>Order</th>
-              <th>Customer</th>
+              <th>Product / Customer</th>
               <th>Amount</th>
               <th>Payment</th>
               <th>Status</th>
@@ -734,7 +735,7 @@ function updateStats(orders) {
   document.getElementById('stat-revenue').textContent = '\u20B9' + rev.toLocaleString('en-IN');
 }
 
-function renderOrderRows(orders) {
+fnction renderOrderRows(orders) {
   if (!orders.length) {
     document.getElementById('orders-empty').style.display = 'block';
     document.getElementById('orders-table').style.display = 'none';
@@ -747,10 +748,18 @@ function renderOrderRows(orders) {
     const payBadge = o.payment_status === 'paid' ? 'badge-paid' : o.payment_status === 'failed' ? 'badge-failed' : 'badge-pending';
     const fulfill = o.fulfillment_status || 'unfulfilled';
     const fulfillBadge = fulfill === 'shipped' ? 'badge-shipped' : 'badge-unfulfilled';
-    const items = Array.isArray(o.items) ? o.items.length + ' item' + (o.items.length !== 1 ? 's' : '') : '-';
-    return `<tr onclick="openDrawer('${o.id}')">
-      <td><strong>#${o.id}</strong><br><span style="color:#aaa;font-size:11px">${items}</span></td>
-      <td>${o.customer_name || '-'}<br><span style="color:#aaa;font-size:11px">${o.customer_phone || ''}</span></td>
+    const itemCount = Array.isArray(o.items) ? o.items.length : 0;
+        const firstItem = itemCount > 0 ? o.items[0] : null;
+            const prod = firstItem ? allProducts.find(p => p.id === firstItem.id || p.title === firstItem.title) : null;
+                const prodImg = prod && prod.images && prod.images[0] ? prod.images[0] : '';
+                    const prodHandle = prod ? prod.handle : '';
+                        const prodTitle = firstItem ? (firstItem.title||'').replace(/^RAVYNN\s+/i,'').slice(0,38) : '-';
+                            const moreItems = itemCount > 1 ? ' <span style="color:#aaa">+' + (itemCount-1) + '</span>' : '';
+                                const prodLink = prodHandle ? '<a href="/product.html?p=' + prodHandle + '" target="_blank" onclick="event.stopPropagation()" style="color:#000;text-decoration:none;font-weight:600;font-size:12px">' + prodTitle + moreItems + '</a>' : '<span style="font-weight:600;font-size:12px">' + prodTitle + moreItems + '</span>';
+                                    const imgEl = prodImg ? '<img src="' + prodImg + '" style="width:38px;height:38px;object-fit:cover;border-radius:4px;border:1px solid #e8e8e8;flex-shrink:0" loading="lazy">' : '<div style="width:38px;height:38px;background:#f5f5f5;border-radius:4px;flex-shrink:0"></div>';
+                                        return `<tr onclick="openDrawer('${o.id}')">
+                                              <td><strong>#${o.id}</strong><br><span style="color:#aaa;font-size:11px">${itemCount} item${itemCount!==1?'s':''}</span></td>
+                                                    <td><div style="display:flex;align-items:center;gap:9px">${imgEl}<div>${prodLink}<br><span style="color:#888;font-size:11px">${o.customer_name||'-'}</span></div></div></td>
       <td><strong>\u20B9${Number(o.amount||0).toLocaleString('en-IN')}</strong></td>
       <td style="text-transform:capitalize">${payVia(o)}</td>
       <td><span class="adm-badge ${payBadge}">${o.payment_status||'pending'}</span></td>
