@@ -735,7 +735,7 @@ function updateStats(orders) {
   document.getElementById('stat-revenue').textContent = '\u20B9' + rev.toLocaleString('en-IN');
 }
 
-fnction renderOrderRows(orders) {
+function renderOrderRows(orders) {
   if (!orders.length) {
     document.getElementById('orders-empty').style.display = 'block';
     document.getElementById('orders-table').style.display = 'none';
