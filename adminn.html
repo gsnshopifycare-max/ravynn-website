@@ -750,7 +750,7 @@ function renderOrderRows(orders) {
     const fulfillBadge = fulfill === 'shipped' ? 'badge-shipped' : 'badge-unfulfilled';
     const itemCount = Array.isArray(o.items) ? o.items.length : 0;
         const firstItem = itemCount > 0 ? o.items[0] : null;
-            const prod = firstItem ? allProducts.find(p => p.id === firstItem.id || p.title === firstItem.title) : null;
+                    const prod = firstItem ? allProducts.find(p => String(p.id) === String(firstItem.id) || p.title === firstItem.title) : null;
                 const prodImg = prod && prod.images && prod.images[0] ? prod.images[0] : '';
                     const prodHandle = prod ? prod.handle : '';
                         const prodTitle = firstItem ? (firstItem.title||'').replace(/^RAVYNN\s+/i,'').slice(0,38) : '-';
@@ -1203,6 +1203,7 @@ async function loadProducts() {
     const r = await fetch('/api/products', { headers: { 'x-admin-key': ADMIN_KEY } });
     const d = await r.json();
     allProducts = d.products || [];
+        if (allOrders.length) renderOrderRows(allOrders);
     const sel = document.getElementById('pp-product');
     sel.innerHTML = '<option value="">Select product...</option>';
     allProducts.forEach(p => {
