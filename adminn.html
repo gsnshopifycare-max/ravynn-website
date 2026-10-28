@@ -800,9 +800,13 @@ function searchOrders() {
 function openDrawer(orderId) {
   const o = allOrders.find(x => String(x.id) === String(orderId));
   if (!o) return;
-  const items = Array.isArray(o.items) ? o.items.map(i =>
-    `<div class="adm-detail-row"><span>${i.title || i.id || '-'}${i.size ? ' / ' + i.size : ''} x ${i.qty||1}</span><span>\u20B9${Number(i.price||0)*Number(i.qty||1)}</span></div>`
-  ).join('') : '';
+  const items = Array.isArray(o.items) ? o.items.map(i => {
+        const iprod = allProducts.find(p => String(p.id) === String(i.id) || p.title === i.title);
+            const iHandle = iprod ? iprod.handle : '';
+                const iTitleEl = iHandle ? `<a href="/product.html?p=${iHandle}" target="_blank" onclick="event.stopPropagation()" style="color:#000;font-weight:600">${i.title||i.id||'-'}</a>` : `<strong>${i.title||i.id||'-'}</strong>`;
+                    return `<div class="adm-detail-row"><span>${iTitleEl}${i.size?' / '+i.size:''} x ${i.qty||1}</span><span>₹${Number(i.price||0)*Number(i.qty||1)}</span></div>`;
+                      }).join('') : '';
+  })
   const date = o.created_at ? new Date(o.created_at).toLocaleString('en-IN') : '-';
   const paidAt = o.paid_at ? new Date(o.paid_at).toLocaleString('en-IN') : '-';
   const fulfill = o.fulfillment_status || 'unfulfilled';
