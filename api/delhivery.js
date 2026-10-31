@@ -9,14 +9,14 @@ export async function createDelhiveryShipment(order) {
   const items = Array.isArray(rawItems) ? rawItems
     : (typeof rawItems === 'string' ? JSON.parse(rawItems || '[]') : []);
   const totalQty = items.reduce((s, i) => s + (Number(i.qty) || 1), 0) || 1;
-  const weightKg = Math.max(0.5, totalQty * 0.3);
+  const weightGrams = Math.max(500, totalQty * 300);
   const addr = (typeof order.address === 'string' ? JSON.parse(order.address || '{}') : order.address) || {};
   const isCOD = order.payment_status !== 'paid';
 
   const shipmentData = {
     shipments: [{
       add: [addr.address, addr.city].filter(Boolean).join(', ') || 'N/A',
-      add_type: 'Home',
+      address_type: 'home',
       name: order.customer_name || addr.name || 'Customer',
       phone: String(order.customer_phone || '').replace(/\D/g, '').slice(-10),
       pin: String(addr.pincode || ''),
@@ -24,22 +24,23 @@ export async function createDelhiveryShipment(order) {
       state: addr.state || '',
       country: 'India',
       payment_mode: isCOD ? 'COD' : 'Prepaid',
-      cod_amount: isCOD ? Number(order.amount || 0) : 0,
+      cod_amount: isCOD ? Number(order.amount || 0) : '',
       order: String(order.id),
       total_amount: Number(order.amount || 0),
       products_desc: items.slice(0, 3).map(i => (i.title || '').replace(/^RAVYNN\s+/i, '').slice(0, 30)).filter(Boolean).join(', ') || 'T-Shirt',
-      quantity: totalQty,
-      weight: weightKg,
+      quantity: String(totalQty),
+      weight: weightGrams,
       waybill: '',
       shipment_length: 30,
       shipment_width: 25,
       shipment_height: Math.max(3, totalQty * 3),
+      shipping_mode: 'Surface',
     }],
     pickup_location: { name: PICKUP }
   };
 
   const body = new URLSearchParams({ format: 'json', data: JSON.stringify(shipmentData) });
-  const r = await fetch(`${BASE}/api/cbe/create/json/`, {
+  const r = await fetch(`${BASE}/api/cmu/create.json`, {
     method: 'POST',
     headers: { 'Authorization': `Token ${TOKEN}`, 'Content-Type': 'application/x-www-form-urlencoded' },
     body: body.toString(),
