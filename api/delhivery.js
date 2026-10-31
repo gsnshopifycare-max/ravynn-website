@@ -44,7 +44,12 @@ export async function createDelhiveryShipment(order) {
     headers: { 'Authorization': `Token ${TOKEN}`, 'Content-Type': 'application/x-www-form-urlencoded' },
     body: body.toString(),
   });
-  return r.json();
+  const text = await r.text();
+  try {
+    return JSON.parse(text);
+  } catch(e) {
+    return { error: `Delhivery HTTP ${r.status}: ${text.slice(0, 400)}` };
+  }
 }
 
 export default async function handler(req, res) {
