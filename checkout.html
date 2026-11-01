@@ -897,24 +897,30 @@ function toggleSummary() {
 //  Event listeners 
 document.getElementById('btn-to-shipping').addEventListener('click', async () => {
   if (!validateContact()) return;
-  // Check first-order coupon restriction via Firebase
+  // Check first-order coupon restriction via backend
   if (appliedCoupon && appliedCoupon.not_first_order) {
-    const phone = document.getElementById('inp-phone').value.trim();
+    const phone = document.getElementById('inp-phone').value.trim().replace(/\D/g, '').slice(-10);
     try {
-      if (typeof firebase !== 'undefined' && firebase.apps.length) {
-        const snap = await firebase.firestore().collection('orders')
-          .where('customer.phone', '==', phone).limit(1).get();
-        if (snap.empty) {
-          appliedCoupon = null;
-          var _ci = document.getElementById('co-coupon'); if (_ci) _ci.value = '';
-          var _cm = document.getElementById('co-coupon-msg');
-          if (_cm) { _cm.className = 'co-coupon-msg err'; _cm.textContent = 'This coupon is valid for returning customers only.'; }
-          sessionStorage.removeItem('applied_coupon');
-          renderSidebar();
-          return;
-        }
+      const chk = await fetch('/api/check-returning-customer?phone=' + phone).then(r => r.json());
+      if (!chk.is_returning) {
+        appliedCoupon = null;
+        var _ci = document.getElementById('co-coupon'); if (_ci) _ci.value = '';
+        var _cm = document.getElementById('co-coupon-msg');
+        if (_cm) { _cm.className = 'co-coupon-msg err'; _cm.textContent = 'This coupon is valid for returning customers only.'; }
+        sessionStorage.removeItem('applied_coupon');
+        renderSidebar();
+        return;
       }
-    } catch(e) {}
+    } catch(e) {
+      // Block on error to prevent misuse
+      appliedCoupon = null;
+      var _ci2 = document.getElementById('co-coupon'); if (_ci2) _ci2.value = '';
+      var _cm2 = document.getElementById('co-coupon-msg');
+      if (_cm2) { _cm2.className = 'co-coupon-msg err'; _cm2.textContent = 'Could not verify coupon eligibility. Please try again.'; }
+      sessionStorage.removeItem('applied_coupon');
+      renderSidebar();
+      return;
+    }
   }
   fillSummaries();
   goTo(2);
