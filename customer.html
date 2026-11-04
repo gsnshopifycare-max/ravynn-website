@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1870549064107037');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Account &mdash; RAVYNN</title>
@@ -381,7 +398,7 @@ var auth = firebase.auth();
 
 var STATE = { uid: '', phone: '', name: '', email: '', orders: [], profileName: '', profileAddress: {} };
 
-function rs(n) { return '‚Çπ' + Number(n || 0).toLocaleString('en-IN'); }
+function rs(n) { return '₹' + Number(n || 0).toLocaleString('en-IN'); }
 function fdate(iso) {
   if (!iso) return '';
   try { return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e) { return ''; }
@@ -501,7 +518,7 @@ function doForgot() {
 // ---- AUTH STATE ----
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    // Logged in ‚Äî load profile then orders
+    // Logged in — load profile then orders
     STATE.uid = user.uid;
     STATE.email = user.email || '';
     db.collection('customers').doc(user.uid).get()
@@ -531,7 +548,7 @@ auth.onAuthStateChanged(function(user) {
       })
       .catch(function() { showDashboard(); });
   } else {
-    // Not logged in ‚Äî show auth
+    // Not logged in — show auth
     document.getElementById('page-loading').style.display = 'none';
     document.getElementById('auth-wrap').style.display = 'block';
     document.getElementById('dashboard').style.display = 'none';
