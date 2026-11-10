@@ -18,6 +18,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<script src="assets/analytics-tracker.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Payment Status &mdash; RAVYNN</title>
@@ -97,6 +98,9 @@ function showSuccess(orderId, amountPaise) {
   document.getElementById('icon').innerHTML = '\u2713';
   document.getElementById('ttl').textContent = 'Payment Successful!';
   document.getElementById('msg').textContent = 'Your order has been confirmed. You\'ll receive a WhatsApp update soon.';
+  const rev = amountPaise ? amountPaise / 100 : 0;
+  if (window.rvTrack) window.rvTrack('purchase', { order_id: orderId || null, revenue: rev });
+  if (window.fbq) window.fbq('track', 'Purchase', { value: rev, currency: 'INR', content_type: 'product' });
   document.getElementById('extra').innerHTML = `
     ${orderId ? `<div class="order-num">Order #${orderId}</div>` : ''}
     ${amountPaise ? `<div class="detail">Amount paid: \u20B9${(amountPaise/100).toLocaleString('en-IN')}</div>` : ''}

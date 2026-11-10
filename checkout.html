@@ -18,6 +18,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<script src="assets/analytics-tracker.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkout &#8212; RAVYNN</title>
@@ -867,6 +868,8 @@ async function showConfirmation(orderNum, payMethod) {
 
   localStorage.removeItem('ravynn_cart');
   sessionStorage.removeItem('applied_coupon');
+  if (window.rvTrack) window.rvTrack('purchase', { order_id: orderNum, revenue: total });
+  if (window.fbq) window.fbq('track', 'Purchase', { value: total, currency: 'INR', content_type: 'product' });
   // Save customer details for next checkout autofill
   try {
     localStorage.setItem('ravynn_customer', JSON.stringify({ phone, name, addr1, addr2, city, pin, state }));
@@ -1028,6 +1031,9 @@ renderSidebar();
 if (window.innerWidth > 900) {
   document.getElementById('sidebar-inner').classList.add('open');
 }
+// Track checkout start
+if (window.rvTrack) window.rvTrack('checkout_start');
+if (window.fbq) window.fbq('track', 'InitiateCheckout');
 </script>
 
 <!-- Firebase (paste your config below after setup) -->
