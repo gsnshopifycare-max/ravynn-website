@@ -378,15 +378,15 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <!-- Sources + Devices + Funnel -->
         <div class="ana-three-col">
           <div class="analytics-chart-card" style="margin-bottom:0">
-            <div class="analytics-chart-head"><h3>Traffic Sources</h3><span style="font-size:11px;color:#aaa">30 days</span></div>
+            <div class="analytics-chart-head"><h3>Traffic Sources</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
             <div id="ana-sources-list"></div>
           </div>
           <div class="analytics-chart-card" style="margin-bottom:0">
-            <div class="analytics-chart-head"><h3>Device</h3><span style="font-size:11px;color:#aaa">30 days</span></div>
+            <div class="analytics-chart-head"><h3>Device</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
             <canvas id="device-chart" height="130"></canvas>
           </div>
           <div class="analytics-chart-card" style="margin-bottom:0">
-            <div class="analytics-chart-head"><h3>Conversion Funnel</h3><span style="font-size:11px;color:#aaa">30 days</span></div>
+            <div class="analytics-chart-head"><h3>Conversion Funnel</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
             <div class="ana-funnel" id="ana-funnel"></div>
           </div>
         </div>
@@ -395,11 +395,11 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <div class="adm-section-divider">Page Performance</div>
         <div class="analytics-two-col">
           <div class="analytics-chart-card">
-            <div class="analytics-chart-head"><h3>Top Pages</h3><span style="font-size:11px;color:#aaa">7 days</span></div>
+            <div class="analytics-chart-head"><h3>Top Pages</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
             <div id="ana-pages-list"></div>
           </div>
           <div class="analytics-chart-card">
-            <div class="analytics-chart-head"><h3>Add to Cart</h3><span style="font-size:11px;color:#aaa">7 days</span></div>
+            <div class="analytics-chart-head"><h3>Add to Cart</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
             <div id="ana-atc-list"></div>
           </div>
         </div>
@@ -407,7 +407,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <!-- UTM Campaigns -->
         <div class="adm-section-divider">Campaigns (UTM)</div>
         <div class="analytics-chart-card">
-          <div class="analytics-chart-head"><h3>UTM Campaigns</h3><span style="font-size:11px;color:#aaa">30 days</span></div>
+          <div class="analytics-chart-head"><h3>UTM Campaigns</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
           <div id="ana-campaigns-list"></div>
         </div>
 
@@ -1235,6 +1235,8 @@ function setAnaFilter(preset, btn) {
     document.getElementById('ana-from-date').value = anaFromDate;
     document.getElementById('ana-to-date').value = anaToDate;
   }
+  const periodLabel = document.getElementById('ana-period-label')?.textContent || 'Selected period';
+  document.querySelectorAll('.ana-period-tag').forEach(el => el.textContent = periodLabel);
   loadTrafficAnalytics();
 }
 
